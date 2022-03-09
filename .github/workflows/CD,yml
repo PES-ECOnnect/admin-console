@@ -10,7 +10,7 @@ on:
       
 # Where will they run
 jobs:
-  build-apk:
+  build-jar:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
