@@ -22,8 +22,16 @@ jobs:
         distribution: 'temurin'
         java-version: '11'
         
+    # This may improve run times
+    - uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+        
+    - run: chmod +x mvnw
     - name: Build JAR
-      run: chmod +x mvnw
       run: ./mvnw package
 
     - name: Upload JAR
