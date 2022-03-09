@@ -1,0 +1,27 @@
+# Workflow name
+name: Run tests
+
+on:
+# When it will be triggered
+# And in which branch
+  pull_request:
+  push:
+    branches:
+      - dev
+
+# Where will they run
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.3
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+      
+    - name: Run Unit Tests
+      run: ./mvnw -q test
