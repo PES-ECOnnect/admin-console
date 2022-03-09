@@ -24,4 +24,5 @@ jobs:
         java-version: '11'
       
     - name: Run Unit Tests
-      run: ./mvnw -q test
+      run: chmod +x mvnw
+      run: ./mvnw test

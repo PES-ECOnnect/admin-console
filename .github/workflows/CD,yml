@@ -1,0 +1,42 @@
+# Workflow name
+name: Build
+on:
+# When it will be triggered
+# And in which branch
+  pull_request:
+  push:
+    branches:
+      - master
+      
+# Where will they run
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.3
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+        
+    - name: Build JAR
+      run: chmod +x mvnw
+      run: ./mvnw package
+
+    - name: Upload JAR
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        name: Release artifact
+        path: target/admin-console-1.0.jar
+
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Latest Build"
+        files: |
+          target/admin-console-1.0.jar
