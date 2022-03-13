@@ -32,7 +32,7 @@ jobs:
         
     - run: chmod +x mvnw
     - name: Build JAR
-      run: ./mvnw package
+      run: ./mvnw compile assembly:single
 
     - name: Upload JAR
       uses: actions/upload-artifact@v2.2.0

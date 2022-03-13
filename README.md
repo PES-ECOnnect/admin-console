@@ -15,11 +15,11 @@
 ## Instructions
 **Run tests:**
 ```
-./mvnw test -q
+./mvnw -q test
 ```
-**Test and build JAR:**
+**Build JAR:**
 ```
-./mvnw package -q
+./mvnw -q compile assembly:single
 ```
 **Run JAR:**
 ```
