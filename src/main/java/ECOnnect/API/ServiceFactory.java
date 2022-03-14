@@ -25,4 +25,13 @@ public class ServiceFactory {
         return adminLoginService;
     }
     
+    
+    // Admin Logout
+    private static AdminLogoutService adminLogoutService = null;
+    public AdminLogoutService getAdminLogoutService() {
+        if (adminLogoutService == null) {
+            adminLogoutService = new AdminLogoutService();
+        }
+        return adminLogoutService;
+    }
 }

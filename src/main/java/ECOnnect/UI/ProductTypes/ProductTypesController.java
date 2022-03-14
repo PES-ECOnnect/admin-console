@@ -8,11 +8,11 @@ public class ProductTypesController implements Controller {
     private ProductTypesView view = new ProductTypesView(this);
     private ProductTypesModel model = new ProductTypesModel();
     
-    public ActionListener testButton() {
+    ActionListener addButton() {
         return new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO: Implement
-                model.getClass();
+                // TODO: add to model
+                view.addItem(new ProductTypeItem("abcd", 123));
             }
         };
     }

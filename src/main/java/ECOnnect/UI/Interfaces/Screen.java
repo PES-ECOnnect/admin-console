@@ -18,5 +18,12 @@ public abstract class Screen {
         return view.getPanel();
     }
     
+    // Called after the screen has been initialized and painted
+    public void postInit() {
+        if (view != null) {
+            view.postInit();
+        }
+    }
+    
     public abstract String getTitle();
 }

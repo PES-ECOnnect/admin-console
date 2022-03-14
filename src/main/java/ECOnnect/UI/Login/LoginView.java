@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import ECOnnect.UI.Interfaces.View;
-import ECOnnect.Utilities.HorizontalBox;
+import ECOnnect.UI.Utilities.HorizontalBox;
 
 public class LoginView extends View {
     
@@ -21,8 +21,6 @@ public class LoginView extends View {
     
     // Build the GUI
     private void setUp() {
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        
         panel.add(Box.createVerticalGlue());
         
         usernameText.setMaximumSize(new Dimension(100, 30));

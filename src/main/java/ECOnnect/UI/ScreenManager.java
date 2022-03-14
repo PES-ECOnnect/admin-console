@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import ECOnnect.UI.Interfaces.Screen;
 import ECOnnect.UI.Login.LoginScreen;
+import ECOnnect.UI.MainMenu.MainMenuScreen;
 
 import java.awt.*;
 import java.lang.reflect.Modifier;
@@ -22,11 +23,14 @@ public class ScreenManager {
         return instance;
     }
     
+    public static final Class<? extends Screen> LOGIN_SCREEN = LoginScreen.class;
+    public static final Class<? extends Screen> MAIN_MENU_SCREEN = MainMenuScreen.class;
+    
     private final int MIN_SCREEN_HEIGHT = 720;
     private final int MIN_SCREEN_WIDTH = MIN_SCREEN_HEIGHT * 16 / 9;
     private final int TASKBAR_HEIGHT = 48;
     
-    private JFrame frame = new JFrame();;
+    private JFrame frame = new JFrame();
     
     public void init() {
         // Fixed size
@@ -57,13 +61,23 @@ public class ScreenManager {
         try {
             s = screenClass.getConstructor().newInstance();
         } catch (java.lang.ReflectiveOperationException e) {
-            throw new Error("Could not instantiate Screen: " + screenClass.getName());
+            throw new Error("Could not instantiate Screen: " + screenClass.getName(), e);
         }
         
+        updateTitle(s.getTitle());
         frame.setContentPane(s.getPanel());
-        frame.setTitle("ECOnnect Admin Console - " + s.getTitle());
         frame.revalidate();
         frame.repaint();
+        
+        s.postInit();
+    }
+    
+    public void updateTitle(String title) {
+        frame.setTitle("ECOnnect Admin Console - " + title);
+    }
+    
+    public Dimension getWindowSize() {
+        return frame.getBounds().getSize();
     }
     
     

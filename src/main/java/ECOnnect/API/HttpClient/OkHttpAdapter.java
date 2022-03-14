@@ -44,8 +44,7 @@ public class OkHttpAdapter implements HttpClient {
                 return response.body().string();
             }
             String url_no_params = request.url().toString().split("\\?")[0];
-            throw new RuntimeException("Performing request on " + url_no_params + " resulted in error code "
-                + response.code() + ": " + response.message());
+            throw new RuntimeException("Error code " + response.code() + ": " + response.message() + "\nRequest URL: " + url_no_params);
         }
     }
 }

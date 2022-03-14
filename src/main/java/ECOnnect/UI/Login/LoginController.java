@@ -4,7 +4,6 @@ import java.awt.event.*;
 
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
-import ECOnnect.UI.ProductTypes.ProductTypesScreen;
 
 public class LoginController implements Controller {
     
@@ -26,7 +25,7 @@ public class LoginController implements Controller {
                 }
                 
                 // Todo: Replace with next screen
-                ScreenManager.getInstance().show(ProductTypesScreen.class);
+                ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
             }
         };
     }

@@ -1,4 +1,4 @@
-package ECOnnect.Utilities;
+package ECOnnect.UI.Utilities;
 
 import java.awt.*;
 import javax.swing.*;
@@ -17,7 +17,7 @@ public class HorizontalBox {
         }
         
         box.add(Box.createHorizontalGlue());
-        box.setMaximumSize(new Dimension(5000, 30));
+        box.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         
         return box;
     }

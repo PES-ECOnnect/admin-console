@@ -32,6 +32,7 @@ public class AdminLoginService extends Service {
     }
     
     protected boolean needsToken() {
+        // The API calls in this method don't need an adminToken
         return false;
     }
 }

@@ -1,12 +1,15 @@
 package ECOnnect.UI.ProductTypes;
 
-import javax.swing.JLabel;
+import javax.swing.*;
 
 import ECOnnect.UI.Interfaces.View;
+import ECOnnect.UI.Utilities.HorizontalBox;
+import ECOnnect.UI.Utilities.ItemList;
 
 public class ProductTypesView extends View {
     
     private ProductTypesController ctrl;
+    private ItemList<ProductTypeItem> list;
     
     // Components
     
@@ -17,7 +20,21 @@ public class ProductTypesView extends View {
     }
     
     // Build the GUI
-    private void setUp() {
-        panel.add(new JLabel("Product Types"));
+    private void setUp() {        
+        list = new ItemList<>(ProductTypeItem.getHeaderNames());
+        panel.add(list);
+        
+        JButton addButton = new JButton("Add new");
+        addButton.addActionListener(ctrl.addButton());
+        panel.add(HorizontalBox.create(addButton));
+        
+        // TODO: get data from model
+        list.add(new ProductTypeItem("aaaa", 5));
+    }
+    
+    void addItem(ProductTypeItem item) {
+        list.add(item);
+        System.out.println("Added item. " + list.length());
+        list.redraw();
     }
 }

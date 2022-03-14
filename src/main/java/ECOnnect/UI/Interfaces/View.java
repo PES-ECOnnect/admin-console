@@ -1,14 +1,22 @@
 package ECOnnect.UI.Interfaces;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public abstract class View {
-    protected JPanel panel = new JPanel();
+    protected JPanel panel;
     
+    public View() {
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    }
     
     public JPanel getPanel() {
         return panel;
+    }
+    
+    // Called after the view has been initialized and painted
+    public void postInit() {
+        // Do nothing by default
     }
     
     public void displayError(String error) {

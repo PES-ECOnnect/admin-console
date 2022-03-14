@@ -34,6 +34,11 @@ public abstract class Service {
         if (adminToken != null) throw new IllegalStateException("Token already set");
         adminToken = token;
     }
+    // Invalidate the admin token, called from AdminLogoutService
+    protected static void deleteAdminToken() {
+        if (adminToken == null) throw new IllegalStateException("Token was already deleted");
+        adminToken = null;
+    }
     
     // Generic GET request
     protected String get(String path, Map<String,String> params) {
