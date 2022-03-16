@@ -9,9 +9,17 @@ public interface ApiConstants {
     // Todo: add paths
     
     // PARAMETERS
-    public final String ADMIN_TOKEN = "adminToken";
+    public final String TOKEN = "token";
     
     public final String ADMIN_LOGIN_NAME = "name";
     public final String ADMIN_LOGIN_PASSWORD = "password";
     
+    
+    // RETURN VALUES
+    public final String RET_TOKEN = "token";
+    
+    
+    // ERRORS
+    public final String ERROR_ATTR_NAME = "ERROR";
+    public final String ERROR_INVALID_TOKEN = "INVALID_TOKEN";
 }

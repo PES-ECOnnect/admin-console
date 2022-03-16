@@ -15,10 +15,12 @@
 ## Instructions
 **Run tests:**
 ```
+chmod +x mvnw
 ./mvnw -q test
 ```
 **Build JAR:**
 ```
+chmod +x mvnw
 ./mvnw -q compile assembly:single
 ```
 **Run JAR:**

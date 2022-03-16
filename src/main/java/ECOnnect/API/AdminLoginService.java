@@ -15,20 +15,13 @@ public class AdminLoginService extends Service {
         params.put(ApiConstants.ADMIN_LOGIN_PASSWORD, password);
         
         // Call API
-        // String result = get(ApiConstants.LOGIN_PATH, params);
-        // TODO: Once API is implemented, uncomment the line above and remove the line below
-        String result = "";
+        JsonResult result = get(ApiConstants.LOGIN_PATH, params);
         
-        String token = extractToken(result);
+        String token = result.getAttribute(ApiConstants.RET_TOKEN);
         if (token == null) return false;
                 
         super.setAdminToken(token);
         return true;
-    }
-    
-    private String extractToken(String result) {
-        // TODO: once API is implemented, implement this method
-        return "abc";
     }
     
     protected boolean needsToken() {

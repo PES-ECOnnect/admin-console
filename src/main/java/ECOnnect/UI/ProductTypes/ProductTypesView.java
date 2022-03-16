@@ -33,8 +33,7 @@ public class ProductTypesView extends View {
     }
     
     void addItem(ProductTypeItem item) {
-        list.add(item);
-        System.out.println("Added item. " + list.length());
+        list.add(item); 
         list.redraw();
     }
 }

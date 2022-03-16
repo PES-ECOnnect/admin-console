@@ -20,7 +20,7 @@ public class ProductTypeItem extends ItemListElement {
     }
     
     public static String[] getHeaderNames() {
-        return new String[] {"Name", "# Questions", "Select for delete"};
+        return new String[] {"Name", "# Questions", "See questions", "Select for delete"};
     }
     
     protected Component[] getRowComponents() {
@@ -28,10 +28,13 @@ public class ProductTypeItem extends ItemListElement {
         nameField.setEditable(false);
         JTextField numQuestionsField = new JTextField(Integer.toString(numQuestions));
         numQuestionsField.setEditable(false);
+        JButton seeQuestionsButton = new JButton("Questions");
+        // TODO: seeQuestionsButton.addActionListener(seeQuestionsButton());
         
         return new Component[] {
             nameField,
             numQuestionsField,
+            seeQuestionsButton,
             deleteCheckBox
         };
     }

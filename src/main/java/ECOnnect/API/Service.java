@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 
+import ECOnnect.API.Exceptions.ApiException;
+import ECOnnect.API.Exceptions.InvalidTokenApiException;
 import ECOnnect.API.HttpClient.HttpClient;
 
 public abstract class Service {
@@ -36,12 +38,12 @@ public abstract class Service {
     }
     // Invalidate the admin token, called from AdminLogoutService
     protected static void deleteAdminToken() {
-        if (adminToken == null) throw new IllegalStateException("Token was already deleted");
+        if (adminToken == null) throw new IllegalStateException("Session token was already deleted");
         adminToken = null;
     }
     
     // Generic GET request
-    protected String get(String path, Map<String,String> params) {
+    protected JsonResult get(String path, Map<String,String> params) throws ApiException {
         String url = ApiConstants.BASE_URL + path;
         addTokenToRequest(params);
         
@@ -56,7 +58,7 @@ public abstract class Service {
     }
     
     // Generic POST request
-    protected String post(String path, Map<String,String> params, Object content) {
+    protected JsonResult post(String path, Map<String,String> params, Object content) throws ApiException {
         String url = ApiConstants.BASE_URL + path;
         addTokenToRequest(params);
         
@@ -79,15 +81,30 @@ public abstract class Service {
         if (params == null) {
             params = new TreeMap<>();
         }
-        params.put(ApiConstants.ADMIN_TOKEN, adminToken);
+        params.put(ApiConstants.TOKEN, adminToken);
     }
     protected abstract boolean needsToken();
     
-    private String parseResult(String result) {
+    private JsonResult parseResult(String result) throws ApiException {
         if (result == null) return null;
         
-        // Todo: parse JSON
-        // todo: if token is no longer valid, logout
-        return result;
+        
+        JsonResult json = null;
+        try {
+            json = new JsonResult(JsonParser.parseString(result));
+        }
+        catch (JsonSyntaxException | IllegalStateException e) {
+            throw new RuntimeException("Invalid JSON response from server:\n" + result);
+        }
+        String error = json.getAttribute(ApiConstants.ERROR_ATTR_NAME);
+        
+        if (error != null) {
+            if (error == ApiConstants.ERROR_INVALID_TOKEN) {
+                deleteAdminToken();
+                throw new InvalidTokenApiException();
+            }
+            throw new ApiException(error);
+        }
+        return json;
     }
 }

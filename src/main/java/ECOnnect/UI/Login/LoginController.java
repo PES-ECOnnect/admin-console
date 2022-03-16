@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
+import ECOnnect.UI.Utilities.ExecutionThread;
 
 public class LoginController implements Controller {
     
@@ -15,17 +16,25 @@ public class LoginController implements Controller {
             public void actionPerformed(ActionEvent e) {
                 String username = view.getUsernameText();
                 String password = view.getPasswordText();
+                view.enableInput(false);
                 
-                try {
-                    model.validate(username, password);
-                }
-                catch (Exception ex) {
-                    view.displayError("There has been an error:\n" + ex.getMessage());
-                    return;
-                }
-                
-                // Todo: Replace with next screen
-                ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
+                // This could take some time, invoke in a non-UI thread
+                ExecutionThread.nonUI(() -> {
+                    try {
+                        model.validate(username, password);
+                    }
+                    catch (Exception ex) {
+                        ExecutionThread.UI(() -> {
+                            view.enableInput(true);
+                            view.displayError("There has been an error:\n" + ex.getMessage());
+                        });
+                        return;
+                    }
+                    // Return to UI thread
+                    ExecutionThread.UI(() -> {
+                        ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
+                    });
+                });
             }
         };
     }
