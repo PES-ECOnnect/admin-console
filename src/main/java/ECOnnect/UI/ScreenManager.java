@@ -4,9 +4,13 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import ECOnnect.UI.Company.CompanyScreen;
 import ECOnnect.UI.Interfaces.Screen;
 import ECOnnect.UI.Login.LoginScreen;
 import ECOnnect.UI.MainMenu.MainMenuScreen;
+import ECOnnect.UI.NewCompany.NewCompanyScreen;
+import ECOnnect.UI.NewProduct.NewProductScreen;
+import ECOnnect.UI.Product.ProductScreen;
 
 import java.awt.*;
 import java.lang.reflect.Modifier;
@@ -25,7 +29,12 @@ public class ScreenManager {
     
     public static final Class<? extends Screen> LOGIN_SCREEN = LoginScreen.class;
     public static final Class<? extends Screen> MAIN_MENU_SCREEN = MainMenuScreen.class;
-    
+    public static final Class<? extends Screen> PRODUCT_SCREEN = ProductScreen.class;
+    public static final Class<? extends Screen> NEW_PRODUCT_SCREEN = NewProductScreen.class;
+    public static final Class<? extends Screen> NEW_COMPANY_SCREEN = NewCompanyScreen.class;
+    public static final Class<? extends Screen> COMPANY_SCREEN = CompanyScreen.class;
+
+
     private final int MIN_SCREEN_HEIGHT = 720;
     private final int MIN_SCREEN_WIDTH = MIN_SCREEN_HEIGHT * 16 / 9;
     private final int TASKBAR_HEIGHT = 48;
