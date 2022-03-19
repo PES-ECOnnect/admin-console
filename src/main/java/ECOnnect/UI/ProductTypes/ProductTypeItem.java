@@ -11,7 +11,8 @@ public class ProductTypeItem extends ItemListElement {
     private String name;
     private int numQuestions;
     private JCheckBox deleteCheckBox = new JCheckBox();
-    
+    private JButton viewButton = new JButton("View all products");
+
     public ProductTypeItem(String name, int numQuestions) {
         this.name = name;
         this.numQuestions = numQuestions;
@@ -35,7 +36,8 @@ public class ProductTypeItem extends ItemListElement {
             nameField,
             numQuestionsField,
             seeQuestionsButton,
-            deleteCheckBox
+            deleteCheckBox,
+            viewButton
         };
     }
     
@@ -47,5 +49,9 @@ public class ProductTypeItem extends ItemListElement {
     @Override
     public void uncheck() {
         deleteCheckBox.setSelected(false);
+    }
+
+    public JButton getViewButton() {
+        return viewButton;
     }
 }

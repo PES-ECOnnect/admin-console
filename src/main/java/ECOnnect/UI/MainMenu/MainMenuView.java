@@ -3,6 +3,9 @@ package ECOnnect.UI.MainMenu;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
+import ECOnnect.UI.Company.CompanyScreen;
+import ECOnnect.UI.NewProduct.NewProductScreen;
+import ECOnnect.UI.Product.ProductScreen;
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
 import ECOnnect.UI.Login.LoginScreen;
@@ -15,8 +18,7 @@ public class MainMenuView extends View {
     // Todo: add appropiate tabs
     private final Screen[] TAB_SCREENS = {
         new ProductTypesScreen(),
-        new LoginScreen(),
-        new ProductTypesScreen()
+        new CompanyScreen()
     };
     
     public MainMenuView(MainMenuController ctrl) {
