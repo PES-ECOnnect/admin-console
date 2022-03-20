@@ -14,14 +14,14 @@ public class LoginController implements Controller {
     public ActionListener loginButton() {
         return new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String username = view.getUsernameText();
+                String email = view.getUsernameText();
                 String password = view.getPasswordText();
                 view.enableInput(false);
                 
                 // This could take some time, invoke in a non-UI thread
                 ExecutionThread.nonUI(() -> {
                     try {
-                        model.validate(username, password);
+                        model.validate(email, password);
                     }
                     catch (Exception ex) {
                         ExecutionThread.UI(() -> {

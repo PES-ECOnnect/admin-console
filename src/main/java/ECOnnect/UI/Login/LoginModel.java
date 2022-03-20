@@ -5,22 +5,19 @@ import ECOnnect.API.ServiceFactory;
 
 public class LoginModel {
     
-    boolean validate(String username, String password) {
+    boolean validate(String email, String password) {
         // Perform local validation
-        username = username.trim();
-        if (username.isEmpty()) {
+        email = email.trim();
+        if (email.isEmpty()) {
             throw new IllegalArgumentException("Username cannot be empty");
         }
         if (password.isEmpty()) {
             throw new IllegalArgumentException("Password cannot be empty");
         }
-        /*
-        AdminLoginService loginSv = ServiceFactory.getInstance().getAdminLoginService();
-        if (!loginSv.login(username, password)) {
-            throw new IllegalArgumentException("Invalid username or password");
-        }
         
-         */
+        AdminLoginService loginSv = ServiceFactory.getInstance().getAdminLoginService();
+        loginSv.login(email, password);
+        
         return true;
     }
 }

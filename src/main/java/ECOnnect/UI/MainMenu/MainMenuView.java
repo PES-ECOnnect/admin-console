@@ -4,11 +4,8 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 import ECOnnect.UI.Company.CompanyScreen;
-import ECOnnect.UI.NewProduct.NewProductScreen;
-import ECOnnect.UI.Product.ProductScreen;
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
-import ECOnnect.UI.Login.LoginScreen;
 import ECOnnect.UI.ProductTypes.ProductTypesScreen;
 
 public class MainMenuView extends View {

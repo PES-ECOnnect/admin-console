@@ -1,8 +1,7 @@
-package ECOnnect.Stubs;
+package ECOnnect.API.HttpClient;
 
 import java.util.Map;
-
-import ECOnnect.API.HttpClient.HttpClient;
+import java.util.TreeMap;
 
 public class StubHttpClient implements HttpClient {
     private static final String EXPECTED_DOMAIN = "https://pes-econnect.herokuapp.com"; 
@@ -10,16 +9,51 @@ public class StubHttpClient implements HttpClient {
     @Override
     public String get(String path, Map<String, String> params) {
         path = checkDomain(path);
+        if (params == null) {
+            params = new TreeMap<String, String>();
+        }
         checkNullParams(params);
         
         switch (path) {
-            case "/admin/login":
-                expectParamsExclusive(params, "name", "password");
-                if (params.get("name").equals("okUsername") && params.get("password").equals("okPassword")) {
+            case "/account/isadmin":
+                expectParamsExclusive(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"ERROR\":\"ERROR_INVALID_USER_TOKEN\"}";
+                }
+                else if (equals(params, "token", "okTokenNoAdmin")) {
+                    return "{\"isAdmin\":\"false\"}";
+                }
+                else {
+                    return "{\"isAdmin\":true}";
+                }
+            
+            case "/account/login":
+                expectParamsExclusive(params, "email", "password");
+                // For development purposes. Delete this line when done.
+                if (equals(params, "email", "a")) {
                     return "{\"token\":\"okToken\"}";
+                }
+                
+                if (equals(params, "email", "okEmail") && equals(params, "password", "okPassword")) {
+                    return "{\"token\":\"okToken\"}";
+                }
+                if (equals(params, "email", "okEmailNoAdmin") && equals(params, "password", "okPassword")) {
+                    return "{\"token\":\"okTokenNoAdmin\"}";
+                }
+                else if (equals(params, "email", "okEmail")) {
+                    return "{\"ERROR\":\"ERROR_USER_INCORRECT_PASSWORD\"}";
                 }
                 else {
                     return "{\"ERROR\":\"ERROR_USER_NOT_FOUND\"}";
+                }
+                
+            case "/account/logout":
+                expectParamsExclusive(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"ERROR\":\"ERROR_INVALID_USER_TOKEN\"}";
+                }
+                else {
+                    return "{}";
                 }
                 
             default:
@@ -67,5 +101,13 @@ public class StubHttpClient implements HttpClient {
         if (params.size() != expected.length) {
             throw new IllegalArgumentException("Too many parameters passed. Got: " + params.keySet() + ", expected: " + expected);
         }
+    }
+    
+    // Check whether a parameter has a certain value
+    boolean equals(Map<String, String> params, String param, String value) {
+        if (!params.containsKey(param)) {
+            throw new IllegalArgumentException("Missing parameter: " + param);
+        }
+        return params.get(param).equals(value);
     }
 }

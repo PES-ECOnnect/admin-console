@@ -17,21 +17,22 @@ public abstract class Service {
     private static String adminToken = null;
     // Gson object used to serialize and deserialize JSON
     private Gson gson = new Gson();
+    // Set by the subclass to indicate whether the request needs an adminToken
+    protected boolean needsToken = true;
     
-    // Call once from ServiceFactory
-    public static void setHttpClient(HttpClient client) {
+    public static void injectHttpClient(HttpClient client) {
         httpClient = client;
     }
     
     // Instantiate only from ServiceFactory, after setting the HttpClient
-    Service() {
+    protected Service() {
         if (httpClient == null) {
             throw new RuntimeException("HttpClient not set");
         }
     }
     
     // Update the admin token, called from AdminLoginService
-    protected static void setAdminToken(String token) {
+    protected static void setToken(String token) {
         if (token == null) throw new IllegalArgumentException("Token cannot be null");
         if (adminToken != null) throw new IllegalStateException("Token already set");
         adminToken = token;
@@ -45,7 +46,7 @@ public abstract class Service {
     // Generic GET request
     protected JsonResult get(String path, Map<String,String> params) throws ApiException {
         String url = ApiConstants.BASE_URL + path;
-        addTokenToRequest(params);
+        params = addTokenToRequest(params);
         
         String result = null;
         try {
@@ -73,8 +74,8 @@ public abstract class Service {
     }
     
     
-    private void addTokenToRequest(Map<String,String> params) {
-        if (!needsToken()) return;
+    private Map<String,String> addTokenToRequest(Map<String,String> params) {
+        if (!needsToken) return params;
         if (adminToken == null) {
             throw new IllegalStateException("Admin token not set");
         }
@@ -82,8 +83,8 @@ public abstract class Service {
             params = new TreeMap<>();
         }
         params.put(ApiConstants.TOKEN, adminToken);
+        return params;
     }
-    protected abstract boolean needsToken();
     
     private JsonResult parseResult(String result) throws ApiException {
         if (result == null) return null;
@@ -106,5 +107,10 @@ public abstract class Service {
             throw new ApiException(error);
         }
         return json;
+    }
+    
+    protected void throwInvalidResponseError(JsonResult result, String expectedAttr) {
+        throw new RuntimeException("Invalid response from server: " + result.toString()
+            + "\nExpected attribute '" + expectedAttr + "'");
     }
 }

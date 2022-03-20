@@ -1,6 +1,7 @@
 package ECOnnect.API;
 
 import ECOnnect.API.HttpClient.OkHttpAdapter;
+import ECOnnect.API.HttpClient.StubHttpClient;
 
 public class ServiceFactory {
     // Singleton
@@ -10,7 +11,10 @@ public class ServiceFactory {
         if (instance == null) {
             instance = new ServiceFactory();
             // Use OkHttp library
-            Service.setHttpClient(new OkHttpAdapter());
+            Service.injectHttpClient(new OkHttpAdapter());
+            
+            // TODO: Remove this once the backend works
+            Service.injectHttpClient(new StubHttpClient());
         }
         return instance;
     }
@@ -24,14 +28,5 @@ public class ServiceFactory {
         }
         return adminLoginService;
     }
-    
-    
-    // Admin Logout
-    private static AdminLogoutService adminLogoutService = null;
-    public AdminLogoutService getAdminLogoutService() {
-        if (adminLogoutService == null) {
-            adminLogoutService = new AdminLogoutService();
-        }
-        return adminLogoutService;
-    }
+
 }

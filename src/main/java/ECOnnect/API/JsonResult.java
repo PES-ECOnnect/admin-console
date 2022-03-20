@@ -14,4 +14,9 @@ public class JsonResult {
         if (element == null) return null;
         return element.getAsString();
     }
+    
+    @Override
+    public String toString() {
+        return _jsonObject.toString();
+    }
 }

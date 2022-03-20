@@ -2,30 +2,79 @@ package ECOnnect.API;
 
 import java.util.TreeMap;
 
+import ECOnnect.API.Exceptions.ApiException;
+
 public class AdminLoginService extends Service {
     
     // Only allow instantiating from ServiceFactory
     AdminLoginService() {}
     
-    public boolean login(String username, String password) {
+    // Sets the user token, throws an exception if an error occurs or the user is not admin
+    public void login(String email, String password) {
         
         // Add parameters
         TreeMap<String, String> params = new TreeMap<>();
-        params.put(ApiConstants.ADMIN_LOGIN_NAME, username);
+        params.put(ApiConstants.ADMIN_LOGIN_NAME, email);
         params.put(ApiConstants.ADMIN_LOGIN_PASSWORD, password);
         
         // Call API
-        JsonResult result = get(ApiConstants.LOGIN_PATH, params);
+        super.needsToken = false;
+        JsonResult result;
+        
+        try {
+            result = get(ApiConstants.LOGIN_PATH, params);
+        }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_USER_NOT_FOUND:
+                    throw new RuntimeException("No account found for this email");
+                case ApiConstants.ERROR_WRONG_PASSWORD:
+                    throw new RuntimeException("Incorrect password for this email");
+                default:
+                    throw e;
+            }
+        }
         
         String token = result.getAttribute(ApiConstants.RET_TOKEN);
-        if (token == null) return false;
-                
-        super.setAdminToken(token);
-        return true;
+        if (token == null) {
+            // This should never happen, the API should always return a token or an error
+            throwInvalidResponseError(result, ApiConstants.RET_TOKEN);
+        }
+        
+        super.setToken(token);
+        
+        checkIsAdmin();
     }
     
-    protected boolean needsToken() {
-        // The API calls in this method don't need an adminToken
-        return false;
+    // Throws an exception if the logged in user is not an admin
+    private void checkIsAdmin() {
+        // Call API (no parameters needed)
+        super.needsToken = true;
+        JsonResult result = get(ApiConstants.IS_ADMIN_PATH, null);
+        
+        String isAdmin = result.getAttribute(ApiConstants.RET_ISADMIN);
+        
+        if (isAdmin == null) {
+            // This should never happen, the API should always return 'true' or 'false'
+            throwInvalidResponseError(result, ApiConstants.RET_ISADMIN);
+        }
+        
+        if (!isAdmin.equals("true")) {
+            logout();
+            throw new RuntimeException("This user is not an admin");
+        }
+    }
+    
+    // Invalidates the user token, throws an exception if an error occurs
+    public void logout() {       
+        try {
+            // Call API to invalidate in server (no parameters needed)
+            super.needsToken = true;
+            get(ApiConstants.LOGOUT_PATH, null);
+        }
+        finally {
+            // Delete local token whether or not the API call succeeded
+            super.deleteAdminToken();
+        }
     }
 }
