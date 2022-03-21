@@ -22,7 +22,7 @@ public interface ApiConstants {
     
     
     // ERRORS
-    public final String ERROR_ATTR_NAME = "ERROR";
+    public final String ERROR_ATTR_NAME = "error";
     
     public final String ERROR_INVALID_TOKEN = "ERROR_INVALID_USER_TOKEN";
     

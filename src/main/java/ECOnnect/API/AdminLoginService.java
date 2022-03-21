@@ -48,20 +48,27 @@ public class AdminLoginService extends Service {
     
     // Throws an exception if the logged in user is not an admin
     private void checkIsAdmin() {
-        // Call API (no parameters needed)
-        super.needsToken = true;
-        JsonResult result = get(ApiConstants.IS_ADMIN_PATH, null);
+        // If an exception is thrown, assume the user is not an admin
+        String isAdmin = "false";
         
-        String isAdmin = result.getAttribute(ApiConstants.RET_ISADMIN);
+        try {
+            // Call API (no parameters needed)
+            super.needsToken = true;
+            JsonResult result = get(ApiConstants.IS_ADMIN_PATH, null);
+            isAdmin = result.getAttribute(ApiConstants.RET_ISADMIN);
         
-        if (isAdmin == null) {
-            // This should never happen, the API should always return 'true' or 'false'
-            throwInvalidResponseError(result, ApiConstants.RET_ISADMIN);
+            if (isAdmin == null) {
+                // This should never happen, the API should always return 'true' or 'false'
+                throwInvalidResponseError(result, ApiConstants.RET_ISADMIN);
+            }
+            if (!isAdmin.equals("true")) {
+                throw new RuntimeException("This user is not an admin");
+            }
         }
-        
-        if (!isAdmin.equals("true")) {
+        catch (Exception e) {
+            // If an exception is thrown, the user is not an admin
             logout();
-            throw new RuntimeException("This user is not an admin");
+            throw e;
         }
     }
     

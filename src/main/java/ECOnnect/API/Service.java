@@ -111,6 +111,6 @@ public abstract class Service {
     
     protected void throwInvalidResponseError(JsonResult result, String expectedAttr) {
         throw new RuntimeException("Invalid response from server: " + result.toString()
-            + "\nExpected attribute '" + expectedAttr + "'");
+            + "\nExpected " + ApiConstants.ERROR_ATTR_NAME + " or attribute '" + expectedAttr + "'");
     }
 }
