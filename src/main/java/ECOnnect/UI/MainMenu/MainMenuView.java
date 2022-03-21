@@ -42,6 +42,11 @@ public class MainMenuView extends View {
         super.postInit();
         // Set the title to the first tab
         ScreenManager.getInstance().updateTitle(TAB_SCREENS[0].getTitle());
+        
+        // Call the postInit method of all tabs
+        for (Screen screen : TAB_SCREENS) {
+            screen.postInit();
+        }
     }
     
     // Custom TabbedPaneUI that moves the Logout tab to the right

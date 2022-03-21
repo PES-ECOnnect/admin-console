@@ -19,10 +19,11 @@ public class ServiceTestHelper extends Service {
     }
     
     public static void setToken() {
-        Service.setToken("dummyToken");
+        setToken("dummyToken");
     }
     
     public static void setToken(String token) {
+        clearToken();
         Service.setToken(token);
     }
     

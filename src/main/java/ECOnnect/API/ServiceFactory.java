@@ -14,7 +14,7 @@ public class ServiceFactory {
             Service.injectHttpClient(new OkHttpAdapter());
             
             // TODO: Remove this once the backend works
-            //Service.injectHttpClient(new StubHttpClient());
+            Service.injectHttpClient(new StubHttpClient());
         }
         return instance;
     }
@@ -29,4 +29,13 @@ public class ServiceFactory {
         return adminLoginService;
     }
 
+    
+    // Product Types
+    private static ProductTypesService productTypesService = null;
+    public ProductTypesService getProductTypesService() {
+        if (productTypesService == null) {
+            productTypesService = new ProductTypesService();
+        }
+        return productTypesService;
+    }
 }

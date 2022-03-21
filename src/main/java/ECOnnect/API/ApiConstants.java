@@ -7,6 +7,7 @@ public interface ApiConstants {
     public final String LOGIN_PATH = "/account/login";
     public final String LOGOUT_PATH = "/account/logout";
     public final String IS_ADMIN_PATH = "/account/isadmin";
+    public final String TYPES_PATH = "/products/types";
     // Todo: add paths
     
     // PARAMETERS
@@ -15,10 +16,14 @@ public interface ApiConstants {
     public final String ADMIN_LOGIN_NAME = "email";
     public final String ADMIN_LOGIN_PASSWORD = "password";
     
+    public final String PRODUCT_TYPES_NAME = "name";
+    public final String PRODUCT_TYPES_QUESTIONS = "questions";
+    
     
     // RETURN VALUES
     public final String RET_TOKEN = "token";
     public final String RET_ISADMIN = "isAdmin";
+    public final String RET_PRODUCT_TYPES = "types"; 
     
     
     // ERRORS
@@ -28,5 +33,7 @@ public interface ApiConstants {
     
     public final String ERROR_USER_NOT_FOUND = "ERROR_USER_NOT_FOUND";
     public final String ERROR_WRONG_PASSWORD = "ERROR_USER_INCORRECT_PASSWORD";
+    
+    public final String ERROR_TYPE_EXISTS = "ERROR_TYPE_EXISTS";
     
 }

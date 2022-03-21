@@ -15,10 +15,11 @@ public class StubHttpClient implements HttpClient {
         checkNullParams(params);
         
         switch (path) {
+            // Check if the token belongs to an admin
             case "/account/isadmin":
                 expectParamsExclusive(params, "token");
                 if (equals(params, "token", "badToken")) {
-                    return "{\"ERROR\":\"ERROR_INVALID_USER_TOKEN\"}";
+                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
                 }
                 else if (equals(params, "token", "okTokenNoAdmin")) {
                     return "{\"isAdmin\":\"false\"}";
@@ -27,6 +28,7 @@ public class StubHttpClient implements HttpClient {
                     return "{\"isAdmin\":true}";
                 }
             
+            // Login
             case "/account/login":
                 expectParamsExclusive(params, "email", "password");
                 // For development purposes. Delete this line when done.
@@ -41,19 +43,31 @@ public class StubHttpClient implements HttpClient {
                     return "{\"token\":\"okTokenNoAdmin\"}";
                 }
                 else if (equals(params, "email", "okEmail")) {
-                    return "{\"ERROR\":\"ERROR_USER_INCORRECT_PASSWORD\"}";
+                    return "{\"error\":\"ERROR_USER_INCORRECT_PASSWORD\"}";
                 }
                 else {
-                    return "{\"ERROR\":\"ERROR_USER_NOT_FOUND\"}";
+                    return "{\"error\":\"ERROR_USER_NOT_FOUND\"}";
                 }
-                
+            
+            // Logout
             case "/account/logout":
                 expectParamsExclusive(params, "token");
                 if (equals(params, "token", "badToken")) {
-                    return "{\"ERROR\":\"ERROR_INVALID_USER_TOKEN\"}";
+                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
                 }
                 else {
                     return "{}";
+                }
+            
+            // Get list of product types
+            case "/products/types":
+                expectParamsExclusive(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                }
+                else {
+                    // For each type, return the name and an array of questions
+                    return "{\"types\":[{\"name\":\"type1\",\"questions\":[\"q1\",\"q2\",\"q3\"]},{\"name\":\"type2\",\"questions\":[\"q4\",\"q5\",\"q6\"]}]}";
                 }
                 
             default:
@@ -63,7 +77,34 @@ public class StubHttpClient implements HttpClient {
 
     @Override
     public String post(String path, Map<String, String> params, String json) {
-        return null;
+        path = checkDomain(path);
+        if (params == null) {
+            params = new TreeMap<String, String>();
+        }
+        checkNullParams(params);
+        
+        switch (path) {
+            
+            // Create a new product type
+            case "/products/types":
+                expectParamsExclusive(params, "token", "name", "questions");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                }
+                else if (equals(params, "name", "existingType")) {
+                    return "{\"error\":\"ERROR_TYPE_EXISTS\"}";
+                }
+                else if (equals(params, "name", "emptyType") && !equals(params, "questions", "[]")) {
+                    return "{\"error\":\"incorrect amount of questions\"}";
+                }
+                else {
+                    return "{}";
+                }
+                
+            default:
+                throw new RuntimeException("Invalid path: " + path);
+        }
+        
     }
     
     
