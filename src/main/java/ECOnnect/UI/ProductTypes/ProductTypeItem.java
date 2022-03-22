@@ -9,15 +9,17 @@ import javax.swing.*;
 
 public class ProductTypeItem extends ItemListElement {
     
-    private String name;
-    private int numQuestions;
-    private JCheckBox deleteCheckBox = new JCheckBox();
-    private JButton viewButton = new JButton("Products");
-    private JButton seeQuestionsButton = new JButton("Questions");
+    private int _index;
+    private String _name;
+    private int _numQuestions;
+    private JCheckBox _deleteCheckBox = new JCheckBox();
+    private ProductTypesController _owner;
 
-    public ProductTypeItem(String name, int numQuestions) {
-        this.name = name;
-        this.numQuestions = numQuestions;
+    public ProductTypeItem(ProductTypesController owner, int index, String name, int numQuestions) {
+        this._owner = owner;
+        this._index = index;
+        this._name = name;
+        this._numQuestions = numQuestions;
         
         super.init();
     }
@@ -27,35 +29,52 @@ public class ProductTypeItem extends ItemListElement {
     }
     
     protected Component[] getRowComponents() {
-        JTextField nameField = new JTextField(name);
+        JTextField nameField = new JTextField(_name);
         nameField.setEditable(false);
-        JTextField numQuestionsField = new JTextField(Integer.toString(numQuestions));
+        
+        JTextField numQuestionsField = new JTextField(Integer.toString(_numQuestions));
         numQuestionsField.setEditable(false);
+        
+        JButton seeProductsButton = new JButton("Products");
+        seeProductsButton.addActionListener(seeProductsButtonListener());
+        
+        JButton seeQuestionsButton = new JButton("Questions");
+        seeQuestionsButton.addActionListener(seeQuestionsButtonListener());
                 
         return new Component[] {
             nameField,
             numQuestionsField,
             seeQuestionsButton,
-            viewButton,
-            deleteCheckBox
+            seeProductsButton,
+            _deleteCheckBox
+        };
+    }
+
+    
+    private ActionListener seeProductsButtonListener() {
+        return new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                _owner.viewProducts(_index);
+            }
         };
     }
     
+    private ActionListener seeQuestionsButtonListener() {
+        return new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                _owner.viewQuestions(_index);
+            }
+        };
+    }
+    
+    
     @Override
     public boolean isSelected() {
-        return deleteCheckBox.isSelected();
+        return _deleteCheckBox.isSelected();
     }
     
     @Override
     public void uncheck() {
-        deleteCheckBox.setSelected(false);
-    }
-
-    public void addViewButtonListener(ActionListener listener) {
-        viewButton.addActionListener(listener);
-    }
-    
-    public void addQuestionsButtonListener(ActionListener listener) {
-        seeQuestionsButton.addActionListener(listener);
+        _deleteCheckBox.setSelected(false);
     }
 }

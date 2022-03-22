@@ -2,19 +2,19 @@ package ECOnnect.UI.ProductTypes;
 
 import java.awt.event.*;
 
+import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
+import ECOnnect.UI.ProductTypes.Create.CreateProductTypeScreen;
 import ECOnnect.API.ProductTypesService.ProductType;
 
 public class ProductTypesController implements Controller {
-    private ProductTypesView view = new ProductTypesView(this);
-    private ProductTypesModel model = new ProductTypesModel();
+    private ProductTypesView _view = new ProductTypesView(this);
+    private ProductTypesModel _model = new ProductTypesModel();
     
     ActionListener addButton() {
         return new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ProductTypeItem item = new ProductTypeItem("New product type", 0);
-                addListeners(item);
-                view.addItem(item);
+                ScreenManager.getInstance().show(CreateProductTypeScreen.class);
             }
         };
     }
@@ -35,10 +35,11 @@ public class ProductTypesController implements Controller {
         
         ProductType[] items = null;
         try {
-            items = model.getProductTypes();
+            items = _model.getProductTypes();
         }
         catch (Exception e) {
-            view.displayError("Could not fetch existing types: " + e.getMessage());
+            _view.displayError("Could not fetch existing types: " + e.getMessage());
+            return new ProductTypeItem[0];
         }
         
         // Convert to type items
@@ -46,19 +47,22 @@ public class ProductTypesController implements Controller {
         ProductTypeItem[] productTypeItems = new ProductTypeItem[items.length];
         
         for (int i = 0; i < items.length; ++i) {
-            productTypeItems[i] = new ProductTypeItem(items[i].getName(), items[i].getQuestions().length);
-            addListeners(productTypeItems[i]);
+            productTypeItems[i] = new ProductTypeItem(this, i, items[i].getName(), items[i].getQuestions().length);
         }
         
         return productTypeItems;
     }
     
-    private void addListeners(ProductTypeItem item) {
-        //item.addQuestionsButtonListener(null);
+    public void viewQuestions(int index) {
+        System.out.println("View questions for type " + index);
+    }
+    
+    public void viewProducts(int index) {
+        System.out.println("View products for type " + index);
     }
 
     
     public View getView() {
-        return view;
+        return _view;
     }
 }
