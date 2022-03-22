@@ -8,13 +8,13 @@ import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Utilities.HorizontalBox;
 
 public class CreateProductTypeView extends View {
-    private CreateProductTypeController ctrl;
+    private final CreateProductTypeController _ctrl;
     
-    private JTextField _nameTextField = new JTextField(20);
-    private JTextArea _questionsTextArea = new JTextArea();
+    private final JTextField _nameTextField = new JTextField(20);
+    private final JTextArea _questionsTextArea = new JTextArea();
     
     CreateProductTypeView(CreateProductTypeController ctrl) {
-        this.ctrl = ctrl;
+        this._ctrl = ctrl;
         setUp();
     }
     
@@ -49,12 +49,20 @@ public class CreateProductTypeView extends View {
         panel.add(Box.createVerticalStrut(50));
         
         JButton okButton = new JButton("OK");
-        okButton.addActionListener(ctrl.okButton());
+        okButton.addActionListener(_ctrl.okButton());
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(ctrl.cancelButton());
+        cancelButton.addActionListener(_ctrl.cancelButton());
         panel.add(HorizontalBox.create(cancelButton, okButton));
         
         panel.add(Box.createVerticalStrut(50));
         
+    }
+    
+    String getName() {
+        return _nameTextField.getText();
+    }
+    
+    String[] getQuestions() {
+        return _questionsTextArea.getText().split("\n");
     }
 }

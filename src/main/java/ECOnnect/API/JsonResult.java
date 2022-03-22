@@ -1,11 +1,9 @@
 package ECOnnect.API;
 
-import java.lang.reflect.Array;
-
 import com.google.gson.*;
 
 public class JsonResult {
-    private JsonObject _jsonObject;
+    private final JsonObject _jsonObject;
     
     public JsonResult(JsonElement jsonElement) {
         this._jsonObject = jsonElement.getAsJsonObject();

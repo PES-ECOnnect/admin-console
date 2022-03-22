@@ -10,20 +10,20 @@ public class ProductTypesService extends Service {
     ProductTypesService() {}
     
     public class ProductType {
-        private String name;
-        private String[] questions;
+        private final String _name;
+        private final String[] _questions;
         
         public ProductType(String name, String[] questions) {
-            this.name = name;
-            this.questions = questions;
+            this._name = name;
+            this._questions = questions;
         }
         
         public String getName() {
-            return name;
+            return _name;
         }
         
         public String[] getQuestions() {
-            return questions;
+            return _questions;
         }
     }
     

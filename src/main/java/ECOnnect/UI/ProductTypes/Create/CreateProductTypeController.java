@@ -8,23 +8,22 @@ import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.ProductTypes.ProductTypesModel;
 
 public class CreateProductTypeController implements Controller {
-    private CreateProductTypeView _view = new CreateProductTypeView(this);
-    private ProductTypesModel _model = new ProductTypesModel();
+    private final CreateProductTypeView _view = new CreateProductTypeView(this);
+    private final ProductTypesModel _model = new ProductTypesModel();
     
     
     ActionListener okButton() {
-        return new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("OK");
-            }
+        return (ActionEvent e) -> {
+            String name = _view.getName();
+            String[] questions = _view.getQuestions();
+            _model.addProductType(name, questions);
+            ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
         };
     }
     
     ActionListener cancelButton() {
-        return new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
-            }
+        return (ActionEvent e) -> {
+            ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
         };
     }
     

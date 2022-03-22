@@ -10,7 +10,7 @@ import ECOnnect.UI.ProductTypes.ProductTypesScreen;
 
 public class MainMenuView extends View {
     
-    private MainMenuController ctrl;
+    private final MainMenuController _ctrl;
     
     // Todo: add appropiate tabs
     private final Screen[] TAB_SCREENS = {
@@ -19,7 +19,7 @@ public class MainMenuView extends View {
     };
     
     public MainMenuView(MainMenuController ctrl) {
-        this.ctrl = ctrl;
+        this._ctrl = ctrl;
         setUp();
     }
     
@@ -33,7 +33,7 @@ public class MainMenuView extends View {
             tabbedPane.addTab(screen.getTitle(), screen.getPanel());
         }
         tabbedPane.addTab("Logout", null);
-        tabbedPane.addChangeListener(ctrl.tabListener());
+        tabbedPane.addChangeListener(_ctrl.tabListener());
         panel.add(tabbedPane);
     }
     

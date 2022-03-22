@@ -8,24 +8,20 @@ import ECOnnect.UI.ProductTypes.Create.CreateProductTypeScreen;
 import ECOnnect.API.ProductTypesService.ProductType;
 
 public class ProductTypesController implements Controller {
-    private ProductTypesView _view = new ProductTypesView(this);
-    private ProductTypesModel _model = new ProductTypesModel();
+    private final ProductTypesView _view = new ProductTypesView(this);
+    private final ProductTypesModel _model = new ProductTypesModel();
     
     ActionListener addButton() {
-        return new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ScreenManager.getInstance().show(CreateProductTypeScreen.class);
-            }
+        return (ActionEvent e) -> {
+            ScreenManager.getInstance().show(CreateProductTypeScreen.class);
         };
     }
 
     ActionListener viewButton(){
-        return new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // TODO: add to model
-                //view.viewInfo();
-                //ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
-            }
+        return (ActionEvent e) -> {
+            // TODO: add to model
+            //view.viewInfo();
+            //ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
         };
     }
     

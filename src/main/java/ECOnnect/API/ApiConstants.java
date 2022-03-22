@@ -22,7 +22,7 @@ public interface ApiConstants {
     
     // RETURN VALUES
     public final String RET_TOKEN = "token";
-    public final String RET_ISADMIN = "isAdmin";
+    public final String RET_ISADMIN = "result";
     public final String RET_PRODUCT_TYPES = "types"; 
     
     

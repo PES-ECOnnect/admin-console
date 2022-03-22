@@ -7,35 +7,35 @@ import ECOnnect.UI.Utilities.ItemList;
 import javax.swing.*;
 
 public class ProductView extends View {
-    private ProductController ctrl;
-    private ItemList<ProductItem> list;
+    private final ProductController _ctrl;
+    private ItemList<ProductItem> _list;
 
     // Components
 
     public ProductView(ProductController ctrl) {
-        this.ctrl = ctrl;
+        this._ctrl = ctrl;
         setUp();
     }
 
     private void setUp() {
-        list = new ItemList<>(ProductItem.getHeaderNames());
-        panel.add(list);
+        _list = new ItemList<>(ProductItem.getHeaderNames());
+        panel.add(_list);
 
         JButton addButton = new JButton("Add new");
-        addButton.addActionListener(ctrl.addButton());
+        addButton.addActionListener(_ctrl.addButton());
         panel.add(HorizontalBox.create(addButton));
 
         JButton backButton = new JButton("Go back");
-        backButton.addActionListener(ctrl.backButton());
+        backButton.addActionListener(_ctrl.backButton());
         panel.add(HorizontalBox.create(backButton));
 
         // TODO: get data from model
-        list.add(new ProductItem("Product 1", "Manufacturer x", "path/image.png", "type 1"));
+        _list.add(new ProductItem("Product 1", "Manufacturer x", "path/image.png", "type 1"));
     }
 
     public void addItem(ProductItem item) {
-        list.add(item);
-        list.redraw();
+        _list.add(item);
+        _list.redraw();
     }
 
 }

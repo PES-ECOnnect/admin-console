@@ -9,42 +9,37 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NewProductController implements Controller {
-    NewProductView view = new NewProductView(this);
-    NewProductModel model = new NewProductModel();
-    //ProductController prodCtrl = new ProductController();
+    private NewProductView _view = new NewProductView(this);
+    private NewProductModel _model = new NewProductModel();
+    //ProductController _prodCtrl = new ProductController();
 
     public View getView() {
-        return view;
+        return _view;
     }
 
     public ActionListener saveButton() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = view.getNameText();
-                String manufacturer = view.getManufacturerText();
-                String imageUrl = view.getImageUrlText();
-                String type = view.getTypeText();
+        return (ActionEvent e) -> {
+            String name = _view.getNameText();
+            String manufacturer = _view.getManufacturerText();
+            String imageUrl = _view.getImageUrlText();
+            String type = _view.getTypeText();
 
-                try{
-                    model.validate(name, manufacturer, imageUrl, type);
-                }
-                catch (Exception ex){
-                    view.displayError("There has been an error:\n"+ex.getMessage());
-                    return;
-                }
-                // we should update ProductScreen
-                //prodCtrl.addProduct(name,manufacturer);
-                ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
+            try{
+                _model.validate(name, manufacturer, imageUrl, type);
             }
+            catch (Exception ex){
+                _view.displayError("There has been an error:\n"+ex.getMessage());
+                return;
+            }
+            // we should update ProductScreen
+            //_prodCtrl.addProduct(name,manufacturer);
+            ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
         };
     }
 
     public ActionListener cancelButton() {
-        return new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
-            }
+        return (ActionEvent e) -> {
+            ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
         };
     }
 

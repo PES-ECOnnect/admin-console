@@ -9,25 +9,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ProductController implements Controller {
-    private ProductView view = new ProductView(this);
-    private ProductModel model = new ProductModel();
+    private final ProductView _view = new ProductView(this);
+    private final ProductModel _model = new ProductModel();
 
     ActionListener addButton() {
-        return new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // TODO: add to model
-                //view.addItem(new ProductItem("New Product", "Someone"));
+        return (ActionEvent e) -> {
+            // TODO: add to model
+            //view.addItem(new ProductItem("New Product", "Someone"));
 
-                ScreenManager.getInstance().show(ScreenManager.NEW_PRODUCT_SCREEN);
-            }
+            ScreenManager.getInstance().show(ScreenManager.NEW_PRODUCT_SCREEN);
         };
     }
 
     ActionListener backButton(){
-        return new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
-            }
+        return (ActionEvent e) -> {
+            ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
         };
     }
 /*
@@ -35,5 +31,7 @@ public class ProductController implements Controller {
         view.addItem(new ProductItem(name, manufacturer));
     }
 */
-    public View getView(){return view;}
+    public View getView(){
+        return _view;
+    }
 }

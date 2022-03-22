@@ -17,14 +17,14 @@ import java.lang.reflect.Modifier;
 
 public class ScreenManager {
     // Singleton
-    private static ScreenManager instance;
+    private static ScreenManager _instance = null;
     private ScreenManager() {
     }
     public static ScreenManager getInstance() {
-        if (instance == null) {
-            instance = new ScreenManager();
+        if (_instance == null) {
+            _instance = new ScreenManager();
         }
-        return instance;
+        return _instance;
     }
     
     public static final Class<? extends Screen> LOGIN_SCREEN = LoginScreen.class;
@@ -35,23 +35,23 @@ public class ScreenManager {
     public static final Class<? extends Screen> COMPANY_SCREEN = CompanyScreen.class;
 
 
-    private final int MIN_SCREEN_HEIGHT = 720;
-    private final int MIN_SCREEN_WIDTH = MIN_SCREEN_HEIGHT * 16 / 9;
-    private final int TASKBAR_HEIGHT = 48;
+    private final int _MIN_SCREEN_HEIGHT = 720;
+    private final int _MIN_SCREEN_WIDTH = _MIN_SCREEN_HEIGHT * 16 / 9;
+    private final int _TASKBAR_HEIGHT = 48;
     
-    private JFrame frame = new JFrame();
+    private final JFrame _frame = new JFrame();
     
     public void init() {
         // Fixed size
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(MIN_SCREEN_WIDTH, MIN_SCREEN_HEIGHT-TASKBAR_HEIGHT);
-        frame.setResizable(false);
+        _frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        _frame.setSize(_MIN_SCREEN_WIDTH, _MIN_SCREEN_HEIGHT-_TASKBAR_HEIGHT);
+        _frame.setResizable(false);
         
         // Center the window
-        frame.setLocationRelativeTo(null);
+        _frame.setLocationRelativeTo(null);
         
         // Make the window visible
-        frame.setVisible(true);
+        _frame.setVisible(true);
         
         // Set icon
         setIcon();
@@ -74,19 +74,19 @@ public class ScreenManager {
         }
         
         updateTitle(s.getTitle());
-        frame.setContentPane(s.getPanel());
-        frame.revalidate();
-        frame.repaint();
+        _frame.setContentPane(s.getPanel());
+        _frame.revalidate();
+        _frame.repaint();
         
         s.postInit();
     }
     
     public void updateTitle(String title) {
-        frame.setTitle("ECOnnect Admin Console - " + title);
+        _frame.setTitle("ECOnnect Admin Console - " + title);
     }
     
     public Dimension getWindowSize() {
-        return frame.getBounds().getSize();
+        return _frame.getBounds().getSize();
     }
     
     
@@ -97,7 +97,7 @@ public class ScreenManager {
             icons.add(getIconScale("32"));
             icons.add(getIconScale("64"));
             icons.add(getIconScale("128"));
-            frame.setIconImages(icons);
+            _frame.setIconImages(icons);
         }
         catch (NullPointerException e) {
             System.err.println("Warning: Failed to load icon");

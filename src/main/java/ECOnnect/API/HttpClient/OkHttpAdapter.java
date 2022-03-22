@@ -7,9 +7,9 @@ import java.util.Map;
 import okhttp3.*;
 
 public class OkHttpAdapter implements HttpClient {
-    static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    private static final MediaType _JSON = MediaType.get("application/json; charset=utf-8");
 
-    private OkHttpClient client = new OkHttpClient();
+    private final OkHttpClient _client = new OkHttpClient();
     
     public String get(String url, Map<String,String> params) throws IOException {
         // By default, the request method is GET
@@ -18,7 +18,7 @@ public class OkHttpAdapter implements HttpClient {
     }
     
     public String post(String url, Map<String,String> params, String json) throws IOException {
-        RequestBody body = RequestBody.create(json, JSON);
+        RequestBody body = RequestBody.create(json, _JSON);
         Request request = parseUrl(url, params).post(body).build();
         return getResponse(request);
     }
@@ -39,7 +39,7 @@ public class OkHttpAdapter implements HttpClient {
     
     // Execute the request and return the response body as a string
     private String getResponse(Request request) throws IOException {
-        try (Response response = client.newCall(request).execute()) {
+        try (Response response = _client.newCall(request).execute()) {
             if (response.isSuccessful()) {
                 return response.body().string();
             }

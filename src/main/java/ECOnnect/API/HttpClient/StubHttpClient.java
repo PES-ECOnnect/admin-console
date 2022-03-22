@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class StubHttpClient implements HttpClient {
-    private static final String EXPECTED_DOMAIN = "https://pes-econnect.herokuapp.com"; 
+    private static final String _EXPECTED_DOMAIN = "https://pes-econnect.herokuapp.com"; 
     
     @Override
     public String get(String path, Map<String, String> params) {
@@ -22,10 +22,10 @@ public class StubHttpClient implements HttpClient {
                     return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
                 }
                 else if (equals(params, "token", "okTokenNoAdmin")) {
-                    return "{\"isAdmin\":\"false\"}";
+                    return "{\"result\":\"false\"}";
                 }
                 else {
-                    return "{\"isAdmin\":true}";
+                    return "{\"result\":true}";
                 }
             
             // Login
@@ -112,10 +112,10 @@ public class StubHttpClient implements HttpClient {
     
     // Throw an exception if the path doesn't start with the expected domain
     private String checkDomain(String path) {
-        if (!path.startsWith(EXPECTED_DOMAIN)) {
-            throw new IllegalArgumentException("Path must start with " + EXPECTED_DOMAIN);
+        if (!path.startsWith(_EXPECTED_DOMAIN)) {
+            throw new IllegalArgumentException("Path must start with " + _EXPECTED_DOMAIN);
         }
-        return path.substring(EXPECTED_DOMAIN.length());
+        return path.substring(_EXPECTED_DOMAIN.length());
     }
     
     // Throw an exception if any of the params is null

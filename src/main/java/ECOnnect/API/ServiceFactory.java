@@ -5,37 +5,37 @@ import ECOnnect.API.HttpClient.StubHttpClient;
 
 public class ServiceFactory {
     // Singleton
-    private static ServiceFactory instance = null;
+    private static ServiceFactory _instance = null;
     private ServiceFactory() {}
     public static ServiceFactory getInstance() {
-        if (instance == null) {
-            instance = new ServiceFactory();
+        if (_instance == null) {
+            _instance = new ServiceFactory();
             // Use OkHttp library
             Service.injectHttpClient(new OkHttpAdapter());
             
             // TODO: Remove this once the backend works
             Service.injectHttpClient(new StubHttpClient());
         }
-        return instance;
+        return _instance;
     }
     
     
     // Admin Login
-    private static AdminLoginService adminLoginService = null;
+    private static AdminLoginService _adminLoginService = null;
     public AdminLoginService getAdminLoginService() {
-        if (adminLoginService == null) {
-            adminLoginService = new AdminLoginService();
+        if (_adminLoginService == null) {
+            _adminLoginService = new AdminLoginService();
         }
-        return adminLoginService;
+        return _adminLoginService;
     }
 
     
     // Product Types
-    private static ProductTypesService productTypesService = null;
+    private static ProductTypesService _productTypesService = null;
     public ProductTypesService getProductTypesService() {
-        if (productTypesService == null) {
-            productTypesService = new ProductTypesService();
+        if (_productTypesService == null) {
+            _productTypesService = new ProductTypesService();
         }
-        return productTypesService;
+        return _productTypesService;
     }
 }

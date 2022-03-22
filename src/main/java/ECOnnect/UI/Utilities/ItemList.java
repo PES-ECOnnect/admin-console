@@ -7,17 +7,17 @@ import java.util.Collection;
 import javax.swing.*;
 
 public class ItemList<T extends ItemListElement> extends JScrollPane {
-    private JPanel list = new JPanel();
-    private String[] headerNames;
+    private final JPanel _list = new JPanel();
+    private final String[] _headerNames;
 
     public ItemList(String[] headerNames) {
-        this.headerNames = headerNames;
-        list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
+        this._headerNames = headerNames;
+        _list.setLayout(new BoxLayout(_list, BoxLayout.PAGE_AXIS));
         
         super.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         super.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         super.getVerticalScrollBar().setUnitIncrement(5);
-        super.setViewportView(list);
+        super.setViewportView(_list);
         
         addHeader();
     }
@@ -27,9 +27,9 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.LINE_AXIS));
         headerPanel.setMaximumSize(ItemListElement.DEFAULT_SIZE);
         headerPanel.setMinimumSize(ItemListElement.DEFAULT_SIZE);
-        list.add(headerPanel);
+        _list.add(headerPanel);
         
-        for (String name : headerNames) {
+        for (String name : _headerNames) {
             JTextField text = new JTextField(name);
             text.setEditable(false);
             text.setFont(new Font(Font.MONOSPACED, Font.PLAIN,  13));
@@ -50,31 +50,31 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
     
     // Add an item to the list
     public void add(ItemListElement item) {
-        list.add(item);
+        _list.add(item);
     }
     
     // Return the item at the specified index
     public T get(int index) {
         @SuppressWarnings("unchecked")
-        T item = (T) list.getComponent(index + 1);
+        T item = (T) _list.getComponent(index + 1);
         return item;
     }
     
     // Remove an item from the list
     public void delete(ItemListElement item) {
-        list.remove(item);
+        _list.remove(item);
     }
     
     // Remove all items from the list
     public void clear() {
-        list.removeAll();
+        _list.removeAll();
         addHeader();
     }
     
     // Return the number of elements in the list
     public int length() {
         // Remove header
-        return list.getComponentCount() - 1;
+        return _list.getComponentCount() - 1;
     }
     
     
@@ -85,8 +85,8 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
         ArrayList<ItemListElement> selected = new ArrayList<>();
 
         // Start at 1 to avoid the headers panel
-        for (int i = 1; i < list.getComponentCount(); ++i) {
-            ItemListElement itemStruct = (ItemListElement) list.getComponent(i);
+        for (int i = 1; i < _list.getComponentCount(); ++i) {
+            ItemListElement itemStruct = (ItemListElement) _list.getComponent(i);
             
             if (itemStruct.isSelected()) {
                 selected.add(itemStruct);
@@ -99,8 +99,8 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
     // Unselect all items
     public void clearSelection() {
         // Start at 1 to avoid the headers panel
-        for (int i = 1; i < list.getComponentCount(); ++i) {
-            ItemListElement itemStruct = (ItemListElement) list.getComponent(i);
+        for (int i = 1; i < _list.getComponentCount(); ++i) {
+            ItemListElement itemStruct = (ItemListElement) _list.getComponent(i);
             itemStruct.uncheck();
         }
     }

@@ -9,11 +9,11 @@ import javax.swing.*;
 
 public class ProductTypeItem extends ItemListElement {
     
-    private int _index;
-    private String _name;
-    private int _numQuestions;
-    private JCheckBox _deleteCheckBox = new JCheckBox();
-    private ProductTypesController _owner;
+    private final int _index;
+    private final String _name;
+    private final int _numQuestions;
+    private final JCheckBox _deleteCheckBox = new JCheckBox();
+    private final ProductTypesController _owner;
 
     public ProductTypeItem(ProductTypesController owner, int index, String name, int numQuestions) {
         this._owner = owner;
@@ -52,18 +52,14 @@ public class ProductTypeItem extends ItemListElement {
 
     
     private ActionListener seeProductsButtonListener() {
-        return new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                _owner.viewProducts(_index);
-            }
+        return (ActionEvent e) -> {
+            _owner.viewProducts(_index);
         };
     }
     
     private ActionListener seeQuestionsButtonListener() {
-        return new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                _owner.viewQuestions(_index);
-            }
+        return (ActionEvent e) -> {
+            _owner.viewQuestions(_index);
         };
     }
     

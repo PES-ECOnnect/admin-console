@@ -12,21 +12,21 @@ import ECOnnect.API.HttpClient.HttpClient;
 
 public abstract class Service {
     // Reference to the HttpClient used to communicate with the API
-    private static HttpClient httpClient;
+    private static HttpClient _httpClient;
     // Store the secret token and insert it into the request headers
-    private static String adminToken = null;
+    private static String _adminToken = null;
     // Gson object used to serialize and deserialize JSON
-    protected Gson gson = new Gson();
+    protected final Gson gson = new Gson();
     // Set by the subclass to indicate whether the request needs an adminToken
     protected boolean needsToken = true;
     
     public static void injectHttpClient(HttpClient client) {
-        httpClient = client;
+        _httpClient = client;
     }
     
     // Instantiate only from ServiceFactory, after setting the HttpClient
     protected Service() {
-        if (httpClient == null) {
+        if (_httpClient == null) {
             throw new RuntimeException("HttpClient not set");
         }
     }
@@ -34,13 +34,13 @@ public abstract class Service {
     // Update the admin token, called from AdminLoginService
     protected static void setToken(String token) {
         if (token == null) throw new IllegalArgumentException("Token cannot be null");
-        if (adminToken != null) throw new IllegalStateException("Token already set");
-        adminToken = token;
+        if (_adminToken != null) throw new IllegalStateException("Token already set");
+        _adminToken = token;
     }
     // Invalidate the admin token, called from AdminLogoutService
     protected static void deleteAdminToken() {
-        if (adminToken == null) throw new IllegalStateException("Session token was already deleted");
-        adminToken = null;
+        if (_adminToken == null) throw new IllegalStateException("Session token was already deleted");
+        _adminToken = null;
     }
     
     // Generic GET request
@@ -50,7 +50,7 @@ public abstract class Service {
         
         String result = null;
         try {
-            result = httpClient.get(url, params);
+            result = _httpClient.get(url, params);
         }
         catch (IOException e) {
             throw new RuntimeException("Error executing GET on " + url + ": " + e.getMessage());
@@ -65,7 +65,7 @@ public abstract class Service {
         
         String result = null;
         try {
-            result = httpClient.post(url, params, gson.toJson(content));
+            result = _httpClient.post(url, params, gson.toJson(content));
         }
         catch (IOException e) {
             throw new RuntimeException("Error executing POST on " + url + ": " + e.getMessage());
@@ -76,13 +76,13 @@ public abstract class Service {
     
     private Map<String,String> addTokenToRequest(Map<String,String> params) {
         if (!needsToken) return params;
-        if (adminToken == null) {
+        if (_adminToken == null) {
             throw new IllegalStateException("Admin token not set");
         }
         if (params == null) {
             params = new TreeMap<>();
         }
-        params.put(ApiConstants.TOKEN, adminToken);
+        params.put(ApiConstants.TOKEN, _adminToken);
         return params;
     }
     

@@ -8,38 +8,36 @@ import ECOnnect.UI.Utilities.ItemList;
 
 public class ProductTypesView extends View {
     
-    private ProductTypesController ctrl;
-    private ItemList<ProductTypeItem> list;
-    
-    // Components
+    private final ProductTypesController _ctrl;
+    private ItemList<ProductTypeItem> _list;
     
     
     public ProductTypesView(ProductTypesController ctrl) {
-        this.ctrl = ctrl;
+        this._ctrl = ctrl;
         setUp();
     }
     
     // Build the GUI
     private void setUp() {
-        list = new ItemList<>(ProductTypeItem.getHeaderNames());
-        panel.add(list);
+        _list = new ItemList<>(ProductTypeItem.getHeaderNames());
+        panel.add(_list);
         
         JButton addButton = new JButton("Add new");
-        addButton.addActionListener(ctrl.addButton());
+        addButton.addActionListener(_ctrl.addButton());
         panel.add(HorizontalBox.create(addButton));
     }
     
     void addItem(ProductTypeItem item) {
-        list.add(item);
-        list.redraw();
+        _list.add(item);
+        _list.redraw();
     }
     
     @Override
     public void postInit() {
-        for (ProductTypeItem item : ctrl.getProductTypeItems()) {
-            list.add(item);
+        for (ProductTypeItem item : _ctrl.getProductTypeItems()) {
+            _list.add(item);
         }
-        list.redraw();
+        _list.redraw();
     }
 
 }

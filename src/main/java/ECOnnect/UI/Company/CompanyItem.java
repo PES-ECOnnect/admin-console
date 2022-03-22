@@ -6,49 +6,49 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CompanyItem extends ItemListElement {
-    private String name;
-    private String location;
-    private String imageUrl;
-    private JCheckBox deleteCheckbox = new JCheckBox();
+    private final String _name;
+    private final String _location;
+    private final String _imageUrl;
+    private final JCheckBox _deleteCheckbox = new JCheckBox();
 
     public CompanyItem(String name, String location, String imageUrl){
-        this.name = name;
-        this.location = location;
-        this.imageUrl = imageUrl;
+        this._name = name;
+        this._location = location;
+        this._imageUrl = imageUrl;
 
         super.init();
     }
 
     @Override
     public String getName() {
-        return name;
+        return _name;
     }
 
     public static String[] getHeaderNames(){return new String[]{"name", "location","image URL", "select for delete"};}
 
     protected Component[] getRowComponents(){
-        JTextField nameField = new JTextField(name);
+        JTextField nameField = new JTextField(_name);
         nameField.setEditable(false);
-        JTextField locationField = new JTextField(location);
+        JTextField locationField = new JTextField(_location);
         locationField.setEditable(false);
-        JTextField imageUrlField = new JTextField(imageUrl);
+        JTextField imageUrlField = new JTextField(_imageUrl);
         imageUrlField.setEditable(false);
 
         return new Component[] {
-                nameField,
-                locationField,
-                imageUrlField,
-                deleteCheckbox
+            nameField,
+            locationField,
+            imageUrlField,
+            _deleteCheckbox
         };
     }
 
     @Override
     public boolean isSelected() {
-        return deleteCheckbox.isSelected();
+        return _deleteCheckbox.isSelected();
     }
 
     @Override
     public void uncheck() {
-        deleteCheckbox.setSelected(false);
+        _deleteCheckbox.setSelected(false);
     }
 }

@@ -4,24 +4,24 @@ import javax.swing.JPanel;
 
 public abstract class Screen {
     
-    Controller controller;
-    View view = null;
+    private final Controller _controller;
+    private View _view = null;
     
     public Screen(Controller controller) {
-        this.controller = controller;
+        this._controller = controller;
     }
     
     public JPanel getPanel() {
-        if (view == null) {
-            view = controller.getView();
+        if (_view == null) {
+            _view = _controller.getView();
         }
-        return view.getPanel();
+        return _view.getPanel();
     }
     
     // Called after the screen has been initialized and painted
     public void postInit() {
-        if (view != null) {
-            view.postInit();
+        if (_view != null) {
+            _view.postInit();
         }
     }
     

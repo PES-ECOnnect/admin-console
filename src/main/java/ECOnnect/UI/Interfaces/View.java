@@ -3,7 +3,7 @@ package ECOnnect.UI.Interfaces;
 import javax.swing.*;
 
 public abstract class View {
-    protected JPanel panel;
+    protected final JPanel panel;
     
     public View() {
         panel = new JPanel();
