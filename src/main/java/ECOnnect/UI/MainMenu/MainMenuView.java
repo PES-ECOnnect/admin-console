@@ -11,6 +11,7 @@ import ECOnnect.UI.ProductTypes.ProductTypesScreen;
 public class MainMenuView extends View {
     
     private final MainMenuController _ctrl;
+    private final JTabbedPane _tabbedPane = new JTabbedPane();
     
     // Todo: add appropiate tabs
     private final Screen[] TAB_SCREENS = {
@@ -25,28 +26,33 @@ public class MainMenuView extends View {
     
     // Build the GUI
     private void setUp() {
-        JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.setUI(new CustomTabbedPaneUI());
+        _tabbedPane.setUI(new CustomTabbedPaneUI());
         
         // Create tabs
         for (Screen screen : TAB_SCREENS) {
-            tabbedPane.addTab(screen.getTitle(), screen.getPanel());
+            _tabbedPane.addTab(screen.getTitle(), screen.getPanel());
         }
-        tabbedPane.addTab("Logout", null);
-        tabbedPane.addChangeListener(_ctrl.tabListener());
-        panel.add(tabbedPane);
+        _tabbedPane.addTab("Logout", null);
+        _tabbedPane.addChangeListener(_ctrl.tabListener());
+        panel.add(_tabbedPane);
     }
     
     @Override
     public void postInit() {
         super.postInit();
+        
+        int tabIndex = _ctrl.getCurrentTabIndex();
+        
         // Set the title to the first tab
-        ScreenManager.getInstance().updateTitle(TAB_SCREENS[0].getTitle());
+        ScreenManager.getInstance().updateTitle(TAB_SCREENS[tabIndex].getTitle());
         
         // Call the postInit method of all tabs
         for (Screen screen : TAB_SCREENS) {
             screen.postInit();
         }
+        
+        // Navigate to the correct tab
+        _tabbedPane.setSelectedIndex(tabIndex);
     }
     
     // Custom TabbedPaneUI that moves the Logout tab to the right

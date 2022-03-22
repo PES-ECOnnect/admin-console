@@ -22,9 +22,13 @@ public class ProductTypesView extends View {
         _list = new ItemList<>(ProductTypeItem.getHeaderNames());
         panel.add(_list);
         
+        panel.add(Box.createVerticalStrut(10));
+        
         JButton addButton = new JButton("Add new");
         addButton.addActionListener(_ctrl.addButton());
         panel.add(HorizontalBox.create(addButton));
+        
+        panel.add(Box.createVerticalStrut(10));
     }
     
     void addItem(ProductTypeItem item) {

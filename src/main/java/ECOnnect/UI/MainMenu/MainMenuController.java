@@ -11,19 +11,26 @@ public class MainMenuController implements Controller {
     private final MainMenuView _view = new MainMenuView(this);
     private final MainMenuModel _model = new MainMenuModel();
     
+    private static int _currentTabIndex = 0;
+    
     ChangeListener tabListener() {
         return (ChangeEvent changeEvent) -> {
             JTabbedPane sourceTabbedPane = (JTabbedPane) changeEvent.getSource();
-            int index = sourceTabbedPane.getSelectedIndex();
-            String title = sourceTabbedPane.getTitleAt(index);
+            _currentTabIndex = sourceTabbedPane.getSelectedIndex();
+            String title = sourceTabbedPane.getTitleAt(_currentTabIndex);
             
             ScreenManager.getInstance().updateTitle(title);
             // Special case for the logout tab
             if (title.equals("Logout")) {
+                _currentTabIndex = 0;
                 logout();
                 ScreenManager.getInstance().show(ScreenManager.LOGIN_SCREEN);
             }
         };
+    }
+    
+    int getCurrentTabIndex() {
+        return _currentTabIndex;
     }
     
     private void logout() {

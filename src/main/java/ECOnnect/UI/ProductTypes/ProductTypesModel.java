@@ -30,6 +30,17 @@ public class ProductTypesModel {
     }
     
     public void addProductType(String name, String[] questions) {
+        
+        name = name.trim();
+        
+        // Local validation
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty");
+        }
+        if (questions.length == 0) {
+            throw new IllegalArgumentException("Must have at least one question");
+        }
+        
         // Add product type to API
         ProductTypesService service = ServiceFactory.getInstance().getProductTypesService();
         service.createProductType(name, questions);
@@ -42,7 +53,7 @@ public class ProductTypesModel {
         _selectedIndex = index;
     }
     
-    ProductType getSelectedType() {
+    public ProductType getSelectedType() {
         if (_selectedIndex == -1) {
             throw new IllegalStateException("No product type selected");
         }

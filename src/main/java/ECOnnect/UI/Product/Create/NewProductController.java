@@ -1,8 +1,8 @@
-package ECOnnect.UI.NewProduct;
+package ECOnnect.UI.Product.Create;
 
 import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
-import ECOnnect.UI.Product.ProductController;
+import ECOnnect.UI.Product.ProductModel;
 import ECOnnect.UI.ScreenManager;
 
 import java.awt.event.ActionEvent;
@@ -10,37 +10,39 @@ import java.awt.event.ActionListener;
 
 public class NewProductController implements Controller {
     private NewProductView _view = new NewProductView(this);
-    private NewProductModel _model = new NewProductModel();
-    //ProductController _prodCtrl = new ProductController();
+    private ProductModel _model = new ProductModel();
 
     public View getView() {
         return _view;
     }
 
-    public ActionListener saveButton() {
+    ActionListener saveButton() {
         return (ActionEvent e) -> {
             String name = _view.getNameText();
             String manufacturer = _view.getManufacturerText();
             String imageUrl = _view.getImageUrlText();
-            String type = _view.getTypeText();
+            String type = getType();
 
             try{
-                _model.validate(name, manufacturer, imageUrl, type);
+                _model.addProduct(name, manufacturer, imageUrl, type);
             }
-            catch (Exception ex){
-                _view.displayError("There has been an error:\n"+ex.getMessage());
+            catch (Exception ex) {
+                _view.displayError("Could not create product:\n" + ex.getMessage());
                 return;
             }
-            // we should update ProductScreen
-            //_prodCtrl.addProduct(name,manufacturer);
+            
             ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
         };
     }
 
-    public ActionListener cancelButton() {
+    ActionListener cancelButton() {
         return (ActionEvent e) -> {
             ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
         };
     }
-
+    
+    String getType() {
+        return _model.getSelectedType();
+    }
+    
 }

@@ -1,6 +1,7 @@
 package ECOnnect.UI.ProductTypes.Create;
 
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.Controller;
@@ -15,8 +16,18 @@ public class CreateProductTypeController implements Controller {
     ActionListener okButton() {
         return (ActionEvent e) -> {
             String name = _view.getName();
-            String[] questions = _view.getQuestions();
-            _model.addProductType(name, questions);
+            String[] questions = splitQuestions(_view.getQuestions());
+            
+            // Add product type to backend
+            try {
+                _model.addProductType(name, questions);
+            }
+            catch (Exception ex) {
+                _view.displayWarning("Failed to add product type due to an error:\n" + ex.getMessage());
+                return;
+            }
+            
+            // Go back to product types screen
             ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
         };
     }
@@ -25,6 +36,18 @@ public class CreateProductTypeController implements Controller {
         return (ActionEvent e) -> {
             ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
         };
+    }
+    
+    
+    private String[] splitQuestions(String questions) {
+        // Split questions by new line, remove empty lines and trim whitespace
+        ArrayList<String> list = new ArrayList<>();
+        for (String s : questions.split("\n")) {
+            if (!s.isEmpty()) {
+                list.add(s.trim());
+            }
+        }
+        return list.toArray(new String[0]);
     }
     
     @Override

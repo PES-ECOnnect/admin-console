@@ -5,6 +5,7 @@ import java.awt.event.*;
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
 import ECOnnect.UI.ProductTypes.Create.CreateProductTypeScreen;
+import ECOnnect.UI.ProductTypes.Questions.ProductTypeQuestionsScreen;
 import ECOnnect.API.ProductTypesService.ProductType;
 
 public class ProductTypesController implements Controller {
@@ -16,19 +17,10 @@ public class ProductTypesController implements Controller {
             ScreenManager.getInstance().show(CreateProductTypeScreen.class);
         };
     }
-
-    ActionListener viewButton(){
-        return (ActionEvent e) -> {
-            // TODO: add to model
-            //view.viewInfo();
-            //ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
-        };
-    }
     
     ProductTypeItem[] getProductTypeItems() {
-                
-        // Get types from model
         
+        // Get types from model
         ProductType[] items = null;
         try {
             items = _model.getProductTypes();
@@ -50,11 +42,13 @@ public class ProductTypesController implements Controller {
     }
     
     public void viewQuestions(int index) {
-        System.out.println("View questions for type " + index);
+        _model.setSelectedType(index);
+        ScreenManager.getInstance().show(ProductTypeQuestionsScreen.class);
     }
     
     public void viewProducts(int index) {
-        System.out.println("View products for type " + index);
+        _model.setSelectedType(index);
+        ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
     }
 
     

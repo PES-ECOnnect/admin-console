@@ -38,4 +38,13 @@ public class ServiceFactory {
         }
         return _productTypesService;
     }
+    
+    // Products
+    private static ProductService _productService = null;
+    public ProductService getProductService() {
+        if (_productService == null) {
+            _productService = new ProductService();
+        }
+        return _productService;
+    }
 }

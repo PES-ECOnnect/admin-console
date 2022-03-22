@@ -24,7 +24,7 @@ public class CompanyItem extends ItemListElement {
         return _name;
     }
 
-    public static String[] getHeaderNames(){return new String[]{"name", "location","image URL", "select for delete"};}
+    public static String[] getHeaderNames(){return new String[]{"Name", "Location", "Image URL", "Select for delete"};}
 
     protected Component[] getRowComponents(){
         JTextField nameField = new JTextField(_name);

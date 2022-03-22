@@ -21,7 +21,7 @@ public class CreateProductTypeView extends View {
     
     private void setUp() {
         
-        panel.add(Box.createVerticalStrut(50));
+        panel.add(Box.createVerticalGlue());
         
         // Set title alignment to center and increase font size
         JLabel title = new JLabel("Create new Product Type");
@@ -36,25 +36,26 @@ public class CreateProductTypeView extends View {
         // Pressing enter will select the password field
         _nameTextField.addActionListener(e -> _questionsTextArea.requestFocus());
         
-        panel.add(Box.createVerticalStrut(20));
+        panel.add(Box.createVerticalStrut(10));
         
-        JLabel questionsLabel = new JLabel("List of questions (one on each line):");
+        JLabel questionsLabel = new JLabel("List of questions (separated by new line):");
         panel.add(HorizontalBox.create(questionsLabel));
         
         JScrollPane scrollPane = new JScrollPane(_questionsTextArea);
         scrollPane.setMaximumSize(new Dimension(500, 300));
+        scrollPane.setPreferredSize(new Dimension(500, 300));
         panel.add(scrollPane);
         
         
-        panel.add(Box.createVerticalStrut(50));
+        panel.add(Box.createVerticalStrut(20));
         
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton("Save");
         okButton.addActionListener(_ctrl.okButton());
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(_ctrl.cancelButton());
         panel.add(HorizontalBox.create(cancelButton, okButton));
         
-        panel.add(Box.createVerticalStrut(50));
+        panel.add(Box.createVerticalGlue());
         
     }
     
@@ -62,7 +63,7 @@ public class CreateProductTypeView extends View {
         return _nameTextField.getText();
     }
     
-    String[] getQuestions() {
-        return _questionsTextArea.getText().split("\n");
+    String getQuestions() {
+        return _questionsTextArea.getText();
     }
 }

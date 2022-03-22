@@ -2,7 +2,7 @@ package ECOnnect.UI.Product;
 
 import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
-import ECOnnect.UI.ProductTypes.ProductTypeItem;
+import ECOnnect.API.ProductService.Product;
 import ECOnnect.UI.ScreenManager;
 
 import java.awt.event.ActionEvent;
@@ -14,23 +14,42 @@ public class ProductController implements Controller {
 
     ActionListener addButton() {
         return (ActionEvent e) -> {
-            // TODO: add to model
-            //view.addItem(new ProductItem("New Product", "Someone"));
-
             ScreenManager.getInstance().show(ScreenManager.NEW_PRODUCT_SCREEN);
         };
     }
-
+    
     ActionListener backButton(){
         return (ActionEvent e) -> {
             ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
         };
     }
-/*
-    public void addProduct(String name, String manufacturer){
-        view.addItem(new ProductItem(name, manufacturer));
+    
+    
+    ProductItem[] getProductItems() {
+        String productType = _model.getSelectedType();
+        
+        // Get products from model
+        Product[] products = null;
+        try {
+            products = _model.getProducts(productType);
+        }
+        catch (Exception e) {
+            _view.displayError("Could not fetch products: " + e.getMessage());
+            return new ProductItem[0];
+        }
+        
+        // Convert to product items
+        ProductItem[] productItems = new ProductItem[products.length];
+        
+        for (int i = 0; i < products.length; ++i) {
+            Product p = products[i];
+            productItems[i] = new ProductItem(p.getName(), p.getManufacturer(), p.getImageUrl(), p.getType());
+        }
+        
+        return productItems;
     }
-*/
+    
+    
     public View getView(){
         return _view;
     }

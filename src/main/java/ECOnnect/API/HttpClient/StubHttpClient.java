@@ -70,6 +70,29 @@ public class StubHttpClient implements HttpClient {
                     return "{\"types\":[{\"name\":\"type1\",\"questions\":[\"q1\",\"q2\",\"q3\"]},{\"name\":\"type2\",\"questions\":[\"q4\",\"q5\",\"q6\"]}]}";
                 }
                 
+            // Get list of products
+            case "/products":
+                expectParams(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                }
+                else if (params.containsKey("type")) {
+                    // For each product of this type, return the id, name, avgRating, imageUrl, manufacturer and type
+                    if (equals(params, "type", "type1")) {
+                        return "{\"products\":[{\"id\":1,\"name\":\"product1\",\"avgRating\":1.0,\"imageUrl\":\"imageUrl1\",\"manufacturer\":\"manufacturer1\",\"type\":\"type1\"},{\"id\":2,\"name\":\"product2\",\"avgRating\":2.0,\"imageUrl\":\"imageUrl2\",\"manufacturer\":\"manufacturer2\",\"type\":\"type1\"}]}";
+                    }
+                    else if (equals(params, "type", "type2")) {
+                        return "{\"products\":[{\"id\":3,\"name\":\"product3\",\"avgRating\":3.0,\"imageUrl\":\"imageUrl3\",\"manufacturer\":\"manufacturer3\",\"type\":\"type2\"},{\"id\":4,\"name\":\"product4\",\"avgRating\":4.0,\"imageUrl\":\"imageUrl4\",\"manufacturer\":\"manufacturer4\",\"type\":\"type2\"}]}";
+                    }
+                    else {
+                        return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
+                    }
+                }
+                else {
+                    // For each product, return the id, name, avgRating, imageUrl, manufacturer and type
+                    return "{\"products\":[{\"id\":1,\"name\":\"product1\",\"avgRating\":1.0,\"imageUrl\":\"imageUrl1\",\"manufacturer\":\"manufacturer1\",\"type\":\"type1\"},{\"id\":2,\"name\":\"product2\",\"avgRating\":2.0,\"imageUrl\":\"imageUrl2\",\"manufacturer\":\"manufacturer2\",\"type\":\"type1\"},{\"id\":3,\"name\":\"product3\",\"avgRating\":3.0,\"imageUrl\":\"imageUrl3\",\"manufacturer\":\"manufacturer3\",\"type\":\"type2\"},{\"id\":4,\"name\":\"product4\",\"avgRating\":4.0,\"imageUrl\":\"imageUrl4\",\"manufacturer\":\"manufacturer4\",\"type\":\"type2\"}]}";
+                }
+                
             default:
                 throw new RuntimeException("Invalid path: " + path);
         }
@@ -96,6 +119,22 @@ public class StubHttpClient implements HttpClient {
                 }
                 else if (equals(params, "name", "emptyType") && !equals(params, "questions", "[]")) {
                     return "{\"error\":\"incorrect amount of questions\"}";
+                }
+                else {
+                    return "{}";
+                }
+                
+            // Create a new product
+            case "/products":
+                expectParamsExclusive(params, "token", "name", "manufacturer", "imageUrl", "type");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                }
+                else if (equals(params, "name", "existingProduct")) {
+                    return "{\"error\":\"ERROR_PRODUCT_EXISTS\"}";
+                }
+                else if (!equals(params, "type", "type1") && !equals(params, "type", "type2")) {
+                    return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
                 }
                 else {
                     return "{}";

@@ -21,7 +21,7 @@ public class ProductItem extends ItemListElement {
         super.init();
     }
 
-    public static String[] getHeaderNames(){return new String[] {"Name", "Manufacturer", "image URL", "type","Select for delete"};}
+    public static String[] getHeaderNames(){return new String[] {"Name", "Manufacturer", "Image URL", "Type", "Select for delete"};}
 
     protected Component[] getRowComponents() {
         JTextField nameField = new JTextField(_name);

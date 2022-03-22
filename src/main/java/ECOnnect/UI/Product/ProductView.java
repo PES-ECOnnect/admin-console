@@ -21,20 +21,31 @@ public class ProductView extends View {
         _list = new ItemList<>(ProductItem.getHeaderNames());
         panel.add(_list);
 
+        panel.add(Box.createVerticalStrut(10));
+        
         JButton addButton = new JButton("Add new");
         addButton.addActionListener(_ctrl.addButton());
         panel.add(HorizontalBox.create(addButton));
 
+        panel.add(Box.createVerticalStrut(10));
+        
         JButton backButton = new JButton("Go back");
         backButton.addActionListener(_ctrl.backButton());
         panel.add(HorizontalBox.create(backButton));
 
-        // TODO: get data from model
-        _list.add(new ProductItem("Product 1", "Manufacturer x", "path/image.png", "type 1"));
+        panel.add(Box.createVerticalStrut(10));
     }
 
     public void addItem(ProductItem item) {
         _list.add(item);
+        _list.redraw();
+    }
+    
+    @Override
+    public void postInit() {
+        for (ProductItem item : _ctrl.getProductItems()) {
+            _list.add(item);
+        }        
         _list.redraw();
     }
 

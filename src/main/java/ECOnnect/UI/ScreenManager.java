@@ -9,8 +9,8 @@ import ECOnnect.UI.Interfaces.Screen;
 import ECOnnect.UI.Login.LoginScreen;
 import ECOnnect.UI.MainMenu.MainMenuScreen;
 import ECOnnect.UI.NewCompany.NewCompanyScreen;
-import ECOnnect.UI.NewProduct.NewProductScreen;
 import ECOnnect.UI.Product.ProductScreen;
+import ECOnnect.UI.Product.Create.NewProductScreen;
 
 import java.awt.*;
 import java.lang.reflect.Modifier;

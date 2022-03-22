@@ -28,14 +28,16 @@ public class NewCompanyController implements Controller {
                 _view.displayError("There has been an error:\n"+ex.getMessage());
                 return;
             }
-            // we should update CompanyScreen
-            ScreenManager.getInstance().show(ScreenManager.COMPANY_SCREEN);
+            
+            // TODO we should update CompanyScreen
+            
+            ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
         };
     }
 
     public ActionListener cancelButton() {
         return (ActionEvent e) -> {
-            ScreenManager.getInstance().show(ScreenManager.COMPANY_SCREEN);
+            ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
         };
     }
 }

@@ -1,4 +1,4 @@
-package ECOnnect.UI.NewProduct;
+package ECOnnect.UI.Product.Create;
 
 import ECOnnect.UI.Interfaces.Screen;
 

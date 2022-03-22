@@ -10,20 +10,21 @@ public class ProductTypesService extends Service {
     ProductTypesService() {}
     
     public class ProductType {
-        private final String _name;
-        private final String[] _questions;
+        // Important: The name of these attributes must match the ones in the returned JSON
+        private String name;
+        private String[] questions;
         
         public ProductType(String name, String[] questions) {
-            this._name = name;
-            this._questions = questions;
+            this.name = name;
+            this.questions = questions;
         }
         
         public String getName() {
-            return _name;
+            return name;
         }
         
         public String[] getQuestions() {
-            return _questions;
+            return questions;
         }
     }
     

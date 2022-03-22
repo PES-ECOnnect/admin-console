@@ -1,4 +1,4 @@
-package ECOnnect.UI.NewProduct;
+package ECOnnect.UI.Product.Create;
 
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Utilities.HorizontalBox;
@@ -12,7 +12,7 @@ public class NewProductView extends View {
     private final JTextField _nameTxt = new JTextField(20);
     private final JTextField _manufacturerTxt = new JTextField(20);
     private final JTextField _imageUrlTxt = new JTextField(20);
-    private final JTextField _typeTxt = new JTextField(20);
+    private final JLabel _title = new JLabel("Create new Product");
 
     // Coponents
 
@@ -22,45 +22,52 @@ public class NewProductView extends View {
     }
 
     private void setUp() {
-        // weird spaces in labels are for better UI aesthetic
         panel.add(Box.createVerticalGlue());
+        
+        // Set title alignment to center and increase font size
+        _title.setHorizontalAlignment(JLabel.CENTER);
+        _title.setFont(_title.getFont().deriveFont(24.0f));
+        panel.add(HorizontalBox.create(_title));
+        
+        panel.add(Box.createVerticalStrut(50));
 
         _nameTxt.setMaximumSize(new Dimension(100,30));
-        panel.add(HorizontalBox.create(new JLabel("Product name: "), _nameTxt));
-
-        panel.add(Box.createVerticalStrut(10));
-
-        _typeTxt.setMaximumSize(new Dimension(100,30));
-        panel.add(HorizontalBox.create(new JLabel("Product type:  "), _typeTxt));
+        JLabel nameLbl = new JLabel("Product name:");
+        nameLbl.setPreferredSize(new Dimension(100,30));
+        panel.add(HorizontalBox.create(nameLbl, _nameTxt));
 
         panel.add(Box.createVerticalStrut(10));
 
         _manufacturerTxt.setMaximumSize(new Dimension(100, 30));
-        panel.add(HorizontalBox.create(new JLabel("Manufacturer: "), _manufacturerTxt));
+        JLabel manufacturerLbl = new JLabel("Manufacturer:");
+        manufacturerLbl.setPreferredSize(new Dimension(100, 30));
+        panel.add(HorizontalBox.create(manufacturerLbl, _manufacturerTxt));
 
         panel.add(Box.createVerticalStrut(10));
 
         _imageUrlTxt.setMaximumSize(new Dimension(100,30));
-        panel.add(HorizontalBox.create(new JLabel("Image Url:        "), _imageUrlTxt));
+        JLabel imageUrlLbl = new JLabel("Image URL:");
+        imageUrlLbl.setPreferredSize(new Dimension(100,30));
+        panel.add(HorizontalBox.create(imageUrlLbl, _imageUrlTxt));
 
         panel.add(Box.createVerticalStrut(10));
 
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(_ctrl.saveButton());
-        panel.add(HorizontalBox.create(saveButton));
-
-        panel.add(Box.createVerticalStrut(10));
-
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(_ctrl.cancelButton());
-        panel.add(HorizontalBox.create(cancelButton));
+        panel.add(HorizontalBox.create(cancelButton, saveButton));
 
         panel.add(Box.createVerticalGlue());
+    }
+    
+    @Override
+    public void postInit() {
+        _title.setText("Create new Product of type '" + _ctrl.getType() + "'");
     }
 
     public String getNameText(){return _nameTxt.getText();}
     public String getManufacturerText(){return _manufacturerTxt.getText();}
     public String getImageUrlText(){return _imageUrlTxt.getText();}
-    public String getTypeText(){return _typeTxt.getText();}
 
 }

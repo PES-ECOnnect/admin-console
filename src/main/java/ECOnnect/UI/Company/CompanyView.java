@@ -24,9 +24,13 @@ public class CompanyView extends View {
         _list.add(new CompanyItem("Company 1", "location 1", "/path/image.png"));
         _list.add(new CompanyItem("Company 2", "location2", "/path/image2.png"));
 
+        panel.add(Box.createVerticalStrut(10));
+        
         JButton addButton = new JButton("Add new Company");
         addButton.addActionListener(_ctrl.addButton());
         panel.add(HorizontalBox.create(addButton));
+        
+        panel.add(Box.createVerticalStrut(10));
 
         // TODO: get data from model
     }
