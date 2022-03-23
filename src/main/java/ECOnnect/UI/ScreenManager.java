@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import ECOnnect.UI.Company.CompanyScreen;
+import ECOnnect.UI.Company.Create.NewCompanyScreen;
 import ECOnnect.UI.Interfaces.Screen;
 import ECOnnect.UI.Login.LoginScreen;
 import ECOnnect.UI.MainMenu.MainMenuScreen;
-import ECOnnect.UI.NewCompany.NewCompanyScreen;
 import ECOnnect.UI.Product.ProductScreen;
 import ECOnnect.UI.Product.Create.NewProductScreen;
 

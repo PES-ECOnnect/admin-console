@@ -13,6 +13,7 @@ public class ProductService extends Service {
         // Important: The name of these attributes must match the ones in the returned JSON
         private int id;
         private String name;
+        private float avgRating;
         private String manufacturer;
         private String imageUrl;
         private String type;
@@ -30,6 +31,9 @@ public class ProductService extends Service {
         }
         public String getName() {
             return name;
+        }
+        public float getAvgRating() {
+            return avgRating;
         }
         public String getManufacturer() {
             return manufacturer;

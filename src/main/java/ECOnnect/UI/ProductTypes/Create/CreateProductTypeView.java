@@ -31,8 +31,10 @@ public class CreateProductTypeView extends View {
         
         panel.add(Box.createVerticalStrut(50));
         
+        JLabel nameLbl = new JLabel("Name of the new type:");
+        nameLbl.setPreferredSize(new Dimension(170, 30));
         _nameTextField.setMaximumSize(new Dimension(150, 30));
-        panel.add(HorizontalBox.create(new JLabel("Name of the new type: "), _nameTextField));
+        panel.add(HorizontalBox.create(nameLbl, _nameTextField));
         // Pressing enter will select the password field
         _nameTextField.addActionListener(e -> _questionsTextArea.requestFocus());
         

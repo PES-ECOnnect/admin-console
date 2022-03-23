@@ -1,15 +1,16 @@
-package ECOnnect.UI.NewCompany;
+package ECOnnect.UI.Company.Create;
 
 import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.ScreenManager;
+import ECOnnect.UI.Company.CompanyModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NewCompanyController implements Controller {
     private final NewCompanyView _view = new NewCompanyView(this);
-    private final NewCompanyModel _model = new NewCompanyModel();
+    private final CompanyModel _model = new CompanyModel();
 
     public View getView(){
         return _view;
@@ -18,18 +19,15 @@ public class NewCompanyController implements Controller {
     public ActionListener saveButton(){
         return (ActionEvent e) -> {
             String name = _view.getNameText();
-            String location = _view.getLocationText();
-            String image = _view.getImageTxt();
+            String image = _view.getImageTxt();            
             
             try {
-                _model.validate(name, location, image);
+                _model.addCompany(name, image, _view.getLatitudeText(), _view.getLongitudeText());
             }
             catch (Exception ex) {
-                _view.displayError("There has been an error:\n"+ex.getMessage());
+                _view.displayError("Could not create company:\n" + ex.getMessage());
                 return;
             }
-            
-            // TODO we should update CompanyScreen
             
             ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
         };

@@ -13,6 +13,8 @@ public class LoginView extends View {
     private final JPasswordField _passwordText = new JPasswordField(20);
     private final JButton _loginButton = new JButton("Login");
     
+    private final Dimension _dim = new Dimension(80, 30);
+    
     LoginView(LoginController ctrl) {
         this._ctrl = ctrl;
         setUp();
@@ -22,15 +24,26 @@ public class LoginView extends View {
     private void setUp() {
         panel.add(Box.createVerticalGlue());
         
-        _usernameText.setMaximumSize(new Dimension(100, 30));
-        panel.add(HorizontalBox.create(new JLabel("Username: "), _usernameText));
+        // Set title alignment to center and increase font size
+        JLabel _title = new JLabel("Admin Login", JLabel.CENTER);
+        _title.setFont(_title.getFont().deriveFont(24.0f));
+        panel.add(HorizontalBox.create(_title));
+        
+        panel.add(Box.createVerticalStrut(50));
+        
+        JLabel usernameLbl = new JLabel("Username:", JLabel.RIGHT);
+        usernameLbl.setPreferredSize(_dim);
+        _usernameText.setMaximumSize(_dim);
+        panel.add(HorizontalBox.create(usernameLbl, _usernameText));
         // Pressing enter will select the password field
         _usernameText.addActionListener(e -> _passwordText.requestFocus());
         
         panel.add(Box.createVerticalStrut(10));
-                
-        _passwordText.setMaximumSize(new Dimension(100, 30));
-        panel.add(HorizontalBox.create(new JLabel("Password: "), _passwordText));
+        
+        JLabel passwordLbl = new JLabel("Password:", JLabel.RIGHT);
+        passwordLbl.setPreferredSize(_dim);
+        _passwordText.setMaximumSize(_dim);
+        panel.add(HorizontalBox.create(passwordLbl, _passwordText));
         // Pressing enter will trigger the login button
         _passwordText.addActionListener(_ctrl.loginButton());
         

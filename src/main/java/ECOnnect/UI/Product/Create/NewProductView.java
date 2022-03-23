@@ -12,7 +12,9 @@ public class NewProductView extends View {
     private final JTextField _nameTxt = new JTextField(20);
     private final JTextField _manufacturerTxt = new JTextField(20);
     private final JTextField _imageUrlTxt = new JTextField(20);
-    private final JLabel _title = new JLabel("Create new Product");
+    private final JLabel _title = new JLabel("", JLabel.CENTER);
+    
+    private final Dimension _dim = new Dimension(110, 30);
 
     // Coponents
 
@@ -24,30 +26,33 @@ public class NewProductView extends View {
     private void setUp() {
         panel.add(Box.createVerticalGlue());
         
-        // Set title alignment to center and increase font size
-        _title.setHorizontalAlignment(JLabel.CENTER);
+        // Increase title font size
         _title.setFont(_title.getFont().deriveFont(24.0f));
         panel.add(HorizontalBox.create(_title));
         
         panel.add(Box.createVerticalStrut(50));
 
-        _nameTxt.setMaximumSize(new Dimension(100,30));
-        JLabel nameLbl = new JLabel("Product name:");
-        nameLbl.setPreferredSize(new Dimension(100,30));
+        JLabel nameLbl = new JLabel("Product name:", JLabel.RIGHT);
+        nameLbl.setPreferredSize(_dim);
+        _nameTxt.setMaximumSize(_dim);
         panel.add(HorizontalBox.create(nameLbl, _nameTxt));
+        // Pressing enter will select the next text field
+        _nameTxt.addActionListener(e -> _manufacturerTxt.requestFocus());
 
         panel.add(Box.createVerticalStrut(10));
 
-        _manufacturerTxt.setMaximumSize(new Dimension(100, 30));
-        JLabel manufacturerLbl = new JLabel("Manufacturer:");
-        manufacturerLbl.setPreferredSize(new Dimension(100, 30));
+        JLabel manufacturerLbl = new JLabel("Manufacturer:", JLabel.RIGHT);
+        manufacturerLbl.setPreferredSize(_dim);
+        _manufacturerTxt.setMaximumSize(_dim);
         panel.add(HorizontalBox.create(manufacturerLbl, _manufacturerTxt));
+        // Pressing enter will select the next text field
+        _manufacturerTxt.addActionListener(e -> _imageUrlTxt.requestFocus());
 
         panel.add(Box.createVerticalStrut(10));
 
-        _imageUrlTxt.setMaximumSize(new Dimension(100,30));
-        JLabel imageUrlLbl = new JLabel("Image URL:");
-        imageUrlLbl.setPreferredSize(new Dimension(100,30));
+        JLabel imageUrlLbl = new JLabel("Image URL:", JLabel.RIGHT);
+        imageUrlLbl.setPreferredSize(_dim);
+        _imageUrlTxt.setMaximumSize(_dim);
         panel.add(HorizontalBox.create(imageUrlLbl, _imageUrlTxt));
 
         panel.add(Box.createVerticalStrut(10));

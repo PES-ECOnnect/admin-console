@@ -47,4 +47,13 @@ public class ServiceFactory {
         }
         return _productService;
     }
+    
+    // Companies
+    private static CompanyService _companyService = null;
+    public CompanyService getCompanyService() {
+        if (_companyService == null) {
+            _companyService = new CompanyService();
+        }
+        return _companyService;
+    }
 }

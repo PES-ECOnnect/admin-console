@@ -93,6 +93,17 @@ public class StubHttpClient implements HttpClient {
                     return "{\"products\":[{\"id\":1,\"name\":\"product1\",\"avgRating\":1.0,\"imageUrl\":\"imageUrl1\",\"manufacturer\":\"manufacturer1\",\"type\":\"type1\"},{\"id\":2,\"name\":\"product2\",\"avgRating\":2.0,\"imageUrl\":\"imageUrl2\",\"manufacturer\":\"manufacturer2\",\"type\":\"type1\"},{\"id\":3,\"name\":\"product3\",\"avgRating\":3.0,\"imageUrl\":\"imageUrl3\",\"manufacturer\":\"manufacturer3\",\"type\":\"type2\"},{\"id\":4,\"name\":\"product4\",\"avgRating\":4.0,\"imageUrl\":\"imageUrl4\",\"manufacturer\":\"manufacturer4\",\"type\":\"type2\"}]}";
                 }
                 
+            // Get list of companies
+            case "/companies":
+                expectParams(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                }
+                else {
+                    // For each company, return the id, name, avgRating, imageUrl, lat and lon
+                    return "{\"companies\":[{\"id\":1,\"name\":\"company1\",\"avgRating\":1.0,\"imageUrl\":\"imageUrl1\",\"lat\":1.0,\"lon\":1.0},{\"id\":2,\"name\":\"company2\",\"avgRating\":2.0,\"imageUrl\":\"imageUrl2\",\"lat\":2.0,\"lon\":2.0}]}";
+                }
+                
             default:
                 throw new RuntimeException("Invalid path: " + path);
         }
@@ -135,6 +146,19 @@ public class StubHttpClient implements HttpClient {
                 }
                 else if (!equals(params, "type", "type1") && !equals(params, "type", "type2")) {
                     return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
+                }
+                else {
+                    return "{}";
+                }
+                
+            // Create a new company
+            case "/companies":
+                expectParamsExclusive(params, "token", "name", "imageUrl", "lat", "lon");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                }
+                else if (equals(params, "name", "existingCompany")) {
+                    return "{\"error\":\"ERROR_COMPANY_EXISTS\"}";
                 }
                 else {
                     return "{}";

@@ -21,24 +21,27 @@ public class CompanyView extends View {
         _list = new ItemList<CompanyItem>(CompanyItem.getHeaderNames());
         panel.add(_list);
 
-        _list.add(new CompanyItem("Company 1", "location 1", "/path/image.png"));
-        _list.add(new CompanyItem("Company 2", "location2", "/path/image2.png"));
-
         panel.add(Box.createVerticalStrut(10));
         
+        JButton questionsButton = new JButton("Set Company Questions");
+        questionsButton.addActionListener(_ctrl.questionsButton());
         JButton addButton = new JButton("Add new Company");
         addButton.addActionListener(_ctrl.addButton());
-        panel.add(HorizontalBox.create(addButton));
+        panel.add(HorizontalBox.create(questionsButton, addButton));
         
         panel.add(Box.createVerticalStrut(10));
-
-        // TODO: get data from model
     }
 
     void addItem(CompanyItem item){
         _list.add(item);
-        System.out.println("Added item. " + _list.length());
         _list.redraw();
     }
-
+    
+    @Override
+    public void postInit() {
+        for (CompanyItem item : _ctrl.getCompanyItems()) {
+            _list.add(item);
+        }        
+        _list.redraw();
+    }
 }

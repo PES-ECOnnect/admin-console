@@ -9,12 +9,14 @@ public class CompanyItem extends ItemListElement {
     private final String _name;
     private final String _location;
     private final String _imageUrl;
+    private final String _avgRating;
     private final JCheckBox _deleteCheckbox = new JCheckBox();
 
-    public CompanyItem(String name, String location, String imageUrl){
+    public CompanyItem(String name, String imageUrl, float avgRating, double lat, double lon) {
         this._name = name;
-        this._location = location;
+        this._location = lat + ", " + lon;
         this._imageUrl = imageUrl;
+        this._avgRating = Double.toString(avgRating);
 
         super.init();
     }
@@ -24,7 +26,7 @@ public class CompanyItem extends ItemListElement {
         return _name;
     }
 
-    public static String[] getHeaderNames(){return new String[]{"Name", "Location", "Image URL", "Select for delete"};}
+    public static String[] getHeaderNames(){return new String[]{"Name", "Location", "Image URL", "Avg. Rating", "Select for delete"};}
 
     protected Component[] getRowComponents(){
         JTextField nameField = new JTextField(_name);
@@ -33,11 +35,14 @@ public class CompanyItem extends ItemListElement {
         locationField.setEditable(false);
         JTextField imageUrlField = new JTextField(_imageUrl);
         imageUrlField.setEditable(false);
+        JTextField avgRatingField = new JTextField(_avgRating);
+        avgRatingField.setEditable(false);
 
         return new Component[] {
             nameField,
             locationField,
             imageUrlField,
+            avgRatingField,
             _deleteCheckbox
         };
     }

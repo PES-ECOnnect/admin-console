@@ -1,4 +1,4 @@
-package ECOnnect.UI.NewCompany;
+package ECOnnect.UI.Company.Create;
 
 import ECOnnect.UI.Interfaces.Screen;
 

@@ -11,7 +11,7 @@ public class ProductTypeQuestionsView extends View {
     private final ProductTypeQuestionsController _ctrl;
     
     private final JTextArea _questionsTextArea = new JTextArea();
-    private final JLabel _title = new JLabel();
+    private final JLabel _title = new JLabel("", JLabel.CENTER);
     
     ProductTypeQuestionsView(ProductTypeQuestionsController ctrl) {
         this._ctrl = ctrl;
@@ -23,8 +23,7 @@ public class ProductTypeQuestionsView extends View {
         
         panel.add(Box.createVerticalGlue());
         
-        // Set title alignment to center and increase font size
-        _title.setHorizontalAlignment(JLabel.CENTER);
+        // Increase title font size
         _title.setFont(_title.getFont().deriveFont(24.0f));
         panel.add(HorizontalBox.create(_title));
         

@@ -10,6 +10,7 @@ public interface ApiConstants {
     public final String IS_ADMIN_PATH = "/account/isadmin";
     public final String TYPES_PATH = "/products/types";
     public final String PRODUCTS_PATH = "/products";
+    public final String COMPANIES_PATH = "/companies";
     
     
     // PARAMETERS
@@ -31,6 +32,11 @@ public interface ApiConstants {
     public final String PRODUCT_IMAGE_URL = "imageUrl";
     public final String PRODUCT_TYPE = "type";
     
+    // Get/create companies
+    public final String COMPANY_NAME = "name";
+    public final String COMPANY_IMAGE_URL = "imageUrl";
+    public final String COMPANY_LOCATION_LAT = "lat";
+    public final String COMPANY_LOCATION_LON = "lon";
     
     
     // RETURN VALUES
@@ -46,6 +52,9 @@ public interface ApiConstants {
     
     // Get products
     public final String RET_PRODUCTS = "products"; 
+    
+    // Get companies
+    public final String RET_COMPANIES = "companies";
     
     
     // ERRORS
@@ -64,5 +73,8 @@ public interface ApiConstants {
     // Get/create products
     public final String ERROR_TYPE_NOT_EXISTS = "ERROR_TYPE_NOT_EXISTS";
     public final String ERROR_PRODUCT_EXISTS = "ERROR_PRODUCT_EXISTS";
+    
+    // Get/create companies
+    public final String ERROR_COMPANY_EXISTS = "ERROR_COMPANY_EXISTS";
     
 }

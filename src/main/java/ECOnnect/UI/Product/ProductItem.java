@@ -10,18 +10,20 @@ public class ProductItem extends ItemListElement {
     private final String _manufacturer;
     private final String _imageUrl;
     private final String _type;
+    private final String _avgRating;
     private final JCheckBox _deleteCheckBox = new JCheckBox();
 
-    public ProductItem(String name, String manufacturer, String imageUrl, String type) {
+    public ProductItem(String name, String manufacturer, String imageUrl, float avgRating, String type) {
         this._name = name;
         this._manufacturer = manufacturer;
         this._imageUrl = imageUrl;
         this._type = type;
-
+        this._avgRating = Double.toString(avgRating);
+        
         super.init();
     }
 
-    public static String[] getHeaderNames(){return new String[] {"Name", "Manufacturer", "Image URL", "Type", "Select for delete"};}
+    public static String[] getHeaderNames(){return new String[] {"Name", "Manufacturer", "Image URL", "Avg. Rating", "Type", "Select for delete"};}
 
     protected Component[] getRowComponents() {
         JTextField nameField = new JTextField(_name);
@@ -32,11 +34,14 @@ public class ProductItem extends ItemListElement {
         imageUrlField.setEditable(false);
         JTextField typeField = new JTextField(_type);
         typeField.setEditable(false);
+        JTextField avgRatingField = new JTextField(_avgRating);
+        avgRatingField.setEditable(false);
 
         return new Component[]{
             nameField,
             manufacturerField,
             imageUrlField,
+            avgRatingField,
             typeField,
             _deleteCheckBox
         };

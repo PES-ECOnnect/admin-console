@@ -23,7 +23,7 @@ public class ProductView extends View {
 
         panel.add(Box.createVerticalStrut(10));
         
-        JButton addButton = new JButton("Add new");
+        JButton addButton = new JButton("Add new product");
         addButton.addActionListener(_ctrl.addButton());
         panel.add(HorizontalBox.create(addButton));
 
