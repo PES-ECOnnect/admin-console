@@ -13,6 +13,7 @@ import ECOnnect.UI.Product.ProductScreen;
 import ECOnnect.UI.Product.Create.NewProductScreen;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.lang.reflect.Modifier;
 
 public class ScreenManager {
@@ -87,6 +88,15 @@ public class ScreenManager {
     
     public Dimension getWindowSize() {
         return _frame.getBounds().getSize();
+    }
+    
+    public void addClosingListener(Runnable listener) {
+        _frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                listener.run();
+            }
+        });
     }
     
     

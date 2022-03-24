@@ -20,4 +20,9 @@ public class LoginModel {
         
         return true;
     }
+    
+    public void logout() {
+        LoginService logoutSv = ServiceFactory.getInstance().getLoginService();
+        logoutSv.logout();
+    }
 }

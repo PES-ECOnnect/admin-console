@@ -13,7 +13,6 @@ public class MainMenuView extends View {
     private final MainMenuController _ctrl;
     private final JTabbedPane _tabbedPane = new JTabbedPane();
     
-    // Todo: add appropiate tabs
     private final Screen[] TAB_SCREENS = {
         new ProductTypesScreen(),
         new CompanyScreen()

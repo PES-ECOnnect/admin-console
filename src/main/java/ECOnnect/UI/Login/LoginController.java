@@ -11,6 +11,18 @@ public class LoginController implements Controller {
     private final LoginView _view = new LoginView(this);
     private final LoginModel _model = new LoginModel();
     
+    public LoginController() {
+        // Add hook for doing logout on window close
+        ScreenManager.getInstance().addClosingListener(() -> {
+            try {
+                _model.logout();
+            }
+            catch (Exception e) {
+                // May fail if the user was not logged in
+            }
+        });
+    }
+    
     public ActionListener loginButton() {
         return (ActionEvent e) -> {
             String email = _view.getUsernameText();
