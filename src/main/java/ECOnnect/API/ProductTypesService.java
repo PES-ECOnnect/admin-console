@@ -66,9 +66,11 @@ public class ProductTypesService extends Service {
             }
         }
         
-        if (result.size() != 0) {
-            // This should never happen, the API should always return an error or an empty object
-            throwInvalidResponseError(result);
+        // Parse result
+        String status = result.getAttribute(ApiConstants.RET_STATUS);
+        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
+            // This should never happen, the API should always return an array or an error
+            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
         }
     }
 }

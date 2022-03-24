@@ -44,6 +44,14 @@ public class CompanyModel {
             throw new IllegalArgumentException("Latitude and longitude must be valid numbers");
         }
         
+        // Check for NaN and infinities
+        if (Double.isNaN(lat) || Double.isInfinite(lat)) {
+            throw new IllegalArgumentException("Latitude must be a number");
+        }
+        if (Double.isNaN(lon) || Double.isInfinite(lon)) {
+            throw new IllegalArgumentException("Longitude must be a number");
+        }
+        
         if (lat < -90 || lat > 90) {
             throw new IllegalArgumentException("Latitude must be between -90 and 90");
         }

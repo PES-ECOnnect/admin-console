@@ -21,10 +21,10 @@ public class ServiceFactory {
     
     
     // Admin Login
-    private static AdminLoginService _adminLoginService = null;
-    public AdminLoginService getAdminLoginService() {
+    private static LoginService _adminLoginService = null;
+    public LoginService getLoginService() {
         if (_adminLoginService == null) {
-            _adminLoginService = new AdminLoginService();
+            _adminLoginService = new LoginService();
         }
         return _adminLoginService;
     }

@@ -4,10 +4,10 @@ import java.util.TreeMap;
 
 import ECOnnect.API.Exceptions.ApiException;
 
-public class AdminLoginService extends Service {
+public class LoginService extends Service {
     
     // Only allow instantiating from ServiceFactory
-    AdminLoginService() {}
+    LoginService() {}
     
     // Sets the user token, throws an exception if an error occurs or the user is not admin
     public void login(String email, String password) {
@@ -73,7 +73,7 @@ public class AdminLoginService extends Service {
     }
     
     // Invalidates the user token, throws an exception if an error occurs
-    public void logout() {       
+    public void logout() {
         try {
             // Call API to invalidate in server (no parameters needed)
             super.needsToken = true;

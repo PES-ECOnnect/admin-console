@@ -8,11 +8,11 @@ import ECOnnect.API.HttpClient.StubHttpClient;
 import static org.junit.Assert.*;
 
 public class LoginServiceTest {
-    AdminLoginService sv;
+    LoginService sv;
     
     @Before
     public void setUp() {
-        sv = ServiceFactory.getInstance().getAdminLoginService();
+        sv = ServiceFactory.getInstance().getLoginService();
         ServiceTestHelper.injectHttpClient(new StubHttpClient());
         ServiceTestHelper.clearToken();
     }
@@ -94,7 +94,7 @@ public class LoginServiceTest {
         expectException(() ->
             sv.logout(),
             // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_USER_TOKEN"
+            "The server responded with error code ERROR_INVALID_TOKEN"
         );
     }
     

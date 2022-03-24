@@ -1,6 +1,6 @@
 package ECOnnect.UI.Login;
 
-import ECOnnect.API.AdminLoginService;
+import ECOnnect.API.LoginService;
 import ECOnnect.API.ServiceFactory;
 
 public class LoginModel {
@@ -15,7 +15,7 @@ public class LoginModel {
             throw new IllegalArgumentException("Password cannot be empty");
         }
         
-        AdminLoginService loginSv = ServiceFactory.getInstance().getAdminLoginService();
+        LoginService loginSv = ServiceFactory.getInstance().getLoginService();
         loginSv.login(email, password);
         
         return true;

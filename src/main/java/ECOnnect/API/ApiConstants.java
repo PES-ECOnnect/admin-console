@@ -43,25 +43,27 @@ public interface ApiConstants {
     
     // General
     public final String RET_TOKEN = "token";
+    public final String RET_STATUS = "status";
+    public final String STATUS_OK = "success";
+    public final String RET_ERROR = "error";
     
     // Is admin
     public final String RET_ISADMIN = "result";
     
     // Get product types
-    public final String RET_PRODUCT_TYPES = "types";
+    public final String RET_PRODUCT_TYPES = "result";
     
     // Get products
-    public final String RET_PRODUCTS = "products"; 
+    public final String RET_PRODUCTS = "result"; 
     
     // Get companies
-    public final String RET_COMPANIES = "companies";
+    public final String RET_COMPANIES = "result";
     
     
     // ERRORS
     
     // General
-    public final String ERROR_ATTR_NAME = "error";
-    public final String ERROR_INVALID_TOKEN = "ERROR_INVALID_USER_TOKEN";
+    public final String ERROR_INVALID_TOKEN = "ERROR_INVALID_TOKEN";
     
     // Login
     public final String ERROR_USER_NOT_FOUND = "ERROR_USER_NOT_FOUND";

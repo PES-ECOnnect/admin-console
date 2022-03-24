@@ -19,7 +19,7 @@ public class StubHttpClient implements HttpClient {
             case "/account/isadmin":
                 expectParamsExclusive(params, "token");
                 if (equals(params, "token", "badToken")) {
-                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
                 else if (equals(params, "token", "okTokenNoAdmin")) {
                     return "{\"result\":\"false\"}";
@@ -53,55 +53,53 @@ public class StubHttpClient implements HttpClient {
             case "/account/logout":
                 expectParamsExclusive(params, "token");
                 if (equals(params, "token", "badToken")) {
-                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
                 else {
-                    return "{}";
+                    return "{status: 'success'}";
                 }
             
             // Get list of product types
             case "/products/types":
                 expectParamsExclusive(params, "token");
                 if (equals(params, "token", "badToken")) {
-                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
                 else {
                     // For each type, return the name and an array of questions
-                    return "{\"types\":[{\"name\":\"type1\",\"questions\":[\"q1\",\"q2\",\"q3\"]},{\"name\":\"type2\",\"questions\":[\"q4\",\"q5\",\"q6\"]}]}";
+                    return "{\"result\":[{\"name\":\"type1\",\"questions\":[\"q1\",\"q2\",\"q3\"]},{\"name\":\"type2\",\"questions\":[\"q4\",\"q5\",\"q6\"]}]}";
                 }
                 
             // Get list of products
             case "/products":
-                expectParams(params, "token");
+                expectParamsExclusive(params, "token", "type");
                 if (equals(params, "token", "badToken")) {
-                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
-                else if (params.containsKey("type")) {
-                    // For each product of this type, return the id, name, avgRating, imageUrl, manufacturer and type
-                    if (equals(params, "type", "type1")) {
-                        return "{\"products\":[{\"id\":1,\"name\":\"product1\",\"avgRating\":1.0,\"imageUrl\":\"imageUrl1\",\"manufacturer\":\"manufacturer1\",\"type\":\"type1\"},{\"id\":2,\"name\":\"product2\",\"avgRating\":2.0,\"imageUrl\":\"imageUrl2\",\"manufacturer\":\"manufacturer2\",\"type\":\"type1\"}]}";
-                    }
-                    else if (equals(params, "type", "type2")) {
-                        return "{\"products\":[{\"id\":3,\"name\":\"product3\",\"avgRating\":3.0,\"imageUrl\":\"imageUrl3\",\"manufacturer\":\"manufacturer3\",\"type\":\"type2\"},{\"id\":4,\"name\":\"product4\",\"avgRating\":4.0,\"imageUrl\":\"imageUrl4\",\"manufacturer\":\"manufacturer4\",\"type\":\"type2\"}]}";
-                    }
-                    else {
-                        return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
-                    }
+                // For each product of this type, return the id, name, avgRating, imageUrl, manufacturer and type
+                if (equals(params, "type", "")) {
+                    // For each product, return the id, name, avgRating, imageUrl, manufacturer and type
+                    return "{\"result\":[{\"id\":1,\"name\":\"product1\",\"avgRating\":1.0,\"imageUrl\":\"imageUrl1\",\"manufacturer\":\"manufacturer1\",\"type\":\"type1\"},{\"id\":2,\"name\":\"product2\",\"avgRating\":2.0,\"imageUrl\":\"imageUrl2\",\"manufacturer\":\"manufacturer2\",\"type\":\"type1\"},{\"id\":3,\"name\":\"product3\",\"avgRating\":3.0,\"imageUrl\":\"imageUrl3\",\"manufacturer\":\"manufacturer3\",\"type\":\"type2\"},{\"id\":4,\"name\":\"product4\",\"avgRating\":4.0,\"imageUrl\":\"imageUrl4\",\"manufacturer\":\"manufacturer4\",\"type\":\"type2\"}]}";
+                }
+                else if (equals(params, "type", "type1")) {
+                    return "{\"result\":[{\"id\":1,\"name\":\"product1\",\"avgRating\":1.0,\"imageUrl\":\"imageUrl1\",\"manufacturer\":\"manufacturer1\",\"type\":\"type1\"},{\"id\":2,\"name\":\"product2\",\"avgRating\":2.0,\"imageUrl\":\"imageUrl2\",\"manufacturer\":\"manufacturer2\",\"type\":\"type1\"}]}";
+                }
+                else if (equals(params, "type", "type2")) {
+                    return "{\"result\":[{\"id\":3,\"name\":\"product3\",\"avgRating\":3.0,\"imageUrl\":\"imageUrl3\",\"manufacturer\":\"manufacturer3\",\"type\":\"type2\"},{\"id\":4,\"name\":\"product4\",\"avgRating\":4.0,\"imageUrl\":\"imageUrl4\",\"manufacturer\":\"manufacturer4\",\"type\":\"type2\"}]}";
                 }
                 else {
-                    // For each product, return the id, name, avgRating, imageUrl, manufacturer and type
-                    return "{\"products\":[{\"id\":1,\"name\":\"product1\",\"avgRating\":1.0,\"imageUrl\":\"imageUrl1\",\"manufacturer\":\"manufacturer1\",\"type\":\"type1\"},{\"id\":2,\"name\":\"product2\",\"avgRating\":2.0,\"imageUrl\":\"imageUrl2\",\"manufacturer\":\"manufacturer2\",\"type\":\"type1\"},{\"id\":3,\"name\":\"product3\",\"avgRating\":3.0,\"imageUrl\":\"imageUrl3\",\"manufacturer\":\"manufacturer3\",\"type\":\"type2\"},{\"id\":4,\"name\":\"product4\",\"avgRating\":4.0,\"imageUrl\":\"imageUrl4\",\"manufacturer\":\"manufacturer4\",\"type\":\"type2\"}]}";
+                    return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
                 }
                 
             // Get list of companies
             case "/companies":
                 expectParams(params, "token");
                 if (equals(params, "token", "badToken")) {
-                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
                 else {
                     // For each company, return the id, name, avgRating, imageUrl, lat and lon
-                    return "{\"companies\":[{\"id\":1,\"name\":\"company1\",\"avgRating\":1.0,\"imageUrl\":\"imageUrl1\",\"lat\":1.0,\"lon\":1.0},{\"id\":2,\"name\":\"company2\",\"avgRating\":2.0,\"imageUrl\":\"imageUrl2\",\"lat\":2.0,\"lon\":2.0}]}";
+                    return "{\"result\":[{\"id\":1,\"name\":\"company1\",\"avgRating\":1.0,\"imageUrl\":\"http://www.company1.com/image.png\",\"lat\":1.0,\"lon\":1.0},{\"id\":2,\"name\":\"company2\",\"avgRating\":2.0,\"imageUrl\":\"http://www.company2.com/image.png\",\"lat\":2.0,\"lon\":2.0}]}";
                 }
                 
             default:
@@ -123,7 +121,7 @@ public class StubHttpClient implements HttpClient {
             case "/products/types":
                 expectParamsExclusive(params, "token", "name", "questions");
                 if (equals(params, "token", "badToken")) {
-                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
                 else if (equals(params, "name", "existingType")) {
                     return "{\"error\":\"ERROR_TYPE_EXISTS\"}";
@@ -132,14 +130,14 @@ public class StubHttpClient implements HttpClient {
                     return "{\"error\":\"incorrect amount of questions\"}";
                 }
                 else {
-                    return "{}";
+                    return "{status: 'success'}";
                 }
                 
             // Create a new product
             case "/products":
                 expectParamsExclusive(params, "token", "name", "manufacturer", "imageUrl", "type");
                 if (equals(params, "token", "badToken")) {
-                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
                 else if (equals(params, "name", "existingProduct")) {
                     return "{\"error\":\"ERROR_PRODUCT_EXISTS\"}";
@@ -148,20 +146,20 @@ public class StubHttpClient implements HttpClient {
                     return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
                 }
                 else {
-                    return "{}";
+                    return "{status: 'success'}";
                 }
                 
             // Create a new company
             case "/companies":
                 expectParamsExclusive(params, "token", "name", "imageUrl", "lat", "lon");
                 if (equals(params, "token", "badToken")) {
-                    return "{\"error\":\"ERROR_INVALID_USER_TOKEN\"}";
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
-                else if (equals(params, "name", "existingCompany")) {
+                else if (equals(params, "name", "company1") || equals(params, "name", "company2")) {
                     return "{\"error\":\"ERROR_COMPANY_EXISTS\"}";
                 }
                 else {
-                    return "{}";
+                    return "{status: 'success'}";
                 }
                 
             default:

@@ -89,9 +89,10 @@ public class CompanyService extends Service {
         }
         
         // Parse result
-        if (result.size() > 0) {
+        String status = result.getAttribute(ApiConstants.RET_STATUS);
+        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
             // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_PRODUCTS);
+            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
         }
     }
 }

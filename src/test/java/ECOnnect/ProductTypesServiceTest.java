@@ -57,7 +57,7 @@ public class ProductTypesServiceTest {
         expectException(()->
             sv.getProductTypes(),
             // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_USER_TOKEN"
+            "The server responded with error code ERROR_INVALID_TOKEN"
         );
     }
     
@@ -102,7 +102,7 @@ public class ProductTypesServiceTest {
         expectException(()->
             sv.createProductType("newType", new String[]{"q1", "q2"}),
             // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_USER_TOKEN"
+            "The server responded with error code ERROR_INVALID_TOKEN"
         );
     }
     

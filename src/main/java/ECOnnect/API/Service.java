@@ -97,7 +97,7 @@ public abstract class Service {
         catch (JsonSyntaxException | IllegalStateException e) {
             throw new RuntimeException("Invalid JSON response from server:\n" + result);
         }
-        String error = json.getAttribute(ApiConstants.ERROR_ATTR_NAME);
+        String error = json.getAttribute(ApiConstants.RET_ERROR);
         
         if (error != null) {
             if (error == ApiConstants.ERROR_INVALID_TOKEN) {
@@ -111,11 +111,11 @@ public abstract class Service {
     
     protected void throwInvalidResponseError(JsonResult result, String expectedAttr) {
         throw new RuntimeException("Invalid response from server: " + result.toString()
-            + "\nExpected " + ApiConstants.ERROR_ATTR_NAME + " or attribute '" + expectedAttr + "'");
+            + "\nExpected " + ApiConstants.RET_ERROR + " or attribute '" + expectedAttr + "'");
     }
     
     protected void throwInvalidResponseError(JsonResult result) {
         throw new RuntimeException("Invalid response from server: " + result.toString()
-            + "\nExpected '" + ApiConstants.ERROR_ATTR_NAME + "' or '{}'");
+            + "\nExpected '" + ApiConstants.RET_ERROR + "' or '{}'");
     }
 }

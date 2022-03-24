@@ -50,9 +50,10 @@ public class ProductService extends Service {
     public Product[] getProducts(String type) {
         // Add parameters
         TreeMap<String, String> params = new TreeMap<>();
-        if (type != null) {
-            params.put(ApiConstants.PRODUCT_TYPE, type);
-        }
+        // Empty string means all products
+        if (type == null) type = "";
+        params.put(ApiConstants.PRODUCT_TYPE, type);
+        
         
         JsonResult result = null;
         try {
@@ -106,9 +107,10 @@ public class ProductService extends Service {
         }
         
         // Parse result
-        if (result.size() > 0) {
+        String status = result.getAttribute(ApiConstants.RET_STATUS);
+        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
             // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_PRODUCTS);
+            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
         }
     }
 }
