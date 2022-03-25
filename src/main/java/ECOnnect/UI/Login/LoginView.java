@@ -31,7 +31,7 @@ public class LoginView extends View {
         
         panel.add(Box.createVerticalStrut(50));
         
-        JLabel usernameLbl = new JLabel("Username:", JLabel.RIGHT);
+        JLabel usernameLbl = new JLabel("Email:", JLabel.RIGHT);
         usernameLbl.setPreferredSize(_dim);
         _usernameText.setMaximumSize(_dim);
         panel.add(HorizontalBox.create(usernameLbl, _usernameText));

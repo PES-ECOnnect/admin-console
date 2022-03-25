@@ -16,7 +16,7 @@ public abstract class Service {
     // Store the secret token and insert it into the request headers
     private static String _adminToken = null;
     // Gson object used to serialize and deserialize JSON
-    protected final Gson gson = new Gson();
+    private final Gson gson = new Gson();
     // Set by the subclass to indicate whether the request needs an adminToken
     protected boolean needsToken = true;
     
@@ -112,10 +112,5 @@ public abstract class Service {
     protected void throwInvalidResponseError(JsonResult result, String expectedAttr) {
         throw new RuntimeException("Invalid response from server: " + result.toString()
             + "\nExpected " + ApiConstants.RET_ERROR + " or attribute '" + expectedAttr + "'");
-    }
-    
-    protected void throwInvalidResponseError(JsonResult result) {
-        throw new RuntimeException("Invalid response from server: " + result.toString()
-            + "\nExpected '" + ApiConstants.RET_ERROR + "' or '{}'");
     }
 }

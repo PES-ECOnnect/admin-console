@@ -14,15 +14,15 @@ public class CompanyService extends Service {
         private int id;
         private String name;
         private float avgRating;
-        private String imageUrl;
+        private String imageURL;
         private double lat;
         private double lon;
         
-        public Company(int id, String name, float avgRating, String imageUrl, double lat, double lon) {
+        public Company(int id, String name, float avgRating, String imageURL, double lat, double lon) {
             this.id = id;
             this.name = name;
             this.avgRating = avgRating;
-            this.imageUrl = imageUrl;
+            this.imageURL = imageURL;
             this.lat = lat;
             this.lon = lon;
         }
@@ -37,7 +37,7 @@ public class CompanyService extends Service {
             return avgRating;
         }
         public String getImageUrl() {
-            return imageUrl;
+            return imageURL;
         }
         public double getLat() {
             return lat;
@@ -55,21 +55,38 @@ public class CompanyService extends Service {
         JsonResult result = get(ApiConstants.COMPANIES_PATH, null);
         
         // Parse result
-        Company[] companies = result.getArray(ApiConstants.RET_COMPANIES, Company[].class);
+        Company[] companies = result.getArray(ApiConstants.RET_RESULT, Company[].class);
         if (companies == null) {
             // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_COMPANIES);
+            throwInvalidResponseError(result, ApiConstants.RET_RESULT);
         }
         
         return companies;
     }
     
+    // Get questions for the company type
+    public String[] getQuestions() {
+        
+        // Call API
+        super.needsToken = true;
+        JsonResult result = get(ApiConstants.COMPANY_QUESTIONS_PATH, null);
+        
+        // Parse result
+        String[] questions = result.getArray(ApiConstants.RET_RESULT, String[].class);
+        if (questions == null) {
+            // This should never happen, the API should always return an array or an error
+            throwInvalidResponseError(result, ApiConstants.RET_RESULT);
+        }
+        
+        return questions;
+    }
+    
     // Create a new company
-    public void createCompany(String name, String imageUrl, double lat, double lon) {
+    public void createCompany(String name, String imageURL, double lat, double lon) {
         // Add parameters
         TreeMap<String, String> params = new TreeMap<>();
         params.put(ApiConstants.COMPANY_NAME, name);
-        params.put(ApiConstants.COMPANY_IMAGE_URL, imageUrl);
+        params.put(ApiConstants.COMPANY_IMAGE_URL, imageURL);
         params.put(ApiConstants.COMPANY_LOCATION_LAT, String.valueOf(lat));
         params.put(ApiConstants.COMPANY_LOCATION_LON, String.valueOf(lon));
         

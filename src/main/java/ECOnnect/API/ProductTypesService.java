@@ -35,10 +35,10 @@ public class ProductTypesService extends Service {
         JsonResult result = get(ApiConstants.TYPES_PATH, null);
         
         // Parse result
-        ProductType[] productTypes = result.getArray(ApiConstants.RET_PRODUCT_TYPES, ProductType[].class);
+        ProductType[] productTypes = result.getArray(ApiConstants.RET_RESULT, ProductType[].class);
         if (productTypes == null) {
             // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_PRODUCT_TYPES);
+            throwInvalidResponseError(result, ApiConstants.RET_RESULT);
         }
         
         return productTypes;
@@ -49,13 +49,12 @@ public class ProductTypesService extends Service {
         // Add parameters
         TreeMap<String, String> params = new TreeMap<>();
         params.put(ApiConstants.PRODUCT_TYPES_NAME, name);
-        params.put(ApiConstants.PRODUCT_TYPES_QUESTIONS, gson.toJson(questions));
         
         JsonResult result = null;
         try {
             // Call API
             super.needsToken = true;
-            result = post(ApiConstants.TYPES_PATH, params, null);
+            result = post(ApiConstants.TYPES_PATH, params, new QuestionsStruct(questions));
         }
         catch (ApiException e) {
             switch (e.getErrorCode()) {
@@ -71,6 +70,14 @@ public class ProductTypesService extends Service {
         if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
             // This should never happen, the API should always return an array or an error
             throwInvalidResponseError(result, ApiConstants.RET_STATUS);
+        }
+    }
+    
+    private class QuestionsStruct {
+        @SuppressWarnings("unused")
+        public String[] questions;
+        public QuestionsStruct(String[] questions) {
+            this.questions = questions;
         }
     }
 }

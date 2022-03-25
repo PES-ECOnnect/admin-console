@@ -113,7 +113,7 @@ public class CompanyServiceTest {
         
         expectException(() ->
             sv.createCompany("newCompany", null, 1.0, 1.0),
-            "Parameter imageUrl cannot be null"
+            "Parameter imageURL cannot be null"
         );
     }
 }

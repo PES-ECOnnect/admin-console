@@ -15,14 +15,14 @@ public class ProductService extends Service {
         private String name;
         private float avgRating;
         private String manufacturer;
-        private String imageUrl;
+        private String imageURL;
         private String type;
         
-        public Product(int id, String name, String manufacturer, String imageUrl, String type) {
+        public Product(int id, String name, String manufacturer, String imageURL, String type) {
             this.id = id;
             this.name = name;
             this.manufacturer = manufacturer;
-            this.imageUrl = imageUrl;
+            this.imageURL = imageURL;
             this.type = type;
         }
         
@@ -39,7 +39,7 @@ public class ProductService extends Service {
             return manufacturer;
         }
         public String getImageUrl() {
-            return imageUrl;
+            return imageURL;
         }
         public String getType() {
             return type;
@@ -71,22 +71,22 @@ public class ProductService extends Service {
         }
         
         // Parse result
-        Product[] products = result.getArray(ApiConstants.RET_PRODUCTS, Product[].class);
+        Product[] products = result.getArray(ApiConstants.RET_RESULT, Product[].class);
         if (products == null) {
             // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_PRODUCTS);
+            throwInvalidResponseError(result, ApiConstants.RET_RESULT);
         }
         
         return products;
     }
     
     // Create a new product
-    public void createProduct(String name, String manufacturer, String imageUrl, String type) {
+    public void createProduct(String name, String manufacturer, String imageURL, String type) {
         // Add parameters
         TreeMap<String, String> params = new TreeMap<>();
         params.put(ApiConstants.PRODUCT_NAME, name);
         params.put(ApiConstants.PRODUCT_MANUFACTURER, manufacturer);
-        params.put(ApiConstants.PRODUCT_IMAGE_URL, imageUrl);
+        params.put(ApiConstants.PRODUCT_IMAGE_URL, imageURL);
         params.put(ApiConstants.PRODUCT_TYPE, type);
         
         JsonResult result = null;

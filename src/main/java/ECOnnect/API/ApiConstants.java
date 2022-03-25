@@ -11,6 +11,7 @@ public interface ApiConstants {
     public final String TYPES_PATH = "/products/types";
     public final String PRODUCTS_PATH = "/products";
     public final String COMPANIES_PATH = "/companies";
+    public final String COMPANY_QUESTIONS_PATH = "/companies/questions";
     
     
     // PARAMETERS
@@ -29,35 +30,23 @@ public interface ApiConstants {
     // Get/create products
     public final String PRODUCT_NAME = "name";
     public final String PRODUCT_MANUFACTURER = "manufacturer";
-    public final String PRODUCT_IMAGE_URL = "imageUrl";
+    public final String PRODUCT_IMAGE_URL = "imageURL";
     public final String PRODUCT_TYPE = "type";
     
     // Get/create companies
     public final String COMPANY_NAME = "name";
-    public final String COMPANY_IMAGE_URL = "imageUrl";
+    public final String COMPANY_IMAGE_URL = "imageURL";
     public final String COMPANY_LOCATION_LAT = "lat";
     public final String COMPANY_LOCATION_LON = "lon";
     
     
     // RETURN VALUES
     
-    // General
     public final String RET_TOKEN = "token";
     public final String RET_STATUS = "status";
     public final String STATUS_OK = "success";
     public final String RET_ERROR = "error";
-    
-    // Is admin
-    public final String RET_ISADMIN = "result";
-    
-    // Get product types
-    public final String RET_PRODUCT_TYPES = "result";
-    
-    // Get products
-    public final String RET_PRODUCTS = "result"; 
-    
-    // Get companies
-    public final String RET_COMPANIES = "result";
+    public final String RET_RESULT = "result";
     
     
     // ERRORS
