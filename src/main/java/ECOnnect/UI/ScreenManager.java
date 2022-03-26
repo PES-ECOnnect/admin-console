@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import ECOnnect.UI.Company.CompanyScreen;
-import ECOnnect.UI.Company.Create.NewCompanyScreen;
 import ECOnnect.UI.Interfaces.Screen;
 import ECOnnect.UI.Login.LoginScreen;
 import ECOnnect.UI.MainMenu.MainMenuScreen;
 import ECOnnect.UI.Product.ProductScreen;
-import ECOnnect.UI.Product.Create.NewProductScreen;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -31,8 +29,6 @@ public class ScreenManager {
     public static final Class<? extends Screen> LOGIN_SCREEN = LoginScreen.class;
     public static final Class<? extends Screen> MAIN_MENU_SCREEN = MainMenuScreen.class;
     public static final Class<? extends Screen> PRODUCT_SCREEN = ProductScreen.class;
-    public static final Class<? extends Screen> NEW_PRODUCT_SCREEN = NewProductScreen.class;
-    public static final Class<? extends Screen> NEW_COMPANY_SCREEN = NewCompanyScreen.class;
     public static final Class<? extends Screen> COMPANY_SCREEN = CompanyScreen.class;
 
 

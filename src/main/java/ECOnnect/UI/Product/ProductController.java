@@ -2,6 +2,7 @@ package ECOnnect.UI.Product;
 
 import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
+import ECOnnect.UI.Product.Create.NewProductScreen;
 import ECOnnect.API.ProductService.Product;
 import ECOnnect.UI.ScreenManager;
 
@@ -14,7 +15,7 @@ public class ProductController implements Controller {
 
     ActionListener addButton() {
         return (ActionEvent e) -> {
-            ScreenManager.getInstance().show(ScreenManager.NEW_PRODUCT_SCREEN);
+            ScreenManager.getInstance().show(NewProductScreen.class);
         };
     }
     

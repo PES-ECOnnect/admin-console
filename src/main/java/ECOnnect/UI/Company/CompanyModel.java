@@ -64,4 +64,14 @@ public class CompanyModel {
         CompanyService service = ServiceFactory.getInstance().getCompanyService();
         service.createCompany(name, imageUrl, lat, lon);
     }
+    
+    public String[] getQuestions() {
+        // Get questions from API
+        CompanyService service = ServiceFactory.getInstance().getCompanyService();
+        String[] q = service.getQuestions();
+        
+        // No need to store in model
+        
+        return q;
+    }
 }

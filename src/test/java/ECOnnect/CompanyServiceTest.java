@@ -116,4 +116,37 @@ public class CompanyServiceTest {
             "Parameter imageURL cannot be null"
         );
     }
+    
+    
+    @Test
+    public void testGetCompanyQuestionsOk() {
+        String[] questions = sv.getQuestions();
+        // This should not throw an exception
+        
+        assertNotNull(questions);
+        assertEquals(3, questions.length);
+        
+        assertEquals("q1", questions[0]);
+        assertEquals("q2", questions[1]);
+        assertEquals("q3", questions[2]);
+    }
+    
+    @Test
+    public void cannotGetCompanyQuestionsWithInvalidToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(() ->
+            sv.getQuestions(),
+            // This error is not very friendly, but it should never happen
+            "The server responded with error code ERROR_INVALID_TOKEN"
+        );
+    }
+    
+    @Test
+    public void cannotGetCompanyQuestionsWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(() ->
+            sv.getQuestions(),
+            "Admin token not set"
+        );
+    }
 }

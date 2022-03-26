@@ -70,6 +70,17 @@ public class StubHttpClient implements HttpClient {
                     return "{\"result\":[{\"name\":\"type1\",\"questions\":[\"q1\",\"q2\",\"q3\"]},{\"name\":\"type2\",\"questions\":[\"q4\",\"q5\",\"q6\"]}]}";
                 }
                 
+            // Get questions for the company type
+            case "/companies/questions":
+                expectParamsExclusive(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else {
+                    // Array of questions
+                    return "{\"result\":[\"q1\",\"q2\",\"q3\"]}";
+                }
+                
             // Get list of products
             case "/products":
                 expectParamsExclusive(params, "token", "type");

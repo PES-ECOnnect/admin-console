@@ -1,12 +1,12 @@
 package ECOnnect.UI.Company;
 
-import ECOnnect.UI.Interfaces.Controller;
-import ECOnnect.UI.Interfaces.View;
+import ECOnnect.UI.Interfaces.*;
 import ECOnnect.API.CompanyService.Company;
 import ECOnnect.UI.ScreenManager;
+import ECOnnect.UI.Company.Create.NewCompanyScreen;
+import ECOnnect.UI.Company.Questions.CompanyQuestionsScreen;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class CompanyController implements Controller {
 
@@ -15,13 +15,13 @@ public class CompanyController implements Controller {
 
     ActionListener addButton() {
         return (ActionEvent e) -> {
-            ScreenManager.getInstance().show(ScreenManager.NEW_COMPANY_SCREEN);
+            ScreenManager.getInstance().show(NewCompanyScreen.class);
         };
     }
     
     ActionListener questionsButton(){
         return (ActionEvent e) -> {
-            System.out.println("Questions button pressed");
+            ScreenManager.getInstance().show(CompanyQuestionsScreen.class);
         };
     }
     
