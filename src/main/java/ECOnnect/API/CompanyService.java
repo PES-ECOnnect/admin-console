@@ -11,12 +11,12 @@ public class CompanyService extends Service {
     
     public class Company {
         // Important: The name of these attributes must match the ones in the returned JSON
-        private int id;
-        private String name;
-        private float avgRating;
-        private String imageURL;
-        private double lat;
-        private double lon;
+        public final int id;
+        public final String name;
+        public final float avgRating;
+        public final String imageURL;
+        public final double lat;
+        public final double lon;
         
         public Company(int id, String name, float avgRating, String imageURL, double lat, double lon) {
             this.id = id;
@@ -25,25 +25,6 @@ public class CompanyService extends Service {
             this.imageURL = imageURL;
             this.lat = lat;
             this.lon = lon;
-        }
-        
-        public int getId() {
-            return id;
-        }
-        public String getName() {
-            return name;
-        }
-        public float getAvgRating() {
-            return avgRating;
-        }
-        public String getImageUrl() {
-            return imageURL;
-        }
-        public double getLat() {
-            return lat;
-        }
-        public double getLon() {
-            return lon;
         }
     }
     

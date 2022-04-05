@@ -10,6 +10,6 @@ public class ProductTypeQuestionsScreen extends Screen {
     }
     
     public String getTitle() {
-        return "Questions for product type '" + new ProductTypesModel().getSelectedType().getName() + "'";
+        return "Questions for product type '" + new ProductTypesModel().getSelectedType().name + "'";
     }
 }

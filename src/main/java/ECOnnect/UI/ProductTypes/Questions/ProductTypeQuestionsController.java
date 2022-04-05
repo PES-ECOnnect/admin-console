@@ -19,11 +19,11 @@ public class ProductTypeQuestionsController implements Controller {
     }
     
     String getType() {
-        return _model.getSelectedType().getName();
+        return _model.getSelectedType().name;
     }
     
     String getQuestions() {
-        String[] questions = _model.getSelectedType().getQuestions();
+        String[] questions = _model.getSelectedType().questions;
         StringBuilder sb = new StringBuilder();
         for (String question : questions) {
             sb.append(question);

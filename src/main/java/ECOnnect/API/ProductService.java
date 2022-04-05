@@ -11,38 +11,20 @@ public class ProductService extends Service {
     
     public class Product {
         // Important: The name of these attributes must match the ones in the returned JSON
-        private int id;
-        private String name;
-        private float avgRating;
-        private String manufacturer;
-        private String imageURL;
-        private String type;
+        public final int id;
+        public final String name;
+        public final float avgRating;
+        public final String manufacturer;
+        public final String imageURL;
+        public final String type;
         
-        public Product(int id, String name, String manufacturer, String imageURL, String type) {
+        public Product(int id, String name, float avgRating, String manufacturer, String imageURL, String type) {
             this.id = id;
             this.name = name;
+            this.avgRating = avgRating;
             this.manufacturer = manufacturer;
             this.imageURL = imageURL;
             this.type = type;
-        }
-        
-        public int getId() {
-            return id;
-        }
-        public String getName() {
-            return name;
-        }
-        public float getAvgRating() {
-            return avgRating;
-        }
-        public String getManufacturer() {
-            return manufacturer;
-        }
-        public String getImageUrl() {
-            return imageURL;
-        }
-        public String getType() {
-            return type;
         }
     }
     

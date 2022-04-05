@@ -52,6 +52,6 @@ public class ProductModel {
     
     
     public String getSelectedType() {
-        return new ProductTypesModel().getSelectedType().getName();
+        return new ProductTypesModel().getSelectedType().name;
     }
 }

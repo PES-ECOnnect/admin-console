@@ -11,20 +11,12 @@ public class ProductTypesService extends Service {
     
     public class ProductType {
         // Important: The name of these attributes must match the ones in the returned JSON
-        private String name;
-        private String[] questions;
+        public final String name;
+        public final String[] questions;
         
         public ProductType(String name, String[] questions) {
             this.name = name;
             this.questions = questions;
-        }
-        
-        public String getName() {
-            return name;
-        }
-        
-        public String[] getQuestions() {
-            return questions;
         }
     }
     

@@ -35,7 +35,7 @@ public class ProductTypesController implements Controller {
         ProductTypeItem[] productTypeItems = new ProductTypeItem[items.length];
         
         for (int i = 0; i < items.length; ++i) {
-            productTypeItems[i] = new ProductTypeItem(this, i, items[i].getName(), items[i].getQuestions().length);
+            productTypeItems[i] = new ProductTypeItem(this, i, items[i].name, items[i].questions.length);
         }
         
         return productTypeItems;
