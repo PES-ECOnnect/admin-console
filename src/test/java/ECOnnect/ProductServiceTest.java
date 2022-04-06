@@ -48,8 +48,8 @@ public class ProductServiceTest {
         assertEquals("manufacturer2", products[1].manufacturer);
         assertEquals("manufacturer3", products[2].manufacturer);
         
-        assertEquals("imageUrl3", products[2].imageURL);
-        assertEquals("imageUrl4", products[3].imageURL);
+        assertEquals("imageUrl3", products[2].imageurl);
+        assertEquals("imageUrl4", products[3].imageurl);
         
         assertEquals("type1", products[0].type);
         assertEquals("type2", products[2].type);
@@ -70,7 +70,7 @@ public class ProductServiceTest {
         
         assertEquals("manufacturer2", products[1].manufacturer);
         
-        assertEquals("imageUrl2", products[1].imageURL);
+        assertEquals("imageUrl2", products[1].imageurl);
         
         assertEquals("type1", products[0].type);
     }

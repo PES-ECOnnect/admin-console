@@ -13,17 +13,17 @@ public class ProductService extends Service {
         // Important: The name of these attributes must match the ones in the returned JSON
         public final int id;
         public final String name;
-        public final float avgRating;
+        public final float avgrating;
         public final String manufacturer;
-        public final String imageURL;
+        public final String imageurl;
         public final String type;
         
         public Product(int id, String name, float avgRating, String manufacturer, String imageURL, String type) {
             this.id = id;
             this.name = name;
-            this.avgRating = avgRating;
+            this.avgrating = avgRating;
             this.manufacturer = manufacturer;
-            this.imageURL = imageURL;
+            this.imageurl = imageURL;
             this.type = type;
         }
     }

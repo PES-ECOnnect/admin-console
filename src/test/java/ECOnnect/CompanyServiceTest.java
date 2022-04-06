@@ -38,15 +38,15 @@ public class CompanyServiceTest {
         
         assertEquals(1, companies[0].id);
         assertEquals("company1", companies[0].name);
-        assertEquals(1.0f, companies[0].avgRating, 0.0f);
-        assertEquals("http://www.company1.com/image.png", companies[0].imageURL);
+        assertEquals(1.0f, companies[0].avgrating, 0.0f);
+        assertEquals("http://www.company1.com/image.png", companies[0].imageurl);
         assertEquals(1.0, companies[0].lat, 0.0);
         assertEquals(1.0, companies[0].lon, 0.0);
         
         assertEquals(2, companies[1].id);
         assertEquals("company2", companies[1].name);
-        assertEquals(2.0f, companies[1].avgRating, 0.0f);
-        assertEquals("http://www.company2.com/image.png", companies[1].imageURL);
+        assertEquals(2.0f, companies[1].avgrating, 0.0f);
+        assertEquals("http://www.company2.com/image.png", companies[1].imageurl);
         assertEquals(2.0, companies[1].lat, 0.0);
         assertEquals(2.0, companies[1].lon, 0.0);
     }

@@ -41,7 +41,7 @@ public class CompanyController implements Controller {
         
         for (int i = 0; i < companies.length; ++i) {
             Company c = companies[i];
-            companyItems[i] = new CompanyItem(c.name, c.imageURL, c.avgRating, c.lat, c.lon);
+            companyItems[i] = new CompanyItem(c.name, c.imageurl, c.avgrating, c.lat, c.lon);
         }
         
         return companyItems;

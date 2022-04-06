@@ -44,7 +44,7 @@ public class ProductController implements Controller {
         
         for (int i = 0; i < products.length; ++i) {
             Product p = products[i];
-            productItems[i] = new ProductItem(p.name, p.manufacturer, p.imageURL, p.avgRating, p.type);
+            productItems[i] = new ProductItem(p.name, p.manufacturer, p.imageurl, p.avgrating, p.type);
         }
         
         return productItems;

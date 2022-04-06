@@ -13,16 +13,16 @@ public class CompanyService extends Service {
         // Important: The name of these attributes must match the ones in the returned JSON
         public final int id;
         public final String name;
-        public final float avgRating;
-        public final String imageURL;
+        public final float avgrating;
+        public final String imageurl;
         public final double lat;
         public final double lon;
         
         public Company(int id, String name, float avgRating, String imageURL, double lat, double lon) {
             this.id = id;
             this.name = name;
-            this.avgRating = avgRating;
-            this.imageURL = imageURL;
+            this.avgrating = avgRating;
+            this.imageurl = imageURL;
             this.lat = lat;
             this.lon = lon;
         }
@@ -57,6 +57,11 @@ public class CompanyService extends Service {
         if (questions == null) {
             // This should never happen, the API should always return an array or an error
             throwInvalidResponseError(result, ApiConstants.RET_RESULT);
+        }
+        
+        // Trim spaces in questions
+        for (int i = 0; i < questions.length; i++) {
+            questions[i] = questions[i].trim();
         }
         
         return questions;

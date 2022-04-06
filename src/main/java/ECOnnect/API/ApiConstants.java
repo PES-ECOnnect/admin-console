@@ -4,7 +4,10 @@ package ECOnnect.API;
 public interface ApiConstants {
     
     // PATHS
-    public final String BASE_URL = "https://pes-econnect.herokuapp.com";
+    public final String BASE_URL_DEV = "http://127.0.0.1:5000";
+    public final String BASE_URL_DEPLOY = "https://pes-econnect.herokuapp.com";
+    public final String BASE_URL = BASE_URL_DEPLOY;
+    
     public final String LOGIN_PATH = "/account/login";
     public final String LOGOUT_PATH = "/account/logout";
     public final String IS_ADMIN_PATH = "/account/isadmin";
