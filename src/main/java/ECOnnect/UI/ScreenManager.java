@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import ECOnnect.UI.Company.CompanyScreen;
 import ECOnnect.UI.Interfaces.Screen;
 import ECOnnect.UI.Login.LoginScreen;
 import ECOnnect.UI.MainMenu.MainMenuScreen;

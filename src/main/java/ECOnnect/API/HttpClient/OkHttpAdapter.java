@@ -23,6 +23,11 @@ public class OkHttpAdapter implements HttpClient {
         return getResponse(request);
     }
     
+    public String delete(String url, Map<String,String> params) throws IOException {
+        Request request = parseUrl(url, params).delete().build();
+        return getResponse(request);
+    }
+    
     
     // Create Builder and add parameters
     private Request.Builder parseUrl(String url, Map<String,String> params) {

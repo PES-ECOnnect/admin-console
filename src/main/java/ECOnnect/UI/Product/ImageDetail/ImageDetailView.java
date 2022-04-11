@@ -4,7 +4,6 @@ import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Utilities.HorizontalBox;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class ImageDetailView extends View {
     private final ImageDetailController _ctrl;

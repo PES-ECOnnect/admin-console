@@ -5,6 +5,7 @@ import javax.swing.event.*;
 
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Company.CompanyScreen;
+import ECOnnect.UI.Forum.ForumScreen;
 import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.Screen;
 import ECOnnect.UI.Interfaces.View;
@@ -13,7 +14,8 @@ import ECOnnect.UI.ProductTypes.ProductTypesScreen;
 public class MainMenuController extends Controller {
     final Screen[] TAB_SCREENS = {
         new ProductTypesScreen(),
-        new CompanyScreen()
+        new CompanyScreen(),
+        new ForumScreen()
     };
     
     private final MainMenuView _view = new MainMenuView(this);

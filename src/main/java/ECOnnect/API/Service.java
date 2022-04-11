@@ -61,7 +61,7 @@ public abstract class Service {
     // Generic POST request
     protected JsonResult post(String path, Map<String,String> params, Object content) throws ApiException {
         String url = ApiConstants.BASE_URL + path;
-        addTokenToRequest(params);
+        params = addTokenToRequest(params);
         
         String result = null;
         try {
@@ -69,6 +69,21 @@ public abstract class Service {
         }
         catch (IOException e) {
             throw new RuntimeException("Error executing POST on " + url + ": " + e.getMessage());
+        }
+        return parseResult(result);
+    }
+    
+    // Generic DELETE request
+    protected JsonResult delete(String path, Map<String,String> params) throws ApiException {
+        String url = ApiConstants.BASE_URL + path;
+        params = addTokenToRequest(params);
+        
+        String result = null;
+        try {
+            result = _httpClient.delete(url, params);
+        }
+        catch (IOException e) {
+            throw new RuntimeException("Error executing DELETE on " + url + ": " + e.getMessage());
         }
         return parseResult(result);
     }

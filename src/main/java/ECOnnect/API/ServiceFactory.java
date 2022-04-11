@@ -14,7 +14,7 @@ public class ServiceFactory {
             Service.injectHttpClient(new OkHttpAdapter());
             
             // TODO: Remove this once the backend works
-            // Service.injectHttpClient(new StubHttpClient());
+            Service.injectHttpClient(new StubHttpClient());
         }
         return _instance;
     }
@@ -55,5 +55,14 @@ public class ServiceFactory {
             _companyService = new CompanyService();
         }
         return _companyService;
+    }
+    
+    // Forum
+    private static ForumService _forumService = null;
+    public ForumService getForumService() {
+        if (_forumService == null) {
+            _forumService = new ForumService();
+        }
+        return _forumService;
     }
 }

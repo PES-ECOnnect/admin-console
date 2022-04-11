@@ -6,5 +6,5 @@ public class NewCompanyScreen extends Screen {
     public NewCompanyScreen(){
         super(new NewCompanyController());
     }
-    public String getTitle(){return "New Product Form";}
+    public String getTitle(){return "New Company Form";}
 }
