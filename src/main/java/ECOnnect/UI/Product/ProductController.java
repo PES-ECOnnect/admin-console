@@ -9,13 +9,14 @@ import ECOnnect.UI.ScreenManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ProductController implements Controller {
+public class ProductController extends Controller {
     private final ProductView _view = new ProductView(this);
     private final ProductModel _model = new ProductModel();
+    private static String _type;
 
     ActionListener addButton() {
         return (ActionEvent e) -> {
-            ScreenManager.getInstance().show(NewProductScreen.class);
+            ScreenManager.getInstance().show(NewProductScreen.class, _type);
         };
     }
     
@@ -25,18 +26,30 @@ public class ProductController implements Controller {
         };
     }
     
+    @Override
+    public View getView(){
+        return _view;
+    }
     
-    ProductItem[] getProductItems() {
-        String productType = _model.getSelectedType();
+    @Override
+    public void postInit(Object[] args) {
+        if (args.length > 1) {
+            throw new IllegalArgumentException("Expected 1 argument: productType:String (or 0 arguments to keep previous type)");
+        }
+        if (args.length == 1) {
+            _type = (String) args[0];
+        }
+        
+        ScreenManager.getInstance().updateTitle("Products of type '" + _type + "'");
         
         // Get products from model
         Product[] products = null;
         try {
-            products = _model.getProducts(productType);
+            products = _model.getProducts(_type);
         }
         catch (Exception e) {
             _view.displayError("Could not fetch products: " + e.getMessage());
-            return new ProductItem[0];
+            return;
         }
         
         // Convert to product items
@@ -47,11 +60,6 @@ public class ProductController implements Controller {
             productItems[i] = new ProductItem(p.name, p.manufacturer, p.imageurl, p.avgrating, p.type);
         }
         
-        return productItems;
-    }
-    
-    
-    public View getView(){
-        return _view;
+        _view.addItems(productItems);;
     }
 }

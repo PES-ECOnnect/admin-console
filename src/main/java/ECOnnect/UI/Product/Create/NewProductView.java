@@ -66,9 +66,8 @@ public class NewProductView extends View {
         panel.add(Box.createVerticalGlue());
     }
     
-    @Override
-    public void postInit() {
-        _title.setText("Create new Product of type '" + _ctrl.getType() + "'");
+    public void setTitle(String text) {
+        _title.setText(text);
     }
 
     public String getNameText(){return _nameTxt.getText();}

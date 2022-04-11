@@ -37,11 +37,10 @@ public class CompanyView extends View {
         _list.redraw();
     }
     
-    @Override
-    public void postInit() {
-        for (CompanyItem item : _ctrl.getCompanyItems()) {
+    void addItems(CompanyItem[] items){
+        for (CompanyItem item : items) {
             _list.add(item);
-        }        
+        }
         _list.redraw();
     }
 }

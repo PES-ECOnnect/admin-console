@@ -6,8 +6,8 @@ import javax.swing.*;
 
 public abstract class ItemListElement extends JPanel {
     
-    public static final Dimension DEFAULT_SIZE = new Dimension(Integer.MAX_VALUE, 30);
-    public static final Dimension DEFAULT_ELEMENT_SIZE = new Dimension(150, 30);
+    public static final Dimension DEFAULT_ELEMENT_SIZE = new Dimension(150, 35);
+    public static final Dimension DEFAULT_SIZE = new Dimension(Integer.MAX_VALUE, DEFAULT_ELEMENT_SIZE.height);
     
     // Call this method AFTER the constructor of the subclass
     protected void init() {

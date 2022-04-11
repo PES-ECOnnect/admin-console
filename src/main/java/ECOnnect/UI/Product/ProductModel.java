@@ -3,7 +3,6 @@ package ECOnnect.UI.Product;
 import ECOnnect.API.ProductService;
 import ECOnnect.API.ServiceFactory;
 import ECOnnect.API.ProductService.Product;
-import ECOnnect.UI.ProductTypes.ProductTypesModel;
 
 public class ProductModel {
         
@@ -48,10 +47,5 @@ public class ProductModel {
         // Add product type to API
         ProductService service = ServiceFactory.getInstance().getProductService();
         service.createProduct(name, manufacturer, imageUrl, type);
-    }
-    
-    
-    public String getSelectedType() {
-        return new ProductTypesModel().getSelectedType().name;
     }
 }

@@ -14,11 +14,6 @@ public abstract class View {
         return panel;
     }
     
-    // Called after the view has been initialized and painted
-    public void postInit() {
-        // Do nothing by default
-    }
-    
     public void displayError(String error) {
         JOptionPane.showMessageDialog(panel, error, "Error", JOptionPane.ERROR_MESSAGE);
     }

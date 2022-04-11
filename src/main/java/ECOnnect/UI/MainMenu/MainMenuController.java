@@ -4,10 +4,18 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import ECOnnect.UI.ScreenManager;
+import ECOnnect.UI.Company.CompanyScreen;
 import ECOnnect.UI.Interfaces.Controller;
+import ECOnnect.UI.Interfaces.Screen;
 import ECOnnect.UI.Interfaces.View;
+import ECOnnect.UI.ProductTypes.ProductTypesScreen;
 
-public class MainMenuController implements Controller {
+public class MainMenuController extends Controller {
+    final Screen[] TAB_SCREENS = {
+        new ProductTypesScreen(),
+        new CompanyScreen()
+    };
+    
     private final MainMenuView _view = new MainMenuView(this);
     private final MainMenuModel _model = new MainMenuModel();
     
@@ -29,10 +37,6 @@ public class MainMenuController implements Controller {
         };
     }
     
-    int getCurrentTabIndex() {
-        return _currentTabIndex;
-    }
-    
     private void logout() {
         try {
             _model.logout();
@@ -44,5 +48,20 @@ public class MainMenuController implements Controller {
     
     public View getView() {
         return _view;
+    }
+    
+    @Override
+    public void postInit(Object[] args) {
+        // Set the title to the first tab
+        String title = TAB_SCREENS[_currentTabIndex].getTitle();
+        ScreenManager.getInstance().updateTitle(title);
+        
+        // Call the postInit method of all tabs, without arguments
+        for (Screen screen : TAB_SCREENS) {
+            screen.postInit(new Object[] {});
+        }
+        
+        // Navigate to the correct tab
+        _view.setTab(_currentTabIndex);
     }
 }

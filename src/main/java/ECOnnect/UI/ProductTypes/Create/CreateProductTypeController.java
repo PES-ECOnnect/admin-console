@@ -8,7 +8,7 @@ import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.ProductTypes.ProductTypesModel;
 
-public class CreateProductTypeController implements Controller {
+public class CreateProductTypeController extends Controller {
     private final CreateProductTypeView _view = new CreateProductTypeView(this);
     private final ProductTypesModel _model = new ProductTypesModel();
     

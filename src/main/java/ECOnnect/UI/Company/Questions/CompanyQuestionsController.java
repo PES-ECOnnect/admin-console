@@ -7,7 +7,7 @@ import ECOnnect.UI.Company.CompanyModel;
 import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
 
-public class CompanyQuestionsController implements Controller {
+public class CompanyQuestionsController extends Controller {
     private final CompanyQuestionsView _view = new CompanyQuestionsView(this);
     private final CompanyModel _model = new CompanyModel();
      
@@ -18,18 +18,19 @@ public class CompanyQuestionsController implements Controller {
         };
     }
     
-    String getQuestions() {
+    @Override
+    public View getView() {
+        return _view;
+    }
+    
+    @Override
+    public void postInit(Object[] args) {
         String[] questions = _model.getQuestions();
         StringBuilder sb = new StringBuilder();
         for (String question : questions) {
             sb.append(question);
             sb.append("\n");
         }
-        return sb.toString();
-    }
-    
-    @Override
-    public View getView() {
-        return _view;
+        _view.setQuestionsText(sb.toString());
     }
 }

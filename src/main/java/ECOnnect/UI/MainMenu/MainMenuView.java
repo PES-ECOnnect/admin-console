@@ -3,20 +3,12 @@ package ECOnnect.UI.MainMenu;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
-import ECOnnect.UI.Company.CompanyScreen;
-import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
-import ECOnnect.UI.ProductTypes.ProductTypesScreen;
 
 public class MainMenuView extends View {
     
     private final MainMenuController _ctrl;
     private final JTabbedPane _tabbedPane = new JTabbedPane();
-    
-    private final Screen[] TAB_SCREENS = {
-        new ProductTypesScreen(),
-        new CompanyScreen()
-    };
     
     public MainMenuView(MainMenuController ctrl) {
         this._ctrl = ctrl;
@@ -28,7 +20,7 @@ public class MainMenuView extends View {
         _tabbedPane.setUI(new CustomTabbedPaneUI());
         
         // Create tabs
-        for (Screen screen : TAB_SCREENS) {
+        for (Screen screen : _ctrl.TAB_SCREENS) {
             _tabbedPane.addTab(screen.getTitle(), screen.getPanel());
         }
         _tabbedPane.addTab("Logout", null);
@@ -36,22 +28,8 @@ public class MainMenuView extends View {
         panel.add(_tabbedPane);
     }
     
-    @Override
-    public void postInit() {
-        super.postInit();
-        
-        int tabIndex = _ctrl.getCurrentTabIndex();
-        
-        // Set the title to the first tab
-        ScreenManager.getInstance().updateTitle(TAB_SCREENS[tabIndex].getTitle());
-        
-        // Call the postInit method of all tabs
-        for (Screen screen : TAB_SCREENS) {
-            screen.postInit();
-        }
-        
-        // Navigate to the correct tab
-        _tabbedPane.setSelectedIndex(tabIndex);
+    void setTab(int index) {
+        _tabbedPane.setSelectedIndex(index);
     }
     
     // Custom TabbedPaneUI that moves the Logout tab to the right

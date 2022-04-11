@@ -48,8 +48,7 @@ public class CompanyQuestionsView extends View {
         
     }
     
-    @Override
-    public void postInit() {
-        _questionsTextArea.setText(_ctrl.getQuestions());
+    void setQuestionsText(String questions) {
+        _questionsTextArea.setText(questions);
     }
 }

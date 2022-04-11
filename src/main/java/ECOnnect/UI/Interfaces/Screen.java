@@ -19,10 +19,8 @@ public abstract class Screen {
     }
     
     // Called after the screen has been initialized and painted
-    public void postInit() {
-        if (_view != null) {
-            _view.postInit();
-        }
+    public void postInit(Object[] args) {
+        _controller.postInit(args);
     }
     
     public abstract String getTitle();

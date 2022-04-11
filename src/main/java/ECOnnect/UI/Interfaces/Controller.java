@@ -1,5 +1,10 @@
 package ECOnnect.UI.Interfaces;
 
-public interface Controller {
-    View getView();
+public abstract class Controller {
+    public abstract View getView();
+    
+    // Called after the view has been initialized and painted
+    public void postInit(Object[] args) {
+        // Do nothing by default
+    }
 }

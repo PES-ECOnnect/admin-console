@@ -57,7 +57,7 @@ public class ScreenManager {
         show(LoginScreen.class);
     }
     
-    public void show(Class<? extends Screen> screenClass) {
+    public void show(Class<? extends Screen> screenClass, Object... args) {
         Screen s = null;
         
         if (Modifier.isAbstract(screenClass.getModifiers())) {
@@ -67,7 +67,7 @@ public class ScreenManager {
         try {
             s = screenClass.getConstructor().newInstance();
         } catch (java.lang.ReflectiveOperationException e) {
-            throw new Error("Could not instantiate Screen: " + screenClass.getName(), e);
+            throw new Error("SEE 'CAUSED BY' SECTION BELOW!\nCould not instantiate Screen: " + screenClass.getName(), e);
         }
         
         updateTitle(s.getTitle());
@@ -75,7 +75,7 @@ public class ScreenManager {
         _frame.revalidate();
         _frame.repaint();
         
-        s.postInit();
+        s.postInit(args);
     }
     
     public void updateTitle(String title) {

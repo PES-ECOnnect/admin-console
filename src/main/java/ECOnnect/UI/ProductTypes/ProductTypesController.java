@@ -8,7 +8,7 @@ import ECOnnect.UI.ProductTypes.Create.CreateProductTypeScreen;
 import ECOnnect.UI.ProductTypes.Questions.ProductTypeQuestionsScreen;
 import ECOnnect.API.ProductTypesService.ProductType;
 
-public class ProductTypesController implements Controller {
+public class ProductTypesController extends Controller {
     private final ProductTypesView _view = new ProductTypesView(this);
     private final ProductTypesModel _model = new ProductTypesModel();
     
@@ -18,7 +18,8 @@ public class ProductTypesController implements Controller {
         };
     }
     
-    ProductTypeItem[] getProductTypeItems() {
+    @Override
+    public void postInit(Object[] args) {
         
         // Get types from model
         ProductType[] items = null;
@@ -27,7 +28,7 @@ public class ProductTypesController implements Controller {
         }
         catch (Exception e) {
             _view.displayError("Could not fetch existing types: " + e.getMessage());
-            return new ProductTypeItem[0];
+            return;
         }
         
         // Convert to type items
@@ -38,17 +39,18 @@ public class ProductTypesController implements Controller {
             productTypeItems[i] = new ProductTypeItem(this, i, items[i].name, items[i].questions.length);
         }
         
-        return productTypeItems;
+        _view.addItems(productTypeItems);
     }
     
     public void viewQuestions(int index) {
-        _model.setSelectedType(index);
-        ScreenManager.getInstance().show(ProductTypeQuestionsScreen.class);
+        String type = _model.getType(index).name;
+        String[] questions = _model.getType(index).questions;
+        ScreenManager.getInstance().show(ProductTypeQuestionsScreen.class, type, questions);
     }
     
     public void viewProducts(int index) {
-        _model.setSelectedType(index);
-        ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
+        String type = _model.getType(index).name;
+        ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN, type);
     }
 
     

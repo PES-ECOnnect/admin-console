@@ -8,7 +8,7 @@ import ECOnnect.UI.Company.CompanyModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewCompanyController implements Controller {
+public class NewCompanyController extends Controller {
     private final NewCompanyView _view = new NewCompanyView(this);
     private final CompanyModel _model = new CompanyModel();
 

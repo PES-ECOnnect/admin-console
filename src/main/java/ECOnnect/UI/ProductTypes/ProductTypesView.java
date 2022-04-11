@@ -36,9 +36,8 @@ public class ProductTypesView extends View {
         _list.redraw();
     }
     
-    @Override
-    public void postInit() {
-        for (ProductTypeItem item : _ctrl.getProductTypeItems()) {
+    void addItems(ProductTypeItem[] items) {
+        for (ProductTypeItem item : items) {
             _list.add(item);
         }
         _list.redraw();

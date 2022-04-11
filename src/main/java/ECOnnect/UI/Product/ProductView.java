@@ -36,16 +36,15 @@ public class ProductView extends View {
         panel.add(Box.createVerticalStrut(10));
     }
 
-    public void addItem(ProductItem item) {
+    void addItem(ProductItem item) {
         _list.add(item);
         _list.redraw();
     }
     
-    @Override
-    public void postInit() {
-        for (ProductItem item : _ctrl.getProductItems()) {
+    void addItems(ProductItem[] items) {
+        for (ProductItem item : items) {
             _list.add(item);
-        }        
+        }
         _list.redraw();
     }
 

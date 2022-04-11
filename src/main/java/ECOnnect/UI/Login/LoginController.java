@@ -6,7 +6,7 @@ import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
 import ECOnnect.UI.Utilities.ExecutionThread;
 
-public class LoginController implements Controller {
+public class LoginController extends Controller {
     
     private final LoginView _view = new LoginView(this);
     private final LoginModel _model = new LoginModel();

@@ -1,5 +1,6 @@
 package ECOnnect.UI.Company;
 
+import ECOnnect.UI.Utilities.ImageLoader;
 import ECOnnect.UI.Utilities.ItemListElement;
 
 import javax.swing.*;
@@ -26,17 +27,31 @@ public class CompanyItem extends ItemListElement {
         return _name;
     }
 
-    public static String[] getHeaderNames(){return new String[]{"Name", "Location", "Image URL", "Avg. Rating", "Select for delete"};}
+    public static String[] getHeaderNames(){return new String[]{"Name", "Location", "Image", "Avg. Rating", "Select for delete"};}
 
     protected Component[] getRowComponents(){
         JTextField nameField = new JTextField(_name);
         nameField.setEditable(false);
         JTextField locationField = new JTextField(_location);
         locationField.setEditable(false);
-        JTextField imageUrlField = new JTextField(_imageUrl);
-        imageUrlField.setEditable(false);
+        JLabel imageUrlField = new JLabel();
         JTextField avgRatingField = new JTextField(_avgRating);
         avgRatingField.setEditable(false);
+        
+        // Callback for image loading
+        ImageLoader.loadAsync(_imageUrl, new ImageLoader.ImageLoaderCallback() {
+            @Override
+            public void imageLoaded(ImageIcon image) {
+                ImageIcon scaledImage = ImageLoader.scale(image, -1, DEFAULT_SIZE.height);
+                imageUrlField.setIcon(scaledImage);
+            }
+            @Override
+            public void couldNotLoad() {
+                imageUrlField.setText(_imageUrl);
+                System.err.println("Warning: Could not load company icon " + _imageUrl);
+            }
+        });
+        
 
         return new Component[] {
             nameField,

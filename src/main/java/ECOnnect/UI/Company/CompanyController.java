@@ -8,7 +8,7 @@ import ECOnnect.UI.Company.Questions.CompanyQuestionsScreen;
 
 import java.awt.event.*;
 
-public class CompanyController implements Controller {
+public class CompanyController extends Controller {
 
     private final CompanyView _view = new CompanyView(this);
     private final CompanyModel _model = new CompanyModel();
@@ -24,8 +24,13 @@ public class CompanyController implements Controller {
             ScreenManager.getInstance().show(CompanyQuestionsScreen.class);
         };
     }
+
+    public View getView() {
+        return _view;
+    }
     
-    CompanyItem[] getCompanyItems() {        
+    @Override
+    public void postInit(Object[] args) {
         // Get companies from model
         Company[] companies = null;
         try {
@@ -33,7 +38,7 @@ public class CompanyController implements Controller {
         }
         catch (Exception e) {
             _view.displayError("Could not fetch companies: " + e.getMessage());
-            return new CompanyItem[0];
+            return;
         }
         
         // Convert to company items
@@ -44,10 +49,6 @@ public class CompanyController implements Controller {
             companyItems[i] = new CompanyItem(c.name, c.imageurl, c.avgrating, c.lat, c.lon);
         }
         
-        return companyItems;
-    }
-
-    public View getView() {
-        return _view;
+        _view.addItems(companyItems);
     }
 }

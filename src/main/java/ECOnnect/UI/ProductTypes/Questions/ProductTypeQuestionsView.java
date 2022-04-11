@@ -4,6 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Utilities.HorizontalBox;
 
@@ -48,9 +49,12 @@ public class ProductTypeQuestionsView extends View {
         
     }
     
-    @Override
-    public void postInit() {
-        _title.setText("Questions for product type '" + _ctrl.getType() + "'");
-        _questionsTextArea.setText(_ctrl.getQuestions());
+    void setQuestionsText(String questions) {
+        _questionsTextArea.setText(questions);
+    }
+    
+    void setTitle(String title) {
+        ScreenManager.getInstance().updateTitle(title);
+        _title.setText(title);
     }
 }
