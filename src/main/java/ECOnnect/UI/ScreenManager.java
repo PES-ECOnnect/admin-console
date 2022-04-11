@@ -29,7 +29,6 @@ public class ScreenManager {
     public static final Class<? extends Screen> LOGIN_SCREEN = LoginScreen.class;
     public static final Class<? extends Screen> MAIN_MENU_SCREEN = MainMenuScreen.class;
     public static final Class<? extends Screen> PRODUCT_SCREEN = ProductScreen.class;
-    public static final Class<? extends Screen> COMPANY_SCREEN = CompanyScreen.class;
 
 
     private final int _MIN_SCREEN_HEIGHT = 720;

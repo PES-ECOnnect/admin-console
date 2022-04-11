@@ -1,10 +1,13 @@
 package ECOnnect.UI.Company;
 
+import ECOnnect.UI.ScreenManager;
+import ECOnnect.UI.Product.ImageDetail.ImageDetailScreen;
 import ECOnnect.UI.Utilities.ImageLoader;
 import ECOnnect.UI.Utilities.ItemListElement;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class CompanyItem extends ItemListElement {
     private final String _name;
@@ -27,14 +30,17 @@ public class CompanyItem extends ItemListElement {
         return _name;
     }
 
-    public static String[] getHeaderNames(){return new String[]{"Name", "Location", "Image", "Avg. Rating", "Select for delete"};}
+    public static String[] getHeaderNames(){return new String[]{"Name", "Location", "Thumbnail", "Full image", "Avg. Rating", "Select for delete"};}
 
     protected Component[] getRowComponents(){
         JTextField nameField = new JTextField(_name);
         nameField.setEditable(false);
         JTextField locationField = new JTextField(_location);
         locationField.setEditable(false);
-        JLabel imageUrlField = new JLabel();
+        JLabel thumbnail = new JLabel();
+        thumbnail.setHorizontalAlignment(SwingConstants.CENTER);
+        JButton imageButton = new JButton("View");
+        imageButton.addActionListener(imageButtonListener());
         JTextField avgRatingField = new JTextField(_avgRating);
         avgRatingField.setEditable(false);
         
@@ -43,12 +49,11 @@ public class CompanyItem extends ItemListElement {
             @Override
             public void imageLoaded(ImageIcon image) {
                 ImageIcon scaledImage = ImageLoader.scale(image, -1, DEFAULT_SIZE.height);
-                imageUrlField.setIcon(scaledImage);
+                thumbnail.setIcon(scaledImage);
             }
             @Override
             public void couldNotLoad() {
-                imageUrlField.setText(_imageUrl);
-                System.err.println("Warning: Could not load company icon " + _imageUrl);
+                thumbnail.setText(_imageUrl);
             }
         });
         
@@ -56,9 +61,16 @@ public class CompanyItem extends ItemListElement {
         return new Component[] {
             nameField,
             locationField,
-            imageUrlField,
+            thumbnail,
+            imageButton,
             avgRatingField,
             _deleteCheckbox
+        };
+    }
+    
+    private ActionListener imageButtonListener() {
+        return (ActionEvent e) -> {
+            ScreenManager.getInstance().show(ImageDetailScreen.class, _imageUrl, ScreenManager.MAIN_MENU_SCREEN);
         };
     }
 

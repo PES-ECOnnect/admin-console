@@ -57,7 +57,7 @@ public class ProductController extends Controller {
         
         for (int i = 0; i < products.length; ++i) {
             Product p = products[i];
-            productItems[i] = new ProductItem(p.name, p.manufacturer, p.imageurl, p.avgrating, p.type);
+            productItems[i] = new ProductItem(p.name, p.manufacturer, p.imageurl, p.avgrating);
         }
         
         _view.addItems(productItems);;
