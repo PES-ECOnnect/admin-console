@@ -69,6 +69,15 @@ public class CompanyService extends Service {
     
     // Create a new company
     public void createCompany(String name, String imageURL, double lat, double lon) {
+        updateCompanyImpl(name, imageURL, lat, lon, ApiConstants.COMPANIES_PATH);
+    }
+    
+    // Update an existing company
+    public void updateCompany(int id, String name, String imageURL, double lat, double lon) {
+        updateCompanyImpl(name, imageURL, lat, lon, ApiConstants.COMPANIES_PATH + "/" + id);
+    }
+
+    private void updateCompanyImpl(String name, String imageURL, double lat, double lon, String path) {
         // Add parameters
         TreeMap<String, String> params = new TreeMap<>();
         params.put(ApiConstants.COMPANY_NAME, name);
@@ -80,7 +89,7 @@ public class CompanyService extends Service {
         try {
             // Call API
             super.needsToken = true;
-            result = post(ApiConstants.COMPANIES_PATH, params, null);
+            result = post(path, params, null);
         }
         catch (ApiException e) {
             switch (e.getErrorCode()) {

@@ -21,6 +21,27 @@ public class CompanyModel {
         name = name.trim();
         imageUrl = imageUrl.trim();
         
+        checkParams(name, imageUrl, latitude, longitude);
+        
+        // Add product type to API
+        CompanyService service = ServiceFactory.getInstance().getCompanyService();
+        service.createCompany(name, imageUrl, Double.parseDouble(latitude), Double.parseDouble(longitude));
+    }
+    
+    public void updateCompany(int id, String name, String imageUrl, String latitude, String longitude) {
+        // Trim whitespace
+        name = name.trim();
+        imageUrl = imageUrl.trim();
+        
+        checkParams(name, imageUrl, latitude, longitude);
+        
+        // Add product type to API
+        CompanyService service = ServiceFactory.getInstance().getCompanyService();
+        service.updateCompany(id, name, imageUrl, Double.parseDouble(latitude), Double.parseDouble(longitude));
+    }
+    
+    private void checkParams(String name, String imageUrl, String latitude, String longitude) {
+        
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
@@ -58,11 +79,6 @@ public class CompanyModel {
         if (lon < -180 || lon > 180) {
             throw new IllegalArgumentException("Longitude must be between -180 and 180");
         }
-        
-        
-        // Add product type to API
-        CompanyService service = ServiceFactory.getInstance().getCompanyService();
-        service.createCompany(name, imageUrl, lat, lon);
     }
     
     public String[] getQuestions() {

@@ -3,6 +3,7 @@ package ECOnnect.API;
 import com.google.gson.*;
 
 public class JsonResult {
+    private static final Gson GSON = new Gson();
     private final JsonObject _jsonObject;
     
     public JsonResult(JsonElement jsonElement) {
@@ -30,6 +31,17 @@ public class JsonResult {
         
         return new Gson().fromJson(array, arrayClass);
     }
+    
+    public <T> T getObject(String attrName, Class<T> objectClass) {
+        JsonElement element = _jsonObject.get(attrName);
+        if (element == null) return null;
+        return GSON.fromJson(element, objectClass);
+    }
+
+    public <T> T asObject(Class<T> objectClass) {
+        return GSON.fromJson(_jsonObject, objectClass);
+    }
+    
     
     @Override
     public String toString() {

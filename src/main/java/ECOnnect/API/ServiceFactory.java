@@ -2,6 +2,7 @@ package ECOnnect.API;
 
 import ECOnnect.API.HttpClient.OkHttpAdapter;
 import ECOnnect.API.HttpClient.StubHttpClient;
+import ECOnnect.API.ImageUpload.ImageService;
 
 public class ServiceFactory {
     // Singleton
@@ -19,6 +20,15 @@ public class ServiceFactory {
         return _instance;
     }
     
+    
+    // Image upload
+    private static ImageService _imageService = null;
+    public ImageService getImageService() {
+        if (_imageService == null) {
+            _imageService = new ImageService();
+        }
+        return _imageService;
+    }
     
     // Admin Login
     private static LoginService _adminLoginService = null;

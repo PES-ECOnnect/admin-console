@@ -28,8 +28,6 @@ public class ForumServiceTest {
         }
     }
     
-    // return "{\"result\":[{\"postid\":1,\"username\":\"user1\",\"userid\":1,\"medal\":\"m1\",\"text\":\"text1\",\"imageurl\":\"image1\",\"likes\":1,\"dislikes\":2,\"useroption\":1,\"timestamp\":\"123456\"},{\"postid\":2,\"username\":\"user2\",\"userid\":2,\"medal\":\"m2\",\"text\":\"text2\",\"imageurl\":\"image2\",\"likes\":3,\"dislikes\":4,\"useroption\":0,\"timestamp\":\"123456\"}]}";
-    
     @Test
     public void testGetPostsOk() {
         Post[] posts = sv.getPosts(3, "");

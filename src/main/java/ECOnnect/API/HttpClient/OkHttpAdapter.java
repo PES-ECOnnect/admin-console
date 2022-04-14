@@ -34,7 +34,7 @@ public class OkHttpAdapter implements HttpClient {
         // Parse build URL with parameters
         HttpUrl.Builder httpBuilder = HttpUrl.parse(url).newBuilder();
         if (params != null) {
-            for (var param : params.entrySet()) {
+            for (Map.Entry<String,String> param : params.entrySet()) {
                 httpBuilder.addQueryParameter(param.getKey(), param.getValue());
             }
         }

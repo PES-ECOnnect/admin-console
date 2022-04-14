@@ -4,12 +4,14 @@ import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Company.CompanyModel;
+import ECOnnect.UI.Company.Edit.EditCompanyView;
+import ECOnnect.UI.Company.Edit.IEditCompanyController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewCompanyController extends Controller {
-    private final NewCompanyView _view = new NewCompanyView(this);
+public class NewCompanyController extends Controller implements IEditCompanyController {
+    private final EditCompanyView _view = new EditCompanyView(this, "New Company");
     private final CompanyModel _model = new CompanyModel();
 
     public View getView(){

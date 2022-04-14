@@ -202,6 +202,41 @@ public class StubHttpClient implements HttpClient {
                     return "{status: 'success'}";
                 }
                 
+            // Edit a product
+            case "/products/1":
+                expectParamsExclusive(params, "token", "id", "name", "manufacturer", "imageURL", "type");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else if (equals(params, "name", "existingProduct")) {
+                    return "{\"error\":\"ERROR_PRODUCT_EXISTS\"}";
+                }
+                else if (!equals(params, "type", "type1") && !equals(params, "type", "type2")) {
+                    return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
+                }
+                else {
+                    return "{status: 'success'}";
+                }
+            case "/products/2":
+                expectParamsExclusive(params, "token", "id", "name", "manufacturer", "imageURL", "type");
+                return "{\"error\":\"ERROR_PRODUCT_NOT_EXISTS\"}";
+                
+            // Edit a company
+            case "/companies/1":
+                expectParamsExclusive(params, "token", "name", "imageURL", "lat", "lon");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else if (equals(params, "name", "company2")) {
+                    return "{\"error\":\"ERROR_COMPANY_EXISTS\"}";
+                }
+                else {
+                    return "{status: 'success'}";
+                }
+            case "/companies/2":
+                expectParamsExclusive(params, "token", "name", "imageURL", "lat", "lon");
+                return "{\"error\":\"ERROR_COMPANY_NOT_EXISTS\"}";
+                
             default:
                 throw new RuntimeException("Invalid path: " + path);
         }

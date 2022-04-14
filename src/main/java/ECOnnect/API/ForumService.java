@@ -8,7 +8,7 @@ public class ForumService extends Service {
     // Only allow instantiating from ServiceFactory
     ForumService() {}
     
-    public class Post {
+    public static class Post {
         // Important: The name of these attributes must match the ones in the returned JSON
         public final int postid;
         public final String username;

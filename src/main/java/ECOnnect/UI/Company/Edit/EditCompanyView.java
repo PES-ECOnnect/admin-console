@@ -1,4 +1,4 @@
-package ECOnnect.UI.Company.Create;
+package ECOnnect.UI.Company.Edit;
 
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Utilities.HintTextFieldUI;
@@ -7,8 +7,8 @@ import ECOnnect.UI.Utilities.HorizontalBox;
 import javax.swing.*;
 import java.awt.*;
 
-public class NewCompanyView extends View {
-    private final NewCompanyController _ctrl;
+public class EditCompanyView extends View {
+    private final IEditCompanyController _ctrl;
 
     private final JTextField _nameTxt = new JTextField(41);
     private final JTextField _imageUrl = new JTextField(41);
@@ -19,16 +19,16 @@ public class NewCompanyView extends View {
 
     // COMPONENTS
 
-    public NewCompanyView(NewCompanyController ctrl){
+    public EditCompanyView(IEditCompanyController ctrl, String title){
         this._ctrl=ctrl;
-        setUp();
+        setUp(title);
     }
 
-    private void setUp(){
+    private void setUp(String title) {
         panel.add(Box.createVerticalGlue());
         
         // Set title alignment to center and increase font size
-        JLabel _title = new JLabel("Create new Company", JLabel.CENTER);
+        JLabel _title = new JLabel(title, JLabel.CENTER);
         _title.setFont(_title.getFont().deriveFont(24.0f));
         panel.add(HorizontalBox.create(_title));
         
@@ -71,6 +71,13 @@ public class NewCompanyView extends View {
         panel.add(HorizontalBox.create(cancelButton, saveButton));
 
         panel.add(Box.createVerticalGlue());
+    }
+    
+    public void setFields(String name, String imageUrl, double latitude, double longitude){
+        _nameTxt.setText(name);
+        _imageUrl.setText(imageUrl);
+        _latitudeTxt.setText(Double.toString(latitude));
+        _longitudeTxt.setText(Double.toString(longitude));
     }
 
     public String getNameText() {

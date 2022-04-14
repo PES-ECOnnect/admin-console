@@ -30,12 +30,16 @@ public class ProductItem extends ItemListElement {
     protected Component[] getRowComponents() {
         JTextField nameField = new JTextField(_name);
         nameField.setEditable(false);
+        
         JTextField manufacturerField = new JTextField(_manufacturer);
         manufacturerField.setEditable(false);
+        
         JLabel thumbnail = new JLabel();
         thumbnail.setHorizontalAlignment(SwingConstants.CENTER);
+        
         JButton imageButton = new JButton("View");
         imageButton.addActionListener(imageButtonListener());
+        
         JTextField avgRatingField = new JTextField(_avgRating);
         avgRatingField.setEditable(false);
         
