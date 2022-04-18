@@ -19,10 +19,10 @@ public class ForumService extends Service {
         public final int likes;
         public final int dislikes;
         public final int useroption;
-        public final String timestamp;
+        public final float timestamp;
         public final boolean ownpost;
         
-        public Post(int postId, String username, int userId, String medal, String text, String imageURL, int likes, int dislikes, int userOption, String timestamp, boolean ownPost) {
+        public Post(int postId, String username, int userId, String medal, String text, String imageURL, int likes, int dislikes, int userOption, float timestamp, boolean ownPost) {
             this.postid = postId;
             this.username = username;
             this.userid = userId;
@@ -43,8 +43,7 @@ public class ForumService extends Service {
         TreeMap<String, String> params = new TreeMap<>();
         params.put(ApiConstants.POST_AMOUNT, Integer.toString(numPosts));
         // No tag means all posts
-        if (tag == null) tag = "";
-        params.put(ApiConstants.POST_TAG, tag);
+        if (tag != null) params.put(ApiConstants.POST_TAG, tag);
         
         JsonResult result = null;
         try {
