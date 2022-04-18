@@ -69,12 +69,36 @@ public class CompanyService extends Service {
     
     // Create a new company
     public void createCompany(String name, String imageURL, double lat, double lon) {
-        updateCompanyImpl(name, imageURL, lat, lon, ApiConstants.COMPANIES_PATH);
+        try {
+            // Call API
+            updateCompanyImpl(name, imageURL, lat, lon, ApiConstants.COMPANIES_PATH);
+        }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_COMPANY_EXISTS:
+                    throw new RuntimeException("The company " + name + " already exists");
+                default:
+                    throw e;
+            }
+        }
     }
     
     // Update an existing company
     public void updateCompany(int id, String name, String imageURL, double lat, double lon) {
-        updateCompanyImpl(name, imageURL, lat, lon, ApiConstants.COMPANIES_PATH + "/" + id);
+        try {
+            // Call API
+            updateCompanyImpl(name, imageURL, lat, lon, ApiConstants.COMPANIES_PATH + "/" + id);
+        }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_COMPANY_NOT_EXISTS:
+                    throw new RuntimeException("The company with id " + id + " does not exist");
+                case ApiConstants.ERROR_COMPANY_EXISTS:
+                    throw new RuntimeException("There is already a company with name " + name);
+                default:
+                    throw e;
+            }
+        }
     }
 
     private void updateCompanyImpl(String name, String imageURL, double lat, double lon, String path) {
@@ -85,16 +109,30 @@ public class CompanyService extends Service {
         params.put(ApiConstants.COMPANY_LOCATION_LAT, String.valueOf(lat));
         params.put(ApiConstants.COMPANY_LOCATION_LON, String.valueOf(lon));
         
-        JsonResult result = null;
+        // Call API
+        super.needsToken = true;
+        JsonResult result = post(path, params, null);
+        
+        // Parse result
+        String status = result.getAttribute(ApiConstants.RET_STATUS);
+        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
+            // This should never happen, the API should always return an ok status or an error
+            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
+        }
+    }
+    
+    // Delete a company
+    public void deleteCompany(int id) {
+        JsonResult result;
         try {
             // Call API
             super.needsToken = true;
-            result = post(path, params, null);
+            result = delete(ApiConstants.COMPANIES_PATH + "/" + id, null);
         }
         catch (ApiException e) {
             switch (e.getErrorCode()) {
-                case ApiConstants.ERROR_COMPANY_EXISTS:
-                    throw new RuntimeException("The company " + name + " already exists");
+                case ApiConstants.ERROR_COMPANY_NOT_EXISTS:
+                    throw new RuntimeException("The company with id " + id + " does not exist");
                 default:
                     throw e;
             }
@@ -103,7 +141,7 @@ public class CompanyService extends Service {
         // Parse result
         String status = result.getAttribute(ApiConstants.RET_STATUS);
         if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
-            // This should never happen, the API should always return an array or an error
+            // This should never happen, the API should always return an ok status or an error
             throwInvalidResponseError(result, ApiConstants.RET_STATUS);
         }
     }

@@ -27,9 +27,29 @@ public class ProductModel {
         name = name.trim();
         manufacturer = manufacturer.trim();
         imageUrl = imageUrl.trim();
-        type = type.trim();
         
-        // There might be more aspects to validate
+        checkParams(name, manufacturer, imageUrl, type);
+        
+        // Add product type to API
+        ProductService service = ServiceFactory.getInstance().getProductService();
+        service.createProduct(name, manufacturer, imageUrl, type);
+    }
+    
+    public void updateProduct(int id, String name, String manufacturer, String imageUrl, String type) {
+        // Trim whitespace
+        name = name.trim();
+        manufacturer = manufacturer.trim();
+        imageUrl = imageUrl.trim();
+        
+        checkParams(name, manufacturer, imageUrl, type);
+        
+        // Add product type to API
+        ProductService service = ServiceFactory.getInstance().getProductService();
+        service.updateProduct(id, name, manufacturer, imageUrl, type);
+    }
+    
+    private void checkParams(String name, String manufacturer, String imageUrl, String type) {
+        
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
@@ -42,10 +62,11 @@ public class ProductModel {
         if (type.isEmpty()) {
             throw new IllegalArgumentException("Type cannot be empty");
         }
-        
-        
-        // Add product type to API
+    }
+    
+
+    public void removeProduct(int id) {
         ProductService service = ServiceFactory.getInstance().getProductService();
-        service.createProduct(name, manufacturer, imageUrl, type);
+        service.deleteProduct(id);
     }
 }

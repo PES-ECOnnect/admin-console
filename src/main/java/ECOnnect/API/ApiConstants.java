@@ -70,12 +70,14 @@ public interface ApiConstants {
     // Create product type
     String ERROR_TYPE_EXISTS = "ERROR_TYPE_EXISTS";
     
-    // Get/create products
+    // Get/create/delete products
     String ERROR_TYPE_NOT_EXISTS = "ERROR_TYPE_NOT_EXISTS";
     String ERROR_PRODUCT_EXISTS = "ERROR_PRODUCT_EXISTS";
+    String ERROR_PRODUCT_NOT_EXISTS = "ERROR_PRODUCT_NOT_EXISTS";
     
-    // Get/create companies
+    // Get/create/delete companies
     String ERROR_COMPANY_EXISTS = "ERROR_COMPANY_EXISTS";
+    String ERROR_COMPANY_NOT_EXISTS = "ERROR_COMPANY_NOT_EXISTS";
     
     // Delete posts
     String ERROR_POST_NOT_EXISTS = "ERROR_POST_NOT_EXISTS";

@@ -7,6 +7,7 @@ import ECOnnect.UI.Company.Create.NewCompanyScreen;
 import ECOnnect.UI.Company.Questions.CompanyQuestionsScreen;
 
 import java.awt.event.*;
+import java.util.Collection;
 
 public class CompanyController extends Controller {
 
@@ -22,6 +23,27 @@ public class CompanyController extends Controller {
     ActionListener questionsButton(){
         return (ActionEvent e) -> {
             ScreenManager.getInstance().show(CompanyQuestionsScreen.class);
+        };
+    }
+    
+    ActionListener removeButton() {
+        return (ActionEvent e) -> {
+            Collection<CompanyItem> selected = _view.getSelected();
+            
+            // Display confirmation dialog
+            String company_plural = selected.size() == 1 ? " company?" : " companies?";
+            _view.displayConfirmation("Are you sure you want to delete " + selected.size() + company_plural, () -> {
+                // YES action, delete companies
+                for (CompanyItem item : _view.getSelected()) {
+                    try {
+                        _model.removeCompany(item.getId());
+                        _view.deleteItem(item);
+                    }
+                    catch (Exception ex) {
+                        _view.displayError("Could not remove company '" + item.getName() + "':\n" + ex.getMessage());
+                    }
+                }
+            });
         };
     }
 

@@ -84,6 +84,15 @@ public class ProductServiceTest {
     }
     
     @Test
+    public void cannotGetProductsWithInvalidToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(()->
+            sv.getProducts(null),
+            "The server responded with error code ERROR_INVALID_TOKEN"
+        );
+    }
+    
+    @Test
     public void cannotGetProductsWithouthToken() {
         ServiceTestHelper.clearToken();
         expectException(()->
@@ -108,6 +117,15 @@ public class ProductServiceTest {
     }
     
     @Test
+    public void cannotCreateProductWithInvalidToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(()->
+            sv.createProduct("newProduct", "manufacturer", "imageUrl", "type1"),
+            "The server responded with error code ERROR_INVALID_TOKEN"
+        );
+    }
+    
+    @Test
     public void cannotCreateProductWithoutToken() {
         ServiceTestHelper.clearToken();
         expectException(()->
@@ -123,4 +141,87 @@ public class ProductServiceTest {
             "The product type type3 does not exist"
         );
     }
+    
+    
+    @Test
+    public void testUpdateProductOk() {
+        sv.updateProduct(1, "newProduct", "manufacturer", "imageUrl", "type1");
+        // This should not throw an exception
+    }
+    
+    @Test
+    public void testUpdateProductNotExists() {
+        expectException(()->
+            sv.updateProduct(2, "newProduct", "manufacturer", "imageUrl", "type1"),
+            "The product with id 2 does not exist"
+        );
+    }
+    
+    @Test
+    public void testUpdateProductAlreadyExists() {
+        expectException(()->
+            sv.updateProduct(1, "existingProduct", "manufacturer", "imageUrl", "type1"),
+            "There is already a product with name existingProduct"
+        );
+    }
+    
+    @Test
+    public void cannotUpdateProductWithTypeNotExists() {
+        expectException(()->
+            sv.updateProduct(1, "newProduct", "manufacturer", "imageUrl", "type3"),
+            "The product type type3 does not exist"
+        );
+    }
+    
+    @Test
+    public void cannotUpdateProductWithInvalidToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(()->
+            sv.updateProduct(1, "newProduct", "manufacturer", "imageUrl", "type1"),
+            "The server responded with error code ERROR_INVALID_TOKEN"
+        );
+    }
+    
+    @Test
+    public void cannotUpdateProductWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(()->
+            sv.updateProduct(1, "newProduct", "manufacturer", "imageUrl", "type1"),
+            "Admin token not set"
+        );
+    }
+    
+    
+    @Test
+    public void testDeleteProductOk() {
+        sv.deleteProduct(1);
+        // This should not throw an exception
+    }
+    
+    @Test
+    public void testDeleteProductNotExists() {
+        expectException(()->
+            sv.deleteProduct(2),
+            "The product with id 2 does not exist"
+        );
+    }
+    
+    @Test
+    public void cannotDeleteProductWithInvalidToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(()->
+            sv.deleteProduct(1),
+            "The server responded with error code ERROR_INVALID_TOKEN"
+        );
+    }
+    
+    @Test
+    public void cannotDeleteProductWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(()->
+            sv.deleteProduct(1),
+            "Admin token not set"
+        );
+    }
+    
 }

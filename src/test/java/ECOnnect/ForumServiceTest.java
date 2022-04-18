@@ -43,7 +43,7 @@ public class ForumServiceTest {
         assertEquals(1, posts[0].likes);
         assertEquals(2, posts[0].dislikes);
         assertEquals(1, posts[0].useroption);
-        assertEquals(1649663866, posts[0].timestamp);
+        assertEquals("1649663866", posts[0].timestamp);
         
         assertEquals(2, posts[1].postid);
         assertEquals("user2", posts[1].username);
@@ -54,7 +54,7 @@ public class ForumServiceTest {
         assertEquals(3, posts[1].likes);
         assertEquals(4, posts[1].dislikes);
         assertEquals(0, posts[1].useroption);
-        assertEquals(1649663810, posts[1].timestamp);
+        assertEquals("1649663810", posts[1].timestamp);
     }
     
     @Test
@@ -72,7 +72,7 @@ public class ForumServiceTest {
         assertEquals(1, posts[0].likes);
         assertEquals(2, posts[0].dislikes);
         assertEquals(1, posts[0].useroption);
-        assertEquals(1649663866, posts[0].timestamp);
+        assertEquals("1649663866", posts[0].timestamp);
     }
     
     @Test

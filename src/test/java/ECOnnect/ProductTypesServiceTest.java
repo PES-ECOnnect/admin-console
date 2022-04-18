@@ -66,6 +66,12 @@ public class ProductTypesServiceTest {
     public void testCreateProductTypeOk() {
         sv.createProductType("newType", new String[]{"q1", "q2"});
         // This should not throw an exception
+        
+        // Test question checker
+        expectException(()->
+            sv.createProductType("newType", new String[]{"q1", "q2", "abc"}),
+            "The server responded with error code incorrect questions"
+        );
     }
     
     @Test
@@ -106,4 +112,40 @@ public class ProductTypesServiceTest {
         );
     }
     
+    
+    // TODO: Test updateProductType
+    
+    
+    @Test
+    public void testDeleteProductTypeOk() {
+        sv.deleteProductType("type1");
+        // This should not throw an exception
+    }
+    
+    @Test
+    public void testDeleteNonExistingProductType() {
+        expectException(()->
+            sv.deleteProductType("type2"),
+            "The product type type2 does not exist"
+        );
+    }
+    
+    @Test
+    public void cannotDeleteProductTypeWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(()->
+            sv.deleteProductType("type1"),
+            "Admin token not set"
+        );
+    }
+    
+    @Test
+    public void cannotDeleteProductTypeWithWrongToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(()->
+            sv.deleteProductType("type1"),
+            // This error is not very friendly, but it should never happen
+            "The server responded with error code ERROR_INVALID_TOKEN"
+        );
+    }
 }

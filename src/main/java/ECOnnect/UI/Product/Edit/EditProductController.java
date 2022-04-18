@@ -1,19 +1,20 @@
-package ECOnnect.UI.Product.Create;
+package ECOnnect.UI.Product.Edit;
 
 import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Product.ProductModel;
-import ECOnnect.UI.Product.Edit.EditProductView;
-import ECOnnect.UI.Product.Edit.IEditProductController;
+import ECOnnect.API.ProductService.Product;
 import ECOnnect.UI.ScreenManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewProductController extends Controller implements IEditProductController {
-    private EditProductView _view = new EditProductView(this);
-    private ProductModel _model = new ProductModel();
+public class EditProductController extends Controller implements IEditProductController {
+    private final EditProductView _view = new EditProductView(this);
+    private final ProductModel _model = new ProductModel();
+    
     private String _type;
+    private int _productId;
 
     public View getView() {
         return _view;
@@ -26,10 +27,10 @@ public class NewProductController extends Controller implements IEditProductCont
             String imageUrl = _view.getImageUrlText();
 
             try{
-                _model.addProduct(name, manufacturer, imageUrl, _type);
+                _model.updateProduct(_productId, name, manufacturer, imageUrl, _type);
             }
             catch (Exception ex) {
-                _view.displayError("Could not create product:\n" + ex.getMessage());
+                _view.displayError("Could not edit product:\n" + ex.getMessage());
                 return;
             }
             
@@ -41,14 +42,17 @@ public class NewProductController extends Controller implements IEditProductCont
         return (ActionEvent e) -> {
             ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN);
         };
-    }    
+    }
     
     @Override
     public void postInit(Object[] args) {
         if (args.length != 1) {
-            throw new IllegalArgumentException("Expected 1 argument: productType:String");
+            throw new IllegalArgumentException("Expected 1 argument: product:Product");
         }
-        _type = (String) args[0];
-        _view.setTitle("Create new Product of type '" + _type + "'");
+        Product product = (Product) args[0];
+        _type = product.type;
+        _productId = product.id;
+        _view.setTitle("Edit product '" + product.name + "'");
+        _view.setFields(product.name, product.manufacturer, product.imageurl);
     }
 }

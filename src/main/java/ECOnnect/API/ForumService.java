@@ -19,9 +19,10 @@ public class ForumService extends Service {
         public final int likes;
         public final int dislikes;
         public final int useroption;
-        public final long timestamp;
+        public final String timestamp;
+        public final boolean ownpost;
         
-        public Post(int postId, String username, int userId, String medal, String text, String imageURL, int likes, int dislikes, int userOption, long timestamp) {
+        public Post(int postId, String username, int userId, String medal, String text, String imageURL, int likes, int dislikes, int userOption, String timestamp, boolean ownPost) {
             this.postid = postId;
             this.username = username;
             this.userid = userId;
@@ -32,6 +33,7 @@ public class ForumService extends Service {
             this.dislikes = dislikes;
             this.useroption = userOption;
             this.timestamp = timestamp;
+            this.ownpost = ownPost;
         }
     }
     

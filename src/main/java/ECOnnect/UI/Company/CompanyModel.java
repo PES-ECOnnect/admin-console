@@ -90,4 +90,9 @@ public class CompanyModel {
         
         return q;
     }
+
+    public void removeCompany(int id) {
+        CompanyService service = ServiceFactory.getInstance().getCompanyService();
+        service.deleteCompany(id);
+    }
 }

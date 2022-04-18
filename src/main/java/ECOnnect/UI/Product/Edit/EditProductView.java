@@ -1,4 +1,4 @@
-package ECOnnect.UI.Product.Create;
+package ECOnnect.UI.Product.Edit;
 
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Utilities.HorizontalBox;
@@ -6,8 +6,8 @@ import ECOnnect.UI.Utilities.HorizontalBox;
 import javax.swing.*;
 import java.awt.*;
 
-public class NewProductView extends View {
-    private final NewProductController _ctrl;
+public class EditProductView extends View {
+    private final IEditProductController _ctrl;
 
     private final JTextField _nameTxt = new JTextField(20);
     private final JTextField _manufacturerTxt = new JTextField(20);
@@ -16,9 +16,7 @@ public class NewProductView extends View {
     
     private final Dimension _dim = new Dimension(110, 30);
 
-    // Coponents
-
-    public NewProductView(NewProductController ctrl){
+    public EditProductView(IEditProductController ctrl){
         this._ctrl = ctrl;
         setUp();
     }
@@ -68,6 +66,12 @@ public class NewProductView extends View {
     
     public void setTitle(String text) {
         _title.setText(text);
+    }
+    
+    public void setFields(String name, String manufacturer, String imageUrl) {
+        _nameTxt.setText(name);
+        _manufacturerTxt.setText(manufacturer);
+        _imageUrlTxt.setText(imageUrl);
     }
 
     public String getNameText(){return _nameTxt.getText();}

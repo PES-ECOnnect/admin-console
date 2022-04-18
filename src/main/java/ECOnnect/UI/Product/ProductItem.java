@@ -1,7 +1,10 @@
 package ECOnnect.UI.Product;
 
+import ECOnnect.API.ProductService.Product;
 import ECOnnect.UI.ScreenManager;
+import ECOnnect.UI.Product.Edit.EditProductScreen;
 import ECOnnect.UI.Product.ImageDetail.ImageDetailScreen;
+import ECOnnect.UI.Utilities.ImageButton;
 import ECOnnect.UI.Utilities.ImageLoader;
 import ECOnnect.UI.Utilities.ItemListElement;
 
@@ -10,28 +13,30 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ProductItem extends ItemListElement {
-    private final String _name;
-    private final String _manufacturer;
-    private final String _imageUrl;
-    private final String _avgRating;
+    private final Product _product;
     private final JCheckBox _deleteCheckBox = new JCheckBox();
 
-    public ProductItem(String name, String manufacturer, String imageUrl, float avgRating) {
-        this._name = name;
-        this._manufacturer = manufacturer;
-        this._imageUrl = imageUrl;
-        this._avgRating = Double.toString(avgRating);
-        
+    public ProductItem(Product product) {
+        this._product = product;        
         super.init();
     }
+    
+    public int getId() {
+        return _product.id;
+    }
+    
+    @Override
+    public String getName() {
+        return _product.name;
+    }
 
-    public static String[] getHeaderNames(){return new String[] {"Name", "Manufacturer", "Avg. Rating", "Thumbnail", "Full image", "Select for delete"};}
+    public static String[] getHeaderNames(){return new String[] {"Name", "Manufacturer", "Avg. Rating", "Thumbnail", "Full image", "Edit", "Select for delete"};}
 
     protected Component[] getRowComponents() {
-        JTextField nameField = new JTextField(_name);
+        JTextField nameField = new JTextField(_product.name);
         nameField.setEditable(false);
         
-        JTextField manufacturerField = new JTextField(_manufacturer);
+        JTextField manufacturerField = new JTextField(_product.manufacturer);
         manufacturerField.setEditable(false);
         
         JLabel thumbnail = new JLabel();
@@ -40,11 +45,14 @@ public class ProductItem extends ItemListElement {
         JButton imageButton = new JButton("View");
         imageButton.addActionListener(imageButtonListener());
         
-        JTextField avgRatingField = new JTextField(_avgRating);
+        JTextField avgRatingField = new JTextField(Double.toString(_product.avgrating));
         avgRatingField.setEditable(false);
         
+        JButton editButton = new ImageButton("/images/edit.png");
+        editButton.addActionListener(editButtonListener());
+        
         // Callback for image loading
-        ImageLoader.loadAsync(_imageUrl, new ImageLoader.ImageLoaderCallback() {
+        ImageLoader.loadAsync(_product.imageurl, new ImageLoader.ImageLoaderCallback() {
             @Override
             public void imageLoaded(ImageIcon image) {
                 ImageIcon scaledImage = ImageLoader.scale(image, -1, DEFAULT_SIZE.height);
@@ -52,7 +60,7 @@ public class ProductItem extends ItemListElement {
             }
             @Override
             public void couldNotLoad() {
-                thumbnail.setText(_imageUrl);
+                thumbnail.setText(_product.imageurl);
             }
         });
 
@@ -62,13 +70,20 @@ public class ProductItem extends ItemListElement {
             avgRatingField,
             thumbnail,
             imageButton,
+            editButton,
             _deleteCheckBox
         };
     }
     
     private ActionListener imageButtonListener() {
         return (ActionEvent e) -> {
-            ScreenManager.getInstance().show(ImageDetailScreen.class, _imageUrl, ScreenManager.PRODUCT_SCREEN);
+            ScreenManager.getInstance().show(ImageDetailScreen.class, _product.imageurl, ScreenManager.PRODUCT_SCREEN);
+        };
+    }
+    
+    private ActionListener editButtonListener() {
+        return (ActionEvent e) -> {
+            ScreenManager.getInstance().show(EditProductScreen.class, _product);
         };
     }
 

@@ -4,7 +4,7 @@ import ECOnnect.API.CompanyService.Company;
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Company.Edit.EditCompanyScreen;
 import ECOnnect.UI.Product.ImageDetail.ImageDetailScreen;
-import ECOnnect.UI.Utilities.EditButton;
+import ECOnnect.UI.Utilities.ImageButton;
 import ECOnnect.UI.Utilities.ImageLoader;
 import ECOnnect.UI.Utilities.ItemListElement;
 
@@ -26,6 +26,10 @@ public class CompanyItem extends ItemListElement {
     public String getName() {
         return _company.name;
     }
+    
+    public int getId() {
+        return _company.id;
+    }
 
     public static String[] getHeaderNames(){return new String[]{"Name", "Location", "Thumbnail", "Full image", "Avg. Rating", "Edit", "Select for delete"};}
 
@@ -45,7 +49,7 @@ public class CompanyItem extends ItemListElement {
         JTextField avgRatingField = new JTextField(Double.toString(_company.avgrating));
         avgRatingField.setEditable(false);
         
-        JButton editButton = new EditButton();
+        JButton editButton = new ImageButton("/images/edit.png");
         editButton.addActionListener(editButtonListener());
         
         // Callback for image loading

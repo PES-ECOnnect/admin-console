@@ -4,6 +4,8 @@ import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Utilities.HorizontalBox;
 import ECOnnect.UI.Utilities.ItemList;
 
+import java.util.Collection;
+
 import javax.swing.*;
 
 public class ProductView extends View {
@@ -23,15 +25,13 @@ public class ProductView extends View {
 
         panel.add(Box.createVerticalStrut(10));
         
-        JButton addButton = new JButton("Add new product");
-        addButton.addActionListener(_ctrl.addButton());
-        panel.add(HorizontalBox.create(addButton));
-
-        panel.add(Box.createVerticalStrut(10));
-        
         JButton backButton = new JButton("Go back");
         backButton.addActionListener(_ctrl.backButton());
-        panel.add(HorizontalBox.create(backButton));
+        JButton addButton = new JButton("Add new");
+        addButton.addActionListener(_ctrl.addButton());
+        JButton removeButton = new JButton("Remove selected");
+        removeButton.addActionListener(_ctrl.removeButton());
+        panel.add(HorizontalBox.create(backButton, addButton, removeButton));
 
         panel.add(Box.createVerticalStrut(10));
     }
@@ -45,6 +45,15 @@ public class ProductView extends View {
         for (ProductItem item : items) {
             _list.add(item);
         }
+        _list.redraw();
+    }
+    
+    Collection<ProductItem> getSelected() {
+        return _list.getSelected();
+    }
+    
+    void deleteItem(ProductItem item){
+        _list.delete(item);
         _list.redraw();
     }
 

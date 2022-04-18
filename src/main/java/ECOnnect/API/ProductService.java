@@ -64,18 +64,9 @@ public class ProductService extends Service {
     
     // Create a new product
     public void createProduct(String name, String manufacturer, String imageURL, String type) {
-        // Add parameters
-        TreeMap<String, String> params = new TreeMap<>();
-        params.put(ApiConstants.PRODUCT_NAME, name);
-        params.put(ApiConstants.PRODUCT_MANUFACTURER, manufacturer);
-        params.put(ApiConstants.PRODUCT_IMAGE_URL, imageURL);
-        params.put(ApiConstants.PRODUCT_TYPE, type);
-        
-        JsonResult result = null;
         try {
             // Call API
-            super.needsToken = true;
-            result = post(ApiConstants.PRODUCTS_PATH, params, null);
+            updateProductImpl(name, imageURL, type, manufacturer, ApiConstants.PRODUCTS_PATH);
         }
         catch (ApiException e) {
             switch (e.getErrorCode()) {
@@ -87,11 +78,69 @@ public class ProductService extends Service {
                     throw e;
             }
         }
+    }
+    
+    // Update an existing product
+    public void updateProduct(int id, String name, String manufacturer, String imageURL, String type) {
+        try {
+            // Call API
+            updateProductImpl(name, imageURL, type, manufacturer, ApiConstants.PRODUCTS_PATH + "/" + id);
+        }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_PRODUCT_NOT_EXISTS:
+                    throw new RuntimeException("The product with id " + id + " does not exist");
+                case ApiConstants.ERROR_PRODUCT_EXISTS:
+                    throw new RuntimeException("There is already a product with name " + name);
+                case ApiConstants.ERROR_TYPE_NOT_EXISTS:
+                    throw new RuntimeException("The product type " + type + " does not exist");
+                default:
+                    throw e;
+            }
+        }
+    }
+    
+    public void updateProductImpl(String name, String imageURL, String type, String manufacturer, String path) {
+        // Add parameters
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put(ApiConstants.PRODUCT_NAME, name);
+        params.put(ApiConstants.PRODUCT_MANUFACTURER, manufacturer);
+        params.put(ApiConstants.PRODUCT_IMAGE_URL, imageURL);
+        params.put(ApiConstants.PRODUCT_TYPE, type);
+        
+        // Call API
+        super.needsToken = true;
+        JsonResult result = post(path, params, null);
         
         // Parse result
         String status = result.getAttribute(ApiConstants.RET_STATUS);
         if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
-            // This should never happen, the API should always return an array or an error
+            // This should never happen, the API should always return an ok status or an error
+            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
+        }
+    }
+    
+    // Delete a product
+    public void deleteProduct(int id) {
+        JsonResult result = null;
+        try {
+            // Call API
+            super.needsToken = true;
+            result = delete(ApiConstants.PRODUCTS_PATH + "/" + id, null);
+        }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_PRODUCT_NOT_EXISTS:
+                    throw new RuntimeException("The product with id " + id + " does not exist");
+                default:
+                    throw e;
+            }
+        }
+        
+        // Parse result
+        String status = result.getAttribute(ApiConstants.RET_STATUS);
+        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
+            // This should never happen, the API should always return an ok status or an error
             throwInvalidResponseError(result, ApiConstants.RET_STATUS);
         }
     }

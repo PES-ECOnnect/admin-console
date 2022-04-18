@@ -169,6 +169,9 @@ public class StubHttpClient implements HttpClient {
                 else if (equals(params, "name", "emptyType") && !json.equals("{\"questions\":[]}")) {
                     return "{\"error\":\"incorrect amount of questions\"}";
                 }
+                else if (!equals(params, "name", "emptyType") && !json.equals("{\"questions\":[\"q1\",\"q2\"]}")) {
+                    return "{\"error\":\"incorrect questions\"}";
+                }
                 else {
                     return "{status: 'success'}";
                 }
@@ -204,7 +207,7 @@ public class StubHttpClient implements HttpClient {
                 
             // Edit a product
             case "/products/1":
-                expectParamsExclusive(params, "token", "id", "name", "manufacturer", "imageURL", "type");
+                expectParamsExclusive(params, "token", "name", "manufacturer", "imageURL", "type");
                 if (equals(params, "token", "badToken")) {
                     return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
@@ -218,7 +221,7 @@ public class StubHttpClient implements HttpClient {
                     return "{status: 'success'}";
                 }
             case "/products/2":
-                expectParamsExclusive(params, "token", "id", "name", "manufacturer", "imageURL", "type");
+                expectParamsExclusive(params, "token", "name", "manufacturer", "imageURL", "type");
                 return "{\"error\":\"ERROR_PRODUCT_NOT_EXISTS\"}";
                 
             // Edit a company
@@ -227,7 +230,7 @@ public class StubHttpClient implements HttpClient {
                 if (equals(params, "token", "badToken")) {
                     return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
-                else if (equals(params, "name", "company2")) {
+                else if (equals(params, "name", "existingCompany")) {
                     return "{\"error\":\"ERROR_COMPANY_EXISTS\"}";
                 }
                 else {
@@ -254,39 +257,54 @@ public class StubHttpClient implements HttpClient {
         switch (path) {
             
             // Delete a product type
-            case "/products/types":
-                expectParams(params, "token", "name");
+            case "/products/types/type1":
+                expectParams(params, "token");
                 if (equals(params, "token", "badToken")) {
                     return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
-                else if (equals(params, "name", "type1")) {
+                else {
                     return "{status: 'success'}";
+                }
+            case "/products/types/type2":
+                expectParams(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
                 else {
                     return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
                 }
                 
             // Delete a product
-            case "/products":
-                expectParams(params, "token", "name");
+            case "/products/1":
+                expectParams(params, "token");
                 if (equals(params, "token", "badToken")) {
                     return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
-                else if (equals(params, "name", "product1")) {
+                else {
                     return "{status: 'success'}";
+                }
+            case "/products/2":
+                expectParams(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
                 else {
                     return "{\"error\":\"ERROR_PRODUCT_NOT_EXISTS\"}";
                 }
                 
             // Delete a company
-            case "/companies":
-                expectParams(params, "token", "name");
+            case "/companies/1":
+                expectParams(params, "token");
                 if (equals(params, "token", "badToken")) {
                     return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
-                else if (equals(params, "name", "company1") || equals(params, "name", "company2")) {
+                else {
                     return "{status: 'success'}";
+                }
+            case "/companies/2":
+                expectParams(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
                 }
                 else {
                     return "{\"error\":\"ERROR_COMPANY_NOT_EXISTS\"}";

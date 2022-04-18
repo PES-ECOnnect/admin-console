@@ -25,4 +25,21 @@ public abstract class View {
     public void displayMessage(String message) {
         JOptionPane.showMessageDialog(panel, message, "Info", JOptionPane.INFORMATION_MESSAGE);
     }
+    
+    public void displayConfirmation(String message, Runnable yesAction, Runnable noAction) {
+        int result = JOptionPane.showConfirmDialog(panel, message, "Confirm", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            yesAction.run();
+        }
+        else if (result == JOptionPane.NO_OPTION) {
+            noAction.run();
+        }
+    }
+    
+    public void displayConfirmation(String message, Runnable yesAction) {
+        int result = JOptionPane.showConfirmDialog(panel, message, "Confirm", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            yesAction.run();
+        }
+    }
 }

@@ -149,4 +149,78 @@ public class CompanyServiceTest {
             "Admin token not set"
         );
     }
+    
+    @Test
+    public void testUpdateCompanyOk() {
+        sv.updateCompany(1, "newName", "http://www.newcompany.com/image.png", 1.0, 1.0);
+        // This should not throw an exception
+    }
+    
+    @Test
+    public void testUpdateCompanyNotExists() {
+        expectException(() ->
+            sv.updateCompany(2, "newName", "http://www.newcompany.com/image.png", 1.0, 1.0),
+            "The company with id 2 does not exist"
+        );
+    }
+    
+    @Test
+    public void testUpdateCompanyAlreadyExists() {
+        expectException(()-> 
+            sv.updateCompany(1, "existingCompany", "http://www.newcompany.com/image.png", 1.0, 1.0),
+            "There is already a company with name existingCompany"
+        );
+    }
+    
+    @Test
+    public void cannotUpdateCompanyWithInvalidToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(() ->
+            sv.updateCompany(1, "newName", "http://www.newcompany.com/image.png", 1.0, 1.0),
+            "The server responded with error code ERROR_INVALID_TOKEN"
+        );
+    }
+    
+    @Test
+    public void cannotUpdateCompanyWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(() ->
+            sv.updateCompany(1, "newName", "http://www.newcompany.com/image.png", 1.0, 1.0),
+            "Admin token not set"
+        );
+    }
+    
+    
+    @Test
+    public void testDeleteCompanyOk() {
+        sv.deleteCompany(1);
+        // This should not throw an exception
+    }
+    
+    @Test
+    public void testDeleteCompanyNotExists() {
+        expectException(() ->
+            sv.deleteCompany(2),
+            "The company with id 2 does not exist"
+        );
+    }
+    
+    @Test
+    public void cannotDeleteCompanyWithInvalidToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(() ->
+            sv.deleteCompany(1),
+            // This error is not very friendly, but it should never happen
+            "The server responded with error code ERROR_INVALID_TOKEN"
+        );
+    }
+    
+    @Test
+    public void cannotDeleteCompanyWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(() ->
+            sv.deleteCompany(1),
+            "Admin token not set"
+        );
+    }
 }

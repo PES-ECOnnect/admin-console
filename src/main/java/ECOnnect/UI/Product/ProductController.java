@@ -8,6 +8,7 @@ import ECOnnect.UI.ScreenManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 
 public class ProductController extends Controller {
     private final ProductView _view = new ProductView(this);
@@ -23,6 +24,27 @@ public class ProductController extends Controller {
     ActionListener backButton(){
         return (ActionEvent e) -> {
             ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
+        };
+    }
+    
+    ActionListener removeButton() {
+        return (ActionEvent e) -> {
+            Collection<ProductItem> selected = _view.getSelected();
+            
+            // Display confirmation dialog
+            String product_plural = selected.size() == 1 ? " product?" : " products?";
+            _view.displayConfirmation("Are you sure you want to delete " + selected.size() + product_plural, () -> {
+                // YES action, delete companies
+                for (ProductItem item : _view.getSelected()) {
+                    try {
+                        _model.removeProduct(item.getId());
+                        _view.deleteItem(item);
+                    }
+                    catch (Exception ex) {
+                        _view.displayError("Could not remove product '" + item.getName() + "':\n" + ex.getMessage());
+                    }
+                }
+            });
         };
     }
     
@@ -57,7 +79,7 @@ public class ProductController extends Controller {
         
         for (int i = 0; i < products.length; ++i) {
             Product p = products[i];
-            productItems[i] = new ProductItem(p.name, p.manufacturer, p.imageurl, p.avgrating);
+            productItems[i] = new ProductItem(p);
         }
         
         _view.addItems(productItems);;

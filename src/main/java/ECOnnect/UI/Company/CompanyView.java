@@ -1,5 +1,7 @@
 package ECOnnect.UI.Company;
 
+import java.util.Collection;
+
 import javax.swing.*;
 
 import ECOnnect.UI.Interfaces.View;
@@ -23,11 +25,13 @@ public class CompanyView extends View {
 
         panel.add(Box.createVerticalStrut(10));
         
-        JButton questionsButton = new JButton("Set Company Questions");
+        JButton questionsButton = new JButton("Edit questions");
         questionsButton.addActionListener(_ctrl.questionsButton());
-        JButton addButton = new JButton("Add new Company");
+        JButton addButton = new JButton("Add new");
         addButton.addActionListener(_ctrl.addButton());
-        panel.add(HorizontalBox.create(questionsButton, addButton));
+        JButton removeButton = new JButton("Delete selected");
+        removeButton.addActionListener(_ctrl.removeButton());
+        panel.add(HorizontalBox.create(questionsButton, addButton, removeButton));
         
         panel.add(Box.createVerticalStrut(10));
     }
@@ -41,6 +45,15 @@ public class CompanyView extends View {
         for (CompanyItem item : items) {
             _list.add(item);
         }
+        _list.redraw();
+    }
+    
+    Collection<CompanyItem> getSelected(){
+        return _list.getSelected();
+    }
+    
+    void deleteItem(CompanyItem item){
+        _list.delete(item);
         _list.redraw();
     }
 }

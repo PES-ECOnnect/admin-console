@@ -49,7 +49,7 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
     
     
     // Add an item to the list
-    public void add(ItemListElement item) {
+    public void add(T item) {
         _list.add(item);
     }
     
@@ -61,7 +61,7 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
     }
     
     // Remove an item from the list
-    public void delete(ItemListElement item) {
+    public void delete(T item) {
         _list.remove(item);
     }
     
@@ -81,12 +81,13 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
     // SELECTING ITEMS
     
     // Return all selected items
-    public Collection<ItemListElement> getSelected() {
-        ArrayList<ItemListElement> selected = new ArrayList<>();
+    public Collection<T> getSelected() {
+        ArrayList<T> selected = new ArrayList<>();
 
         // Start at 1 to avoid the headers panel
         for (int i = 1; i < _list.getComponentCount(); ++i) {
-            ItemListElement itemStruct = (ItemListElement) _list.getComponent(i);
+            @SuppressWarnings("unchecked")
+            T itemStruct = (T) _list.getComponent(i);
             
             if (itemStruct.isSelected()) {
                 selected.add(itemStruct);
@@ -100,14 +101,15 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
     public void clearSelection() {
         // Start at 1 to avoid the headers panel
         for (int i = 1; i < _list.getComponentCount(); ++i) {
-            ItemListElement itemStruct = (ItemListElement) _list.getComponent(i);
+            @SuppressWarnings("unchecked")
+            T itemStruct = (T) _list.getComponent(i);
             itemStruct.uncheck();
         }
     }
     
     // Remove all selected items from the list and return them
-    public Collection<ItemListElement> removeSelected() {
-        Collection<ItemListElement> selected = getSelected();
+    public Collection<T> removeSelected() {
+        Collection<T> selected = getSelected();
         for (var str : selected) delete(str);
         
         return selected;
