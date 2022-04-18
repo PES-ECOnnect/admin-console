@@ -2,6 +2,7 @@ package ECOnnect.UI.Forum;
 
 import java.awt.event.*;
 
+import ECOnnect.UI.Forum.ForumPostItem.IForumPostCallback;
 import ECOnnect.UI.Interfaces.*;
 import ECOnnect.API.ForumService.Post;
 
@@ -30,7 +31,7 @@ public class ForumController extends Controller {
         
         for (int i = 0; i < posts.length; ++i) {
             Post p = posts[i];
-            postItems[i] = new ForumPostItem(p.postid, p.username, p.text, p.imageurl, p.likes, p.dislikes);
+            postItems[i] = new ForumPostItem(p, _forumPostCallback);
         }
         
         _view.addItems(postItems);
@@ -47,16 +48,28 @@ public class ForumController extends Controller {
             for (ForumPostItem p : _view.getSelected()) {
                 try {
                     _model.deletePost(p.getId());
+                    _view.removeItem(p);
                 }
                 catch (Exception ex) {
                     _view.displayError("Could not delete post: " + ex.getMessage());
-                    refreshList();
-                    return;
                 }
             }
-            refreshList();
         };
-    } 
+    }
+    
+    private IForumPostCallback _forumPostCallback = new IForumPostCallback() {
+        @Override
+        public boolean banUser(int userId, boolean isBanned) {
+            try {
+                _model.banUser(userId, isBanned);
+                return true;
+            }
+            catch (Exception e) {
+                _view.displayError("Could not ban user: " + e.getMessage());
+                return false;
+            }
+        }
+    };
     
 
     public View getView() {

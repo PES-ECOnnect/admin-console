@@ -36,10 +36,7 @@ public class ProductTypesService extends Service {
         
         // Parse result
         ProductType[] productTypes = result.getArray(ApiConstants.RET_RESULT, ProductType[].class);
-        if (productTypes == null) {
-            // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_RESULT);
-        }
+        assertResultNotNull(productTypes, result);
         
         // Trim spaces in questions
         for (ProductType productType : productTypes) {
@@ -72,12 +69,7 @@ public class ProductTypesService extends Service {
             }
         }
         
-        // Parse result
-        String status = result.getAttribute(ApiConstants.RET_STATUS);
-        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
-            // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
-        }
+        expectOkStatus(result);
     }
     
     // Update an existing product type
@@ -100,11 +92,6 @@ public class ProductTypesService extends Service {
             }
         }
         
-        // Parse result
-        String status = result.getAttribute(ApiConstants.RET_STATUS);
-        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
-            // This should never happen, the API should always return an ok status or an error
-            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
-        }
+        expectOkStatus(result);
     }
 }

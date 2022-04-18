@@ -16,6 +16,7 @@ public interface ApiConstants {
     String COMPANIES_PATH = "/companies";
     String COMPANY_QUESTIONS_PATH = "/companies/questions";
     String POSTS_PATH = "/posts";
+    String BAN_PATH = "/users/%d/ban";
     
     
     // PARAMETERS
@@ -47,6 +48,9 @@ public interface ApiConstants {
     String POST_AMOUNT = "n";
     String POST_TAG = "tag";
     String POST_ID = "id";
+    
+    // Ban user
+    String BAN_SET_BANNED = "isBanned";
     
     
     // RETURN VALUES
@@ -81,4 +85,7 @@ public interface ApiConstants {
     
     // Delete posts
     String ERROR_POST_NOT_EXISTS = "ERROR_POST_NOT_EXISTS";
+    
+    // Ban user
+    String ERROR_USER_NOT_EXISTS = "ERROR_USER_NOT_EXISTS";
 }

@@ -54,11 +54,7 @@ public class ProductService extends Service {
         
         // Parse result
         Product[] products = result.getArray(ApiConstants.RET_RESULT, Product[].class);
-        if (products == null) {
-            // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_RESULT);
-        }
-        
+        assertResultNotNull(products, result);
         return products;
     }
     
@@ -112,12 +108,7 @@ public class ProductService extends Service {
         super.needsToken = true;
         JsonResult result = post(path, params, null);
         
-        // Parse result
-        String status = result.getAttribute(ApiConstants.RET_STATUS);
-        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
-            // This should never happen, the API should always return an ok status or an error
-            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
-        }
+        expectOkStatus(result);
     }
     
     // Delete a product
@@ -137,11 +128,6 @@ public class ProductService extends Service {
             }
         }
         
-        // Parse result
-        String status = result.getAttribute(ApiConstants.RET_STATUS);
-        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
-            // This should never happen, the API should always return an ok status or an error
-            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
-        }
+        expectOkStatus(result);
     }
 }

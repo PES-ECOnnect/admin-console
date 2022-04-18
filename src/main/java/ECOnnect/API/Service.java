@@ -124,7 +124,26 @@ public abstract class Service {
         return json;
     }
     
-    protected void throwInvalidResponseError(JsonResult result, String expectedAttr) {
+    
+    // Common checks for all services
+    
+    protected void expectOkStatus(JsonResult result) {
+        // Parse result
+        String status = result.getAttribute(ApiConstants.RET_STATUS);
+        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
+            // This should never happen, the API should always return an ok status or an error
+            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
+        }
+    }
+    
+    protected void assertResultNotNull(Object parsedObject, JsonResult result) {
+        if (parsedObject == null) {
+            // This should never happen, the API should always return a correct result or an error
+            throwInvalidResponseError(result, ApiConstants.RET_RESULT);
+        }
+    }
+    
+    private void throwInvalidResponseError(JsonResult result, String expectedAttr) {
         throw new RuntimeException("Invalid response from server: " + result.toString()
             + "\nExpected " + ApiConstants.RET_ERROR + " or attribute '" + expectedAttr + "'");
     }

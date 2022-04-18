@@ -21,8 +21,9 @@ public class ForumService extends Service {
         public final int useroption;
         public final float timestamp;
         public final boolean ownpost;
+        public boolean authorbanned;
         
-        public Post(int postId, String username, int userId, String medal, String text, String imageURL, int likes, int dislikes, int userOption, float timestamp, boolean ownPost) {
+        public Post(int postId, String username, int userId, String medal, String text, String imageURL, int likes, int dislikes, int userOption, float timestamp, boolean ownPost, boolean authorBanned) {
             this.postid = postId;
             this.username = username;
             this.userid = userId;
@@ -34,6 +35,7 @@ public class ForumService extends Service {
             this.useroption = userOption;
             this.timestamp = timestamp;
             this.ownpost = ownPost;
+            this.authorbanned = authorBanned;
         }
     }
     
@@ -61,11 +63,7 @@ public class ForumService extends Service {
         
         // Parse result
         Post[] posts = result.getArray(ApiConstants.RET_RESULT, Post[].class);
-        if (posts == null) {
-            // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_RESULT);
-        }
-        
+        assertResultNotNull(posts, result);
         return posts;
     }
     
@@ -86,12 +84,53 @@ public class ForumService extends Service {
                     throw e;
             }
         }
+        expectOkStatus(result);
+    }
+    
+    
+    // Check if a user is banned
+    public boolean isBanned(int userId) {
+        JsonResult result = null;
+        try {
+            // Call API
+            super.needsToken = true;
+            result = get(String.format(ApiConstants.BAN_PATH, userId), null);
+        }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_USER_NOT_EXISTS:
+                    throw new RuntimeException("The user with id " + userId + " does not exist");
+                default:
+                    throw e;
+            }
+        }
         
         // Parse result
-        String status = result.getAttribute(ApiConstants.RET_STATUS);
-        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
-            // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
+        String isBanned = result.getAttribute(ApiConstants.RET_RESULT);
+        assertResultNotNull(isBanned, result);
+        return isBanned.equalsIgnoreCase("true");
+    }
+    
+    // Ban a user
+    public void banUser(int userId, boolean isBanned) {
+        // Add parameters
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put(ApiConstants.BAN_SET_BANNED, Boolean.toString(isBanned));
+        
+        JsonResult result = null;
+        try {
+            // Call API
+            super.needsToken = true;
+            result = post(String.format(ApiConstants.BAN_PATH, userId), params, null);
         }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_USER_NOT_EXISTS:
+                    throw new RuntimeException("The user with id " + userId + " does not exist");
+                default:
+                    throw e;
+            }
+        }
+        expectOkStatus(result);
     }
 }

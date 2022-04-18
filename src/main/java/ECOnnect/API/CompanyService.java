@@ -37,11 +37,7 @@ public class CompanyService extends Service {
         
         // Parse result
         Company[] companies = result.getArray(ApiConstants.RET_RESULT, Company[].class);
-        if (companies == null) {
-            // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_RESULT);
-        }
-        
+        assertResultNotNull(companies, result);
         return companies;
     }
     
@@ -54,10 +50,7 @@ public class CompanyService extends Service {
         
         // Parse result
         String[] questions = result.getArray(ApiConstants.RET_RESULT, String[].class);
-        if (questions == null) {
-            // This should never happen, the API should always return an array or an error
-            throwInvalidResponseError(result, ApiConstants.RET_RESULT);
-        }
+        assertResultNotNull(questions, result);
         
         // Trim spaces in questions
         for (int i = 0; i < questions.length; i++) {
@@ -112,13 +105,7 @@ public class CompanyService extends Service {
         // Call API
         super.needsToken = true;
         JsonResult result = post(path, params, null);
-        
-        // Parse result
-        String status = result.getAttribute(ApiConstants.RET_STATUS);
-        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
-            // This should never happen, the API should always return an ok status or an error
-            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
-        }
+        expectOkStatus(result);
     }
     
     // Delete a company
@@ -138,11 +125,6 @@ public class CompanyService extends Service {
             }
         }
         
-        // Parse result
-        String status = result.getAttribute(ApiConstants.RET_STATUS);
-        if (status == null || !status.equals(ApiConstants.STATUS_OK)) {
-            // This should never happen, the API should always return an ok status or an error
-            throwInvalidResponseError(result, ApiConstants.RET_STATUS);
-        }
+        expectOkStatus(result);
     }
 }

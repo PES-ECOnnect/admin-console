@@ -36,10 +36,7 @@ public class LoginService extends Service {
         }
         
         String token = result.getAttribute(ApiConstants.RET_TOKEN);
-        if (token == null) {
-            // This should never happen, the API should always return a token or an error
-            throwInvalidResponseError(result, ApiConstants.RET_TOKEN);
-        }
+        assertResultNotNull(token, result);
         
         super.setToken(token);
         
@@ -48,19 +45,13 @@ public class LoginService extends Service {
     
     // Throws an exception if the logged in user is not an admin
     private void checkIsAdmin() {
-        // If an exception is thrown, assume the user is not an admin
-        String isAdmin = "false";
-        
         try {
             // Call API (no parameters needed)
             super.needsToken = true;
             JsonResult result = get(ApiConstants.IS_ADMIN_PATH, null);
-            isAdmin = result.getAttribute(ApiConstants.RET_RESULT);
-        
-            if (isAdmin == null) {
-                // This should never happen, the API should always return 'true' or 'false'
-                throwInvalidResponseError(result, ApiConstants.RET_RESULT);
-            }
+            String isAdmin = result.getAttribute(ApiConstants.RET_RESULT);
+            assertResultNotNull(isAdmin, result);
+            
             if (!isAdmin.equals("true")) {
                 throw new RuntimeException("This user is not an admin");
             }

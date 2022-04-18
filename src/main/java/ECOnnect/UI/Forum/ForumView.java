@@ -58,4 +58,9 @@ public class ForumView extends View {
         }
         return selected;
     }
+    
+    void removeItem(ForumPostItem item) {
+        _list.remove(item);
+        _list.redraw();
+    }
 }

@@ -22,4 +22,10 @@ public class ForumModel {
         ForumService service = ServiceFactory.getInstance().getForumService();
         service.deletePost(postid);
     }
+
+    // Ban or unban a user
+    public void banUser(int userId, boolean isBanned) {
+        ForumService service = ServiceFactory.getInstance().getForumService();
+        service.banUser(userId, isBanned);
+    }
 }
