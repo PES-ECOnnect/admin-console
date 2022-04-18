@@ -12,6 +12,8 @@ import ECOnnect.UI.Utilities.HorizontalBox;
 public class ForumView extends View {
     private final ForumController _ctrl;
     private ItemList<ForumPostItem> _list;
+    
+    private final JTextField _searchField = new JTextField();
 
     // Components
 
@@ -24,6 +26,14 @@ public class ForumView extends View {
         _list = new ItemList<ForumPostItem>(ForumPostItem.getHeaderNames());
         panel.add(_list);
 
+        panel.add(Box.createVerticalStrut(10));
+        
+        JLabel searchLabel = new JLabel("Search by name:");
+        JButton searchButton = new JButton("Search");
+        searchButton.addActionListener(_ctrl.searchButton());
+        _searchField.addActionListener(_ctrl.searchButton());
+        panel.add(HorizontalBox.create(Box.createHorizontalStrut(20), searchLabel, _searchField, searchButton, Box.createHorizontalStrut(20)));
+        
         panel.add(Box.createVerticalStrut(10));
         
         JButton refreshButton = new JButton("Refresh");
@@ -62,5 +72,13 @@ public class ForumView extends View {
     void removeItem(ForumPostItem item) {
         _list.remove(item);
         _list.redraw();
+    }
+
+    public String getSearchName() {
+        return _searchField.getText();
+    }
+
+    public void clearSearchField() {
+        _searchField.setText("");
     }
 }

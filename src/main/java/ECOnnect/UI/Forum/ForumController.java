@@ -13,9 +13,6 @@ public class ForumController extends Controller {
     
     
     private void refreshList() {
-        // Clear the list
-        _view.clearList();
-        
         // Get posts from model
         Post[] posts = null;
         try {
@@ -26,6 +23,11 @@ public class ForumController extends Controller {
             return;
         }
         
+        addItemsToList(posts);
+        _view.clearSearchField();
+    }
+    
+    private void addItemsToList(Post[] posts) {
         // Convert to forum post items
         ForumPostItem[] postItems = new ForumPostItem[posts.length];
         
@@ -34,7 +36,25 @@ public class ForumController extends Controller {
             postItems[i] = new ForumPostItem(p, _forumPostCallback);
         }
         
+        // Clear the list
+        _view.clearList();
+        
+        // Add the items
         _view.addItems(postItems);
+    }
+    
+    ActionListener searchButton() {
+        return (ActionEvent e) -> {
+            String name = _view.getSearchName();
+            
+            // Clear the list
+            _view.clearList();
+            
+            // Get posts from model
+            Post[] posts = _model.filterPosts(name);
+            
+            addItemsToList(posts);
+        };
     }
     
     ActionListener refreshButton(){
