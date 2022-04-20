@@ -17,6 +17,11 @@ public class StubHttpClient implements HttpClient {
         checkNullParams(params);
         
         switch (path) {
+            // ping
+            case "/":
+            case "":
+                return "PES Econnect Root!";
+            
             // Check if the token belongs to an admin
             case "/account/isadmin":
                 expectParamsExclusive(params, "token");

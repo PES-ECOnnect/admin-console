@@ -10,6 +10,19 @@ public class JsonResult {
         this._jsonObject = jsonElement.getAsJsonObject();
     }
     
+    public static JsonResult parse(String jsonString) {
+        if (jsonString == null) return null;
+        
+        JsonResult json = null;
+        try {
+            json = new JsonResult(JsonParser.parseString(jsonString));
+        }
+        catch (JsonSyntaxException | IllegalStateException e) {
+            throw new RuntimeException("Invalid JSON content:\n" + jsonString);
+        }
+        return json;
+    }
+    
     public String getAttribute(String attrName) {
         JsonElement element = _jsonObject.get(attrName);
         if (element == null) return null;

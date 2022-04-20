@@ -2,6 +2,8 @@ package ECOnnect.UI.Product.Edit;
 
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Utilities.HorizontalBox;
+import ECOnnect.UI.Utilities.StandardUploadCallback;
+import ECOnnect.UI.Utilities.CustomComponents.UploadButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,8 +11,8 @@ import java.awt.*;
 public class EditProductView extends View {
     private final IEditProductController _ctrl;
 
-    private final JTextField _nameTxt = new JTextField(20);
-    private final JTextField _manufacturerTxt = new JTextField(20);
+    private final JTextField _nameTxt = new JTextField(26);
+    private final JTextField _manufacturerTxt = new JTextField(26);
     private final JTextField _imageUrlTxt = new JTextField(20);
     private final JLabel _title = new JLabel("", JLabel.CENTER);
     
@@ -49,9 +51,10 @@ public class EditProductView extends View {
         panel.add(Box.createVerticalStrut(10));
 
         JLabel imageUrlLbl = new JLabel("Image URL:", JLabel.RIGHT);
+        JButton uploadButton = new UploadButton(new StandardUploadCallback(this, _imageUrlTxt));
         imageUrlLbl.setPreferredSize(_dim);
         _imageUrlTxt.setMaximumSize(_dim);
-        panel.add(HorizontalBox.create(imageUrlLbl, _imageUrlTxt));
+        panel.add(HorizontalBox.create(imageUrlLbl, uploadButton, _imageUrlTxt));
 
         panel.add(Box.createVerticalStrut(10));
 

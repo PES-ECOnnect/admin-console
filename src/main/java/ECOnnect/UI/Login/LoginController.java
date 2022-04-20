@@ -52,4 +52,10 @@ public class LoginController extends Controller {
     public View getView() {
         return _view;
     }
+    
+    @Override
+    public void postInit(Object[] args) {
+        // Ping Heroku at startup, so that it starts to wake up and login is faster
+        ExecutionThread.nonUI(() -> _model.pingServer());
+    }
 }

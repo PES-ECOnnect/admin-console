@@ -4,9 +4,9 @@ import ECOnnect.API.ProductService.Product;
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Product.Edit.EditProductScreen;
 import ECOnnect.UI.Product.ImageDetail.ImageDetailScreen;
-import ECOnnect.UI.Utilities.ImageButton;
 import ECOnnect.UI.Utilities.ImageLoader;
-import ECOnnect.UI.Utilities.ItemListElement;
+import ECOnnect.UI.Utilities.CustomComponents.ImageButton;
+import ECOnnect.UI.Utilities.CustomComponents.ItemListElement;
 
 import javax.swing.*;
 import java.awt.*;

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Utilities.HorizontalBox;
-import ECOnnect.UI.Utilities.ItemList;
+import ECOnnect.UI.Utilities.CustomComponents.ItemList;
 
 public class ProductTypesView extends View {
     

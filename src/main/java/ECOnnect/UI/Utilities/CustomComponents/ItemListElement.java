@@ -1,8 +1,10 @@
-package ECOnnect.UI.Utilities;
+package ECOnnect.UI.Utilities.CustomComponents;
 
 import java.awt.*;
 
 import javax.swing.*;
+
+import ECOnnect.UI.Utilities.HorizontalBox;
 
 public abstract class ItemListElement extends JPanel {
     

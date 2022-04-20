@@ -1,11 +1,11 @@
 package ECOnnect.UI.ProductTypes;
 
-import ECOnnect.UI.Utilities.ItemListElement;
-
 import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+
+import ECOnnect.UI.Utilities.CustomComponents.ItemListElement;
 
 public class ProductTypeItem extends ItemListElement {
     

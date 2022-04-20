@@ -1,15 +1,14 @@
 package ECOnnect.API.ImageUpload;
 
+import java.io.File;
 import java.util.TreeMap;
 
 import ECOnnect.API.JsonResult;
-import ECOnnect.API.Service;
-import ECOnnect.API.Exceptions.ApiException;
 
-public class ImageService extends Service {
+
+public class ImageService {
     
-    // This token should be stored in the backend and retrieved from there
-    private final String _IMAGESHACK_TOKEN = "HZFLDN3Q913ed2f68ed00054d7e1f3cdcc1d71ad";
+    // https://docs.google.com/document/d/16M3qaw27vgwuwXqExo0aIC0nni42OOuWu_OGvpYl7dE/pub
     
     public static class UploadedImage {
         public final String id; // Unique alphanumeric image id
@@ -65,39 +64,37 @@ public class ImageService extends Service {
         }
     }
     
+    // This token should be stored in the backend and retrieved from there
+    private final String _IMAGESHACK_TOKEN = "HZFLDN3Q913ed2f68ed00054d7e1f3cdcc1d71ad";
+    private final String _IMAGESHACK_UPLOAD_URL = "https://api.imageshack.com/v2/images";
     
-    // Upload an image in base64, returns an UploadResult object
-    public UploadResult uploadImage(String fileBase64) {
+    private final IUploadClient _uploadClient = new ApacheUploadClient();
+    
+    // Upload an image, returns an UploadResult object
+    public UploadResult uploadImage(File file) {
         // Add parameters
         TreeMap<String, String> params = new TreeMap<>();
         params.put("key", _IMAGESHACK_TOKEN);
-        params.put("file", fileBase64);
         params.put("album", "my_album");
         params.put("comments_disabled", "true");
         
-        JsonResult result = null;
-        try {
-            // Call API
-            super.needsToken = true;
-            result = post("https://api.imageshack.com/v2/images", params, null);
-        }
-        catch (ApiException e) {
-            switch (e.getErrorCode()) {
-                // This endpoint does not throw any errors
-                default:
-                    throw e;
-            }
+        // Parse result
+        String resultString = _uploadClient.upload(_IMAGESHACK_UPLOAD_URL, "file", file, params);
+        JsonResult result = JsonResult.parse(resultString);
+        
+        Boolean success = result.getObject("success", Boolean.class);
+        if (success == null || !success) {
+            throw new RuntimeException("Image upload failed");
         }
         
-        // Parse result
-        UploadResult uploadResult = result.asObject(UploadResult.class);
+        UploadResult uploadResult = result.getObject("result", UploadResult.class);
         
         return uploadResult;
     }
     
-    // Upload an image in base64, returns the url to the image
-    public String uploadImageToUrl(String fileBase64) {
-        UploadResult uploadResult = uploadImage(fileBase64);
+    // Upload an image to a server and return the url to the uploaded image
+    public String uploadImageToUrl(File file) {
+        UploadResult uploadResult = uploadImage(file);
         return uploadResult.images[0].direct_link;
     }
     

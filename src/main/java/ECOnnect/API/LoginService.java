@@ -75,4 +75,28 @@ public class LoginService extends Service {
             super.deleteAdminToken();
         }
     }
+    
+    public void pingServer() {
+        // Call API (no parameters needed)
+        final String EXPECTED_RESPONSE = "PES Econnect Root!";
+        String result = null;
+        try {
+            result = getRaw(ApiConstants.BASE_URL, null);
+        }
+        catch (Exception e) {
+            System.err.println("Error sending ping to server:\n" + e.getMessage());
+            //result = e.getMessage();
+            //throw new RuntimeException("Could not connect to server");
+            // Don't throw an exception if the API call fails
+        }
+        
+        if (result == null) {
+            System.err.println("Warning: Server is not responding to ping");
+            return;
+        }
+        if (!result.equals(EXPECTED_RESPONSE)) {
+            System.err.println("Warning: Server returned invalid response to ping '" + result + "'");
+            System.err.println("(expected '" + EXPECTED_RESPONSE + "')");
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package ECOnnect.UI.Utilities;
+package ECOnnect.UI.Utilities.CustomComponents;
 
 import java.awt.*;
 import java.util.ArrayList;

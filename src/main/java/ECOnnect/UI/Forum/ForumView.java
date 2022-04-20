@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import ECOnnect.UI.Interfaces.View;
-import ECOnnect.UI.Utilities.ItemList;
-import ECOnnect.UI.Utilities.ItemListElement;
 import ECOnnect.UI.Utilities.HorizontalBox;
+import ECOnnect.UI.Utilities.CustomComponents.ItemList;
+import ECOnnect.UI.Utilities.CustomComponents.ItemListElement;
 
 public class ForumView extends View {
     private final ForumController _ctrl;

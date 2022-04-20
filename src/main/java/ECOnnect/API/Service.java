@@ -47,7 +47,9 @@ public abstract class Service {
     protected JsonResult get(String path, Map<String,String> params) throws ApiException {
         String url = ApiConstants.BASE_URL + path;
         params = addTokenToRequest(params);
-        
+        return parseResult(getRaw(url, params));
+    }
+    protected String getRaw(String url, Map<String,String> params) throws ApiException {
         String result = null;
         try {
             result = _httpClient.get(url, params);
@@ -55,14 +57,16 @@ public abstract class Service {
         catch (IOException e) {
             throw new RuntimeException("Error executing GET on " + url + ": " + e.getMessage());
         }
-        return parseResult(result);
+        return result;
     }
     
     // Generic POST request
     protected JsonResult post(String path, Map<String,String> params, Object content) throws ApiException {
         String url = ApiConstants.BASE_URL + path;
         params = addTokenToRequest(params);
-        
+        return parseResult(postRaw(url, params, content));
+    }
+    protected String postRaw(String url, Map<String,String> params, Object content) throws ApiException {        
         String result = null;
         try {
             result = _httpClient.post(url, params, gson.toJson(content));
@@ -70,14 +74,16 @@ public abstract class Service {
         catch (IOException e) {
             throw new RuntimeException("Error executing POST on " + url + ": " + e.getMessage());
         }
-        return parseResult(result);
+        return result;
     }
     
     // Generic DELETE request
     protected JsonResult delete(String path, Map<String,String> params) throws ApiException {
         String url = ApiConstants.BASE_URL + path;
         params = addTokenToRequest(params);
-        
+        return parseResult(deleteRaw(url, params));
+    }
+    protected String deleteRaw(String url, Map<String,String> params) throws ApiException {        
         String result = null;
         try {
             result = _httpClient.delete(url, params);
@@ -85,7 +91,7 @@ public abstract class Service {
         catch (IOException e) {
             throw new RuntimeException("Error executing DELETE on " + url + ": " + e.getMessage());
         }
-        return parseResult(result);
+        return result;
     }
     
     
@@ -102,16 +108,7 @@ public abstract class Service {
     }
     
     private JsonResult parseResult(String result) throws ApiException {
-        if (result == null) return null;
-        
-        
-        JsonResult json = null;
-        try {
-            json = new JsonResult(JsonParser.parseString(result));
-        }
-        catch (JsonSyntaxException | IllegalStateException e) {
-            throw new RuntimeException("Invalid JSON response from server:\n" + result);
-        }
+        JsonResult json = JsonResult.parse(result);
         String error = json.getAttribute(ApiConstants.RET_ERROR);
         
         if (error != null) {

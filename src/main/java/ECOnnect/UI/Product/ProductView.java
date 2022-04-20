@@ -2,7 +2,7 @@ package ECOnnect.UI.Product;
 
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Utilities.HorizontalBox;
-import ECOnnect.UI.Utilities.ItemList;
+import ECOnnect.UI.Utilities.CustomComponents.ItemList;
 
 import java.util.Collection;
 

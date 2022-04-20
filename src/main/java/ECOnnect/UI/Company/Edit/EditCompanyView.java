@@ -1,8 +1,10 @@
 package ECOnnect.UI.Company.Edit;
 
 import ECOnnect.UI.Interfaces.View;
-import ECOnnect.UI.Utilities.HintTextFieldUI;
 import ECOnnect.UI.Utilities.HorizontalBox;
+import ECOnnect.UI.Utilities.StandardUploadCallback;
+import ECOnnect.UI.Utilities.CustomComponents.HintTextFieldUI;
+import ECOnnect.UI.Utilities.CustomComponents.UploadButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +12,10 @@ import java.awt.*;
 public class EditCompanyView extends View {
     private final IEditCompanyController _ctrl;
 
-    private final JTextField _nameTxt = new JTextField(41);
-    private final JTextField _imageUrl = new JTextField(41);
-    private final JTextField _latitudeTxt = new JTextField(19);
-    private final JTextField _longitudeTxt = new JTextField(19);
+    private final JTextField _nameTxt = new JTextField(33);
+    private final JTextField _imageUrl = new JTextField(27);
+    private final JTextField _latitudeTxt = new JTextField(15);
+    private final JTextField _longitudeTxt = new JTextField(15);
     
     private final Dimension _dim = new Dimension(120, 30);
 
@@ -44,9 +46,10 @@ public class EditCompanyView extends View {
         panel.add(Box.createVerticalStrut(10));
 
         JLabel imageUrlLbl = new JLabel("Image URL:", JLabel.RIGHT);
+        UploadButton uploadButton = new UploadButton(new StandardUploadCallback(this, _imageUrl));
         imageUrlLbl.setPreferredSize(_dim);
         _imageUrl.setMaximumSize(_dim);
-        panel.add(HorizontalBox.create(imageUrlLbl, _imageUrl));
+        panel.add(HorizontalBox.create(imageUrlLbl, uploadButton, _imageUrl));
         // Pressing enter will select the next text field
         _imageUrl.addActionListener(e -> _latitudeTxt.requestFocus());
 

@@ -2,7 +2,6 @@ package ECOnnect.API;
 
 import ECOnnect.API.HttpClient.OkHttpAdapter;
 import ECOnnect.API.HttpClient.StubHttpClient;
-import ECOnnect.API.ImageUpload.ImageService;
 
 public class ServiceFactory {
     // Singleton
@@ -15,19 +14,9 @@ public class ServiceFactory {
             Service.injectHttpClient(new OkHttpAdapter());
             
             // TODO: Remove this once the backend works
-            // Service.injectHttpClient(new StubHttpClient());
+            Service.injectHttpClient(new StubHttpClient());
         }
         return _instance;
-    }
-    
-    
-    // Image upload
-    private static ImageService _imageService = null;
-    public ImageService getImageService() {
-        if (_imageService == null) {
-            _imageService = new ImageService();
-        }
-        return _imageService;
     }
     
     // Admin Login

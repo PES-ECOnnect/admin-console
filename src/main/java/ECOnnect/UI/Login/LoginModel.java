@@ -25,4 +25,9 @@ public class LoginModel {
         LoginService logoutSv = ServiceFactory.getInstance().getLoginService();
         logoutSv.logout();
     }
+
+    public void pingServer() {
+        LoginService servive = ServiceFactory.getInstance().getLoginService();
+        servive.pingServer();
+    }
 }

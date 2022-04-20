@@ -4,7 +4,7 @@ import ECOnnect.API.ForumService.Post;
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Product.ImageDetail.ImageDetailScreen;
 import ECOnnect.UI.Utilities.ImageLoader;
-import ECOnnect.UI.Utilities.ItemListElement;
+import ECOnnect.UI.Utilities.CustomComponents.ItemListElement;
 
 import javax.swing.*;
 import java.awt.*;

@@ -5,8 +5,8 @@ import java.util.Collection;
 import javax.swing.*;
 
 import ECOnnect.UI.Interfaces.View;
-import ECOnnect.UI.Utilities.ItemList;
 import ECOnnect.UI.Utilities.HorizontalBox;
+import ECOnnect.UI.Utilities.CustomComponents.ItemList;
 
 public class CompanyView extends View {
     private final CompanyController _ctrl;
