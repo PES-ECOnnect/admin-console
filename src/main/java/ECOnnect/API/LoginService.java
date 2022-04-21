@@ -76,6 +76,7 @@ public class LoginService extends Service {
         }
     }
     
+    // Wake up the server
     public void pingServer() {
         // Call API (no parameters needed)
         final String EXPECTED_RESPONSE = "PES Econnect Root!";
@@ -85,9 +86,7 @@ public class LoginService extends Service {
         }
         catch (Exception e) {
             System.err.println("Error sending ping to server:\n" + e.getMessage());
-            //result = e.getMessage();
-            //throw new RuntimeException("Could not connect to server");
-            // Don't throw an exception if the API call fails
+            return;
         }
         
         if (result == null) {

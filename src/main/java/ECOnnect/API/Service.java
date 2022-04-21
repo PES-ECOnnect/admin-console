@@ -77,6 +77,23 @@ public abstract class Service {
         return result;
     }
     
+    // Generic PUT request
+    protected JsonResult put(String path, Map<String,String> params, Object content) throws ApiException {
+        String url = ApiConstants.BASE_URL + path;
+        params = addTokenToRequest(params);
+        return parseResult(putRaw(url, params, content));
+    }
+    protected String putRaw(String url, Map<String,String> params, Object content) throws ApiException {
+        String result = null;
+        try {
+            result = _httpClient.put(url, params, gson.toJson(content));
+        }
+        catch (IOException e) {
+            throw new RuntimeException("Error executing PUT on " + url + ": " + e.getMessage());
+        }
+        return result;
+    }
+    
     // Generic DELETE request
     protected JsonResult delete(String path, Map<String,String> params) throws ApiException {
         String url = ApiConstants.BASE_URL + path;
@@ -112,7 +129,7 @@ public abstract class Service {
         String error = json.getAttribute(ApiConstants.RET_ERROR);
         
         if (error != null) {
-            if (error == ApiConstants.ERROR_INVALID_TOKEN) {
+            if (error.equals(ApiConstants.ERROR_INVALID_TOKEN)) {
                 deleteAdminToken();
                 throw new InvalidTokenApiException();
             }

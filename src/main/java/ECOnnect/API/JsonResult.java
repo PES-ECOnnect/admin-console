@@ -42,7 +42,7 @@ public class JsonResult {
         JsonArray array = element.getAsJsonArray();
         if (array == null) return null;
         
-        return new Gson().fromJson(array, arrayClass);
+        return GSON.fromJson(array, arrayClass);
     }
     
     public <T> T getObject(String attrName, Class<T> objectClass) {
