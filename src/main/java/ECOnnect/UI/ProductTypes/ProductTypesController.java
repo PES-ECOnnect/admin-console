@@ -44,7 +44,10 @@ public class ProductTypesController extends Controller {
     
     public void viewQuestions(int index) {
         String type = _model.getType(index).name;
-        String[] questions = _model.getType(index).questions;
+        String[] questions = new String[_model.getType(index).questions.length]; 
+        for (int i = 0; i < questions.length; ++i) {
+            questions[i] = _model.getType(index).questions[i].statement;
+        }
         ScreenManager.getInstance().show(ProductTypeQuestionsScreen.class, type, questions);
     }
     

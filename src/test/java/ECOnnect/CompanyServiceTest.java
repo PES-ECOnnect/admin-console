@@ -56,8 +56,7 @@ public class CompanyServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(() ->
             sv.getCompanies(),
-            // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     
@@ -90,8 +89,7 @@ public class CompanyServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(() ->
             sv.createCompany("newCompany", "http://www.newcompany.com/image.png", 1.0, 1.0),
-            // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     
@@ -136,8 +134,7 @@ public class CompanyServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(() ->
             sv.getQuestions(),
-            // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     
@@ -177,7 +174,7 @@ public class CompanyServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(() ->
             sv.updateCompany(1, "newName", "http://www.newcompany.com/image.png", 1.0, 1.0),
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     
@@ -210,8 +207,7 @@ public class CompanyServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(() ->
             sv.deleteCompany(1),
-            // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     

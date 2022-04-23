@@ -72,7 +72,12 @@ public class LoginService extends Service {
         }
         finally {
             // Delete local token whether or not the API call succeeded
-            super.deleteAdminToken();
+            try {
+                super.deleteAdminToken();
+            }
+            catch (Exception e) {
+                // Tried to delete the token, but it was already deleted
+            }
         }
     }
     

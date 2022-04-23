@@ -88,7 +88,7 @@ public class ProductServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(()->
             sv.getProducts(null),
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     
@@ -121,7 +121,7 @@ public class ProductServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(()->
             sv.createProduct("newProduct", "manufacturer", "imageUrl", "type1"),
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     
@@ -178,7 +178,7 @@ public class ProductServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(()->
             sv.updateProduct(1, "newProduct", "manufacturer", "imageUrl", "type1"),
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     
@@ -211,7 +211,7 @@ public class ProductServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(()->
             sv.deleteProduct(1),
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     

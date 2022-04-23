@@ -125,8 +125,7 @@ public class ForumServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(()->
             sv.getPosts(3, null),
-            // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     
@@ -163,8 +162,7 @@ public class ForumServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(()->
             sv.banUser(1, false),
-            // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     
@@ -196,8 +194,7 @@ public class ForumServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(()->
             sv.isBanned(1),
-            // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     

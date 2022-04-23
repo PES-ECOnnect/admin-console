@@ -10,11 +10,22 @@ public class ProductTypesService extends Service {
     ProductTypesService() {}
     
     public static class ProductType {
+        public static class Question {
+            public final int questionid;
+            public String statement;
+
+            public Question(int questionid, String statement) {
+                this.questionid = questionid;
+                this.statement = statement;
+            }
+        }
+
         // Important: The name of these attributes must match the ones in the returned JSON
+        // Gson will initialize these fields to the received values
         public final String name;
-        public final String[] questions;
-        
-        public ProductType(String name, String[] questions) {
+        public final Question[] questions;
+
+        public ProductType(String name, Question[] questions) {
             this.name = name;
             this.questions = questions;
         }
@@ -41,7 +52,7 @@ public class ProductTypesService extends Service {
         // Trim spaces in questions
         for (ProductType productType : productTypes) {
             for (int i = 0; i < productType.questions.length; i++) {
-                productType.questions[i] = productType.questions[i].trim();
+                productType.questions[i].statement = productType.questions[i].statement.trim();
             }
         }
         

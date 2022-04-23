@@ -93,8 +93,7 @@ public class LoginServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(() ->
             sv.logout(),
-            // This error is not very friendly, but it should never happen
-            "The server responded with error code ERROR_INVALID_TOKEN"
+            "This session has expired, please logout and try again"
         );
     }
     
@@ -111,7 +110,7 @@ public class LoginServiceTest {
         sv.logout();
         expectException(() ->
             sv.logout(),
-            "Session token was already deleted"
+            "Admin token not set"
         );
     }
 }
