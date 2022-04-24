@@ -6,6 +6,7 @@ import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
 import ECOnnect.UI.ProductTypes.Create.CreateProductTypeScreen;
 import ECOnnect.UI.ProductTypes.Questions.ProductTypeQuestionsScreen;
+import ECOnnect.UI.Utilities.ExecutionThread;
 import ECOnnect.API.ProductTypesService.ProductType;
 
 public class ProductTypesController extends Controller {
@@ -20,26 +21,26 @@ public class ProductTypesController extends Controller {
     
     @Override
     public void postInit(Object[] args) {
-        
-        // Get types from model
-        ProductType[] items = null;
-        try {
-            items = _model.getProductTypes();
-        }
-        catch (Exception e) {
-            _view.displayError("Could not fetch existing types: " + e.getMessage());
-            return;
-        }
-        
-        // Convert to type items
-        
-        ProductTypeItem[] productTypeItems = new ProductTypeItem[items.length];
-        
-        for (int i = 0; i < items.length; ++i) {
-            productTypeItems[i] = new ProductTypeItem(this, i, items[i].name, items[i].questions.length);
-        }
-        
-        _view.addItems(productTypeItems);
+        ExecutionThread.nonUI(()->{
+            try {
+                // Get types from model
+                ProductType[] items = _model.getProductTypes();
+                
+                // Convert to type items
+                ProductTypeItem[] productTypeItems = new ProductTypeItem[items.length];
+                
+                for (int i = 0; i < items.length; ++i) {
+                    productTypeItems[i] = new ProductTypeItem(this, i, items[i].name, items[i].questions.length);
+                }
+                
+                ExecutionThread.UI(()->_view.addItems(productTypeItems));
+            }
+            catch (Exception e) {
+                ExecutionThread.UI(()-> {
+                    _view.displayError("Could not fetch existing types: " + e.getMessage());
+                });
+            } 
+        });
     }
     
     public void viewQuestions(int index) {

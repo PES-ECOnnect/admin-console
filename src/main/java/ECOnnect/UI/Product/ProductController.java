@@ -3,6 +3,7 @@ package ECOnnect.UI.Product;
 import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
 import ECOnnect.UI.Product.Create.NewProductScreen;
+import ECOnnect.UI.Utilities.ExecutionThread;
 import ECOnnect.API.ProductService.Product;
 import ECOnnect.UI.ScreenManager;
 
@@ -64,24 +65,27 @@ public class ProductController extends Controller {
         
         ScreenManager.getInstance().updateTitle("Products of type '" + _type + "'");
         
-        // Get products from model
-        Product[] products = null;
-        try {
-            products = _model.getProducts(_type);
-        }
-        catch (Exception e) {
-            _view.displayError("Could not fetch products: " + e.getMessage());
-            return;
-        }
-        
-        // Convert to product items
-        ProductItem[] productItems = new ProductItem[products.length];
-        
-        for (int i = 0; i < products.length; ++i) {
-            Product p = products[i];
-            productItems[i] = new ProductItem(p);
-        }
-        
-        _view.addItems(productItems);;
+        ExecutionThread.nonUI(()->{
+            try {
+                // Get products from model
+                Product[] products = _model.getProducts(_type);
+                // Convert to product items
+                ProductItem[] productItems = new ProductItem[products.length];
+                
+                for (int i = 0; i < products.length; ++i) {
+                    Product p = products[i];
+                    productItems[i] = new ProductItem(p);
+                }
+                
+                ExecutionThread.UI(()->{
+                    _view.addItems(productItems); 
+                });
+            }
+            catch (Exception e) {
+                ExecutionThread.UI(()->{
+                    _view.displayError("Could not get products:\n" + e.getMessage());
+                });
+            }
+        });
     }
 }

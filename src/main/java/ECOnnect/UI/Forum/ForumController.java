@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 import ECOnnect.UI.Forum.ForumPostItem.IForumPostCallback;
 import ECOnnect.UI.Interfaces.*;
+import ECOnnect.UI.Utilities.ExecutionThread;
 import ECOnnect.API.ForumService.Post;
 
 public class ForumController extends Controller {
@@ -13,18 +14,25 @@ public class ForumController extends Controller {
     
     
     private void refreshList() {
-        // Get posts from model
-        Post[] posts = null;
-        try {
-            posts = _model.getPosts();
-        }
-        catch (Exception e) {
-            _view.displayError("Could not fetch posts: " + e.getMessage());
-            return;
-        }
+        _view.setEnabled(false);
         
-        addItemsToList(posts);
-        _view.clearSearchField();
+        ExecutionThread.nonUI(()->{
+            // Get posts from model
+            try {
+                Post[] posts = _model.getPosts();
+                ExecutionThread.UI(()->{
+                    addItemsToList(posts);
+                    _view.clearSearchField();
+                    _view.setEnabled(true);
+                });
+            }
+            catch (Exception e) {
+                ExecutionThread.UI(()->{
+                    _view.displayError("Could not fetch posts: " + e.getMessage());
+                });
+                return;
+            }
+        });
     }
     
     private void addItemsToList(Post[] posts) {
@@ -59,6 +67,8 @@ public class ForumController extends Controller {
     
     ActionListener refreshButton(){
         return (ActionEvent e) -> {
+            // Clear the list
+            _view.clearList();
             refreshList();
         };
     }

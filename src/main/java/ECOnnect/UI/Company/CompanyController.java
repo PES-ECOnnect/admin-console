@@ -1,6 +1,7 @@
 package ECOnnect.UI.Company;
 
 import ECOnnect.UI.Interfaces.*;
+import ECOnnect.UI.Utilities.ExecutionThread;
 import ECOnnect.API.CompanyService.Company;
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Company.Create.NewCompanyScreen;
@@ -53,24 +54,28 @@ public class CompanyController extends Controller {
     
     @Override
     public void postInit(Object[] args) {
-        // Get companies from model
-        Company[] companies = null;
-        try {
-            companies = _model.getCompanies();
-        }
-        catch (Exception e) {
-            _view.displayError("Could not fetch companies: " + e.getMessage());
-            return;
-        }
-        
-        // Convert to company items
-        CompanyItem[] companyItems = new CompanyItem[companies.length];
-        
-        for (int i = 0; i < companies.length; ++i) {
-            Company c = companies[i];
-            companyItems[i] = new CompanyItem(c);
-        }
-        
-        _view.addItems(companyItems);
+        ExecutionThread.nonUI(()->{
+          // Get companies from model
+            Company[] companies = null;
+            try {
+                companies = _model.getCompanies();
+            }
+            catch (Exception e) {
+                ExecutionThread.UI(()->{
+                    _view.displayError("Could not get companies:\n" + e.getMessage());
+                });
+                return;
+            }
+            
+            // Convert to company items
+            CompanyItem[] companyItems = new CompanyItem[companies.length];
+            
+            for (int i = 0; i < companies.length; ++i) {
+                Company c = companies[i];
+                companyItems[i] = new CompanyItem(c);
+            }
+            
+            ExecutionThread.UI(()->_view.addItems(companyItems));
+        });
     }
 }

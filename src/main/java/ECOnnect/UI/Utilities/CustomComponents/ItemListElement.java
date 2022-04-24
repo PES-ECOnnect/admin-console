@@ -16,6 +16,7 @@ public abstract class ItemListElement extends JPanel {
         super.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         super.setMaximumSize(DEFAULT_SIZE);
         super.setMinimumSize(DEFAULT_SIZE);
+        super.setPreferredSize(DEFAULT_SIZE);
         HorizontalBox.HEIGHT = DEFAULT_ELEMENT_SIZE.height;
         
         Component[] rowComponents = getRowComponents();
