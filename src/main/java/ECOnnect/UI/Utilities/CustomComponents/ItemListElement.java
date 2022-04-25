@@ -47,4 +47,15 @@ public abstract class ItemListElement extends JPanel {
     public void uncheck() {
         // Do nothing
     }
+    
+    
+    // Load listeners on demand to improve performance
+    @Override
+    public void addNotify() {
+        // Do nothing (loads the list quickly, but the user cannot interact with it)
+    }
+    // Call this method to load the listeners
+    public void lazyUpdate() {
+        super.addNotify();
+    }
 }
