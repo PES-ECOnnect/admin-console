@@ -12,7 +12,7 @@ public class ServiceFactory {
             // Use OkHttp library
             Service.injectHttpClient(new OkHttpAdapter());
             
-            Service.injectHttpClient(new ECOnnect.API.HttpClient.StubHttpClient());
+            //Service.injectHttpClient(new ECOnnect.API.HttpClient.StubHttpClient());
         }
         return _instance;
     }

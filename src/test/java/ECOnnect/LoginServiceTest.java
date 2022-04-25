@@ -3,7 +3,6 @@ package ECOnnect;
 import org.junit.*;
 
 import ECOnnect.API.*;
-import ECOnnect.API.HttpClient.StubHttpClient;
 
 import static org.junit.Assert.*;
 

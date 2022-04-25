@@ -4,7 +4,6 @@ import org.junit.*;
 
 import ECOnnect.API.*;
 import ECOnnect.API.ForumService.Post;
-import ECOnnect.API.HttpClient.StubHttpClient;
 
 import static org.junit.Assert.*;
 

@@ -4,7 +4,6 @@ import org.junit.*;
 
 import ECOnnect.API.*;
 import ECOnnect.API.CompanyService.Company;
-import ECOnnect.API.HttpClient.StubHttpClient;
 import ECOnnect.API.ProductTypesService.ProductType.Question;
 
 import static org.junit.Assert.*;

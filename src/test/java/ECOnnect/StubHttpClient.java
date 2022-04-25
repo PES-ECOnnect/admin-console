@@ -1,9 +1,10 @@
-package ECOnnect.API.HttpClient;
+package ECOnnect;
 
 import java.util.Map;
 import java.util.TreeMap;
 
 import ECOnnect.API.ApiConstants;
+import ECOnnect.API.HttpClient.HttpClient;
 
 public class StubHttpClient implements HttpClient {
     private static final String _EXPECTED_DOMAIN = ApiConstants.BASE_URL; 
