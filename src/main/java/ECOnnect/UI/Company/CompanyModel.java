@@ -3,6 +3,7 @@ package ECOnnect.UI.Company;
 import ECOnnect.API.CompanyService;
 import ECOnnect.API.ServiceFactory;
 import ECOnnect.API.CompanyService.Company;
+import ECOnnect.API.ProductTypesService.ProductType.Question;
 
 public class CompanyModel {
     // Get all the companies
@@ -81,10 +82,10 @@ public class CompanyModel {
         }
     }
     
-    public String[] getQuestions() {
+    public Question[] getQuestions() {
         // Get questions from API
         CompanyService service = ServiceFactory.getInstance().getCompanyService();
-        String[] q = service.getQuestions();
+        Question[] q = service.getQuestions();
         
         // No need to store in model
         

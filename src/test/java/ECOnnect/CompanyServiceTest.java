@@ -5,6 +5,7 @@ import org.junit.*;
 import ECOnnect.API.*;
 import ECOnnect.API.CompanyService.Company;
 import ECOnnect.API.HttpClient.StubHttpClient;
+import ECOnnect.API.ProductTypesService.ProductType.Question;
 
 import static org.junit.Assert.*;
 
@@ -118,15 +119,15 @@ public class CompanyServiceTest {
     
     @Test
     public void testGetCompanyQuestionsOk() {
-        String[] questions = sv.getQuestions();
+        Question[] questions = sv.getQuestions();
         // This should not throw an exception
         
         assertNotNull(questions);
         assertEquals(3, questions.length);
         
-        assertEquals("q1", questions[0]);
-        assertEquals("q2", questions[1]);
-        assertEquals("q3", questions[2]);
+        assertEquals("q1", questions[0].statement);
+        assertEquals("q2", questions[1].statement);
+        assertEquals("q3", questions[2].statement);
     }
     
     @Test

@@ -53,7 +53,7 @@ public class CompanyView extends View {
     }
     
     void deleteItem(CompanyItem item){
-        _list.delete(item);
+        _list.remove(item);
         _list.redraw();
     }
 }

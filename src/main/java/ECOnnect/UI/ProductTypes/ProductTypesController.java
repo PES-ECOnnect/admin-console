@@ -8,6 +8,7 @@ import ECOnnect.UI.ProductTypes.Create.CreateProductTypeScreen;
 import ECOnnect.UI.ProductTypes.Questions.ProductTypeQuestionsScreen;
 import ECOnnect.UI.Utilities.ExecutionThread;
 import ECOnnect.API.ProductTypesService.ProductType;
+import ECOnnect.API.ProductTypesService.ProductType.Question;
 
 public class ProductTypesController extends Controller {
     private final ProductTypesView _view = new ProductTypesView(this);
@@ -45,10 +46,7 @@ public class ProductTypesController extends Controller {
     
     public void viewQuestions(int index) {
         String type = _model.getType(index).name;
-        String[] questions = new String[_model.getType(index).questions.length]; 
-        for (int i = 0; i < questions.length; ++i) {
-            questions[i] = _model.getType(index).questions[i].statement;
-        }
+        Question[] questions = _model.getType(index).questions;
         ScreenManager.getInstance().show(ProductTypeQuestionsScreen.class, type, questions);
     }
     

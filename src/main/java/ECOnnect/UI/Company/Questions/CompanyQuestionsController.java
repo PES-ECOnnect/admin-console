@@ -2,13 +2,15 @@ package ECOnnect.UI.Company.Questions;
 
 import java.awt.event.*;
 
+import ECOnnect.API.ProductTypesService.ProductType.Question;
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Company.CompanyModel;
 import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
+import ECOnnect.UI.ProductTypes.Questions.QuestionsView;
 
 public class CompanyQuestionsController extends Controller {
-    private final CompanyQuestionsView _view = new CompanyQuestionsView(this);
+    private final QuestionsView _view = new QuestionsView();
     private final CompanyModel _model = new CompanyModel();
      
         
@@ -25,12 +27,8 @@ public class CompanyQuestionsController extends Controller {
     
     @Override
     public void postInit(Object[] args) {
-        String[] questions = _model.getQuestions();
-        StringBuilder sb = new StringBuilder();
-        for (String question : questions) {
-            sb.append(question);
-            sb.append("\n");
-        }
-        _view.setQuestionsText(sb.toString());
+        _view.setTitle("Questions for all companies");
+        Question[] questions = _model.getQuestions();
+        _view.setQuestions(questions);
     }
 }

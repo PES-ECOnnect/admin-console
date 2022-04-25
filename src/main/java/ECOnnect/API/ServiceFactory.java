@@ -1,7 +1,6 @@
 package ECOnnect.API;
 
 import ECOnnect.API.HttpClient.OkHttpAdapter;
-import ECOnnect.API.HttpClient.StubHttpClient;
 
 public class ServiceFactory {
     // Singleton
@@ -13,8 +12,7 @@ public class ServiceFactory {
             // Use OkHttp library
             Service.injectHttpClient(new OkHttpAdapter());
             
-            // TODO: Remove this once the backend works
-            //Service.injectHttpClient(new StubHttpClient());
+            Service.injectHttpClient(new ECOnnect.API.HttpClient.StubHttpClient());
         }
         return _instance;
     }

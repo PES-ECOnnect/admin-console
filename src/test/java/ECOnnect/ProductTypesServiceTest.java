@@ -113,9 +113,6 @@ public class ProductTypesServiceTest {
     }
     
     
-    // TODO: Test updateProductType
-    
-    
     @Test
     public void testDeleteProductTypeOk() {
         sv.deleteProductType("type1");
@@ -144,6 +141,114 @@ public class ProductTypesServiceTest {
         ServiceTestHelper.setToken("badToken");
         expectException(()->
             sv.deleteProductType("type1"),
+            "This session has expired, please logout and try again"
+        );
+    }
+    
+    
+    @Test
+    public void testRenameTypeOk() {
+        sv.renameType("type1", "newType");
+        // This should not throw an exception
+    }
+    
+    @Test
+    public void testRenameNonExistingType() {
+        expectException(()->
+            sv.renameType("type3", "newType"),
+            "The product type type3 does not exist"
+        );
+    }
+    
+    @Test
+    public void testRenameToExistingName() {
+        expectException(()->
+            sv.renameType("type1", "existingType"),
+            "There is already a product type called existingType"
+        );
+    }
+    
+    @Test
+    public void cannotRenameTypeWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(()->
+            sv.renameType("type1", "newType"),
+            "Admin token not set"
+        );
+    }
+    
+    @Test
+    public void cannotRenameTypeWithWrongToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(()->
+            sv.renameType("type1", "newType"),
+            "This session has expired, please logout and try again"
+        );
+    }
+    
+    
+    
+    @Test
+    public void testUpdateQuestionOk() {
+        sv.editQuestion(1, "new statement");
+        // This should not throw an exception
+    }
+    
+    @Test
+    public void testUpdateNonExistingQuestion() {
+        expectException(()->
+            sv.editQuestion(2, "new statement"),
+            "The question with id 2 does not exist"
+        );
+    }
+    
+    @Test
+    public void cannotUpdateQuestionWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(()->
+            sv.editQuestion(1, "new statement"),
+            "Admin token not set"
+        );
+    }
+    
+    @Test
+    public void cannotUpdateQuestionWithWrongToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(()->
+            sv.editQuestion(1, "new statement"),
+            "This session has expired, please logout and try again"
+        );
+    }
+    
+    
+    @Test
+    public void testDeleteQuestionOk() {
+        sv.deleteQuestion(1);
+        // This should not throw an exception
+    }
+    
+    @Test
+    public void testDeleteNonExistingQuestion() {
+        expectException(()->
+            sv.deleteQuestion(2),
+            "The question with id 2 does not exist"
+        );
+    }
+    
+    @Test
+    public void cannotDeleteQuestionWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(()->
+            sv.deleteQuestion(1),
+            "Admin token not set"
+        );
+    }
+    
+    @Test
+    public void cannotDeleteQuestionWithWrongToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(()->
+            sv.deleteQuestion(1),
             "This session has expired, please logout and try again"
         );
     }

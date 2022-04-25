@@ -53,7 +53,7 @@ public class ProductView extends View {
     }
     
     void deleteItem(ProductItem item){
-        _list.delete(item);
+        _list.remove(item);
         _list.redraw();
     }
 

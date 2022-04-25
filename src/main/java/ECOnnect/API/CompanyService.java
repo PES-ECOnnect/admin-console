@@ -3,6 +3,7 @@ package ECOnnect.API;
 import java.util.TreeMap;
 
 import ECOnnect.API.Exceptions.ApiException;
+import ECOnnect.API.ProductTypesService.ProductType.Question;
 
 public class CompanyService extends Service {
     
@@ -42,19 +43,19 @@ public class CompanyService extends Service {
     }
     
     // Get questions for the company type
-    public String[] getQuestions() {
+    public Question[] getQuestions() {
         
         // Call API
         super.needsToken = true;
         JsonResult result = get(ApiConstants.COMPANY_QUESTIONS_PATH, null);
         
         // Parse result
-        String[] questions = result.getArray(ApiConstants.RET_RESULT, String[].class);
+        Question[] questions = result.getArray(ApiConstants.RET_RESULT, Question[].class);
         assertResultNotNull(questions, result);
         
         // Trim spaces in questions
         for (int i = 0; i < questions.length; i++) {
-            questions[i] = questions[i].trim();
+            questions[i].statement = questions[i].statement.trim();
         }
         
         return questions;

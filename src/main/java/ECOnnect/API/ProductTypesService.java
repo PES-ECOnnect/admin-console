@@ -84,7 +84,31 @@ public class ProductTypesService extends Service {
     }
     
     // Update an existing product type
-    // TODO
+    public void renameType(String oldName, String newName) {
+        // Add parameters
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put(ApiConstants.PRODUCT_TYPES_NEW_NAME, newName);
+        params.put(ApiConstants.PRODUCT_TYPES_OLD_NAME, oldName);
+        
+        // Call API
+        JsonResult result = null;
+        try {
+            super.needsToken = true;
+            result = put(ApiConstants.TYPES_PATH, params, null);
+        }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_TYPE_NOT_EXISTS:
+                    throw new RuntimeException("The product type " + oldName + " does not exist");
+                case ApiConstants.ERROR_TYPE_EXISTS:
+                    throw new RuntimeException("There is already a product type called " + newName);
+                default:
+                    throw e;
+            }
+        }
+        
+        expectOkStatus(result);
+    }
     
     // Delete an existing product type
     public void deleteProductType(String name) {
@@ -98,6 +122,51 @@ public class ProductTypesService extends Service {
             switch (e.getErrorCode()) {
                 case ApiConstants.ERROR_TYPE_NOT_EXISTS:
                     throw new RuntimeException("The product type " + name + " does not exist");
+                default:
+                    throw e;
+            }
+        }
+        
+        expectOkStatus(result);
+    }
+    
+    
+    // Edit a question
+    public void editQuestion(int questionId, String newStatement) {
+        // Add parameters
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put(ApiConstants.QUESTION_NEW_STATEMENT, newStatement);
+        
+        // Call API
+        JsonResult result = null;
+        try {
+            super.needsToken = true;
+            result = put(ApiConstants.QUESTIONS_PATH + "/" + questionId, params, null);
+        }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_QUESTION_NOT_EXISTS:
+                    throw new RuntimeException("The question with id " + questionId + " does not exist");
+                default:
+                    throw e;
+            }
+        }
+        
+        expectOkStatus(result);
+    }
+    
+    // Delete a question
+    public void deleteQuestion(int questionId) {
+        // Call API
+        JsonResult result = null;
+        try {
+            super.needsToken = true;
+            result = delete(ApiConstants.QUESTIONS_PATH + "/" + questionId, null);
+        }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_QUESTION_NOT_EXISTS:
+                    throw new RuntimeException("The question with id " + questionId + " does not exist");
                 default:
                     throw e;
             }

@@ -61,7 +61,7 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
     }
     
     // Remove an item from the list
-    public void delete(T item) {
+    public void remove(T item) {
         _list.remove(item);
     }
     
@@ -110,7 +110,7 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
     // Remove all selected items from the list and return them
     public Collection<T> removeSelected() {
         Collection<T> selected = getSelected();
-        for (var str : selected) delete(str);
+        for (var str : selected) remove(str);
         
         return selected;
     }

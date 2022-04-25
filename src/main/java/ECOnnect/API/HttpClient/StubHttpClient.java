@@ -74,7 +74,7 @@ public class StubHttpClient implements HttpClient {
                 }
                 else {
                     // For each type, return the name and an array of questions
-                    return "{\"result\":[{\"name\":\"type1\",\"questions\":[{\"questionid\":1,\"statement\":\"q1\"},{\"questionid\":2,\"statement\":\"q2\"},{\"questionid\":3,\"statement\":\"q3\"}]},{\"name\":\"type2\",\"questions\":[{\"questionid\":4,\"statement\":\"q4\"},{\"questionid\":5,\"statement\":\"q5\"},{\"questionid\":6,\"statement\":\"q6\"}]}]}";
+                    return "{\"result\":[{\"name\":\"type1\",\"questions\":[{\"questionid\":1,\"statement\":\"q1  \"},{\"questionid\":2,\"statement\":\"q2  \"},{\"questionid\":3,\"statement\":\"q3\"}]},{\"name\":\"type2\",\"questions\":[{\"questionid\":4,\"statement\":\"q4 \"},{\"questionid\":5,\"statement\":\"q5 \"},{\"questionid\":6,\"statement\":\"q6  \"}]}]}";
                 }
                 
             // Get questions for the company type
@@ -85,7 +85,7 @@ public class StubHttpClient implements HttpClient {
                 }
                 else {
                     // Array of questions
-                    return "{\"result\":[\"q1   \",\"q2\",\"q3\"]}";
+                    return "{\"result\":[{\"questionid\":1,\"statement\":\"q1   \"},{\"questionid\":2,\"statement\":\"q2  \"},{\"questionid\":3,\"statement\":\"q3\"}]}";
                 }
                 
             // Get list of products
@@ -306,6 +306,38 @@ public class StubHttpClient implements HttpClient {
         checkNullParams(params);
         
         switch (path) {
+            case "/products/types":
+                expectParamsExclusive(params, "token", "oldName", "newName");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else if (equals(params, "newName", "existingType")) {
+                    return "{\"error\":\"ERROR_TYPE_EXISTS\"}";
+                }
+                else if (!equals(params, "oldName", "type1") && !equals(params, "oldName", "type2")) {
+                    return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
+                }
+                else {
+                    return "{status: 'success'}";
+                }
+                
+            case "/questions/1":
+                expectParamsExclusive(params, "token", "newQuestion");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else {
+                    return "{status: 'success'}";
+                }
+            case "/questions/2":
+                expectParamsExclusive(params, "token", "newQuestion");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else {
+                    return "{\"error\":\"ERROR_QUESTION_NOT_EXISTS\"}";    
+                }
+            
             default:
                 throw new RuntimeException("Invalid path: " + path);
         }
@@ -337,6 +369,24 @@ public class StubHttpClient implements HttpClient {
                 }
                 else {
                     return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
+                }
+                
+            // Delete a question
+            case "/questions/1":
+                expectParams(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else {
+                    return "{status: 'success'}";
+                }
+            case "/questions/2":
+                expectParams(params, "token");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else {
+                    return "{\"error\":\"ERROR_QUESTION_NOT_EXISTS\"}";
                 }
                 
             // Delete a product

@@ -12,6 +12,7 @@ public interface ApiConstants {
     String LOGOUT_PATH = "/account/logout";
     String IS_ADMIN_PATH = "/account/isadmin";
     String TYPES_PATH = "/products/types";
+    String QUESTIONS_PATH = "/questions";
     String PRODUCTS_PATH = "/products";
     String COMPANIES_PATH = "/companies";
     String COMPANY_QUESTIONS_PATH = "/companies/questions";
@@ -31,6 +32,11 @@ public interface ApiConstants {
     // Get/create product types
     String PRODUCT_TYPES_NAME = "name";
     String PRODUCT_TYPES_QUESTIONS = "questions";
+    
+    // Edit product types and questions
+    String PRODUCT_TYPES_OLD_NAME = "oldName";
+    String PRODUCT_TYPES_NEW_NAME = "newName";
+    String QUESTION_NEW_STATEMENT = "newQuestion";
     
     // Get/create products
     String PRODUCT_NAME = "name";
@@ -88,4 +94,7 @@ public interface ApiConstants {
     
     // Ban user
     String ERROR_USER_NOT_EXISTS = "ERROR_USER_NOT_EXISTS";
+    
+    // Edit/delete question
+    String ERROR_QUESTION_NOT_EXISTS = "ERROR_QUESTION_NOT_EXISTS";
 }
