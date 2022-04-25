@@ -22,7 +22,7 @@ public class QuestionsView extends View {
     
     private void setUp() {
         
-        _list = new ItemList<>(QuestionItem.getHeaderNames());
+        _list = new ItemList<>(QuestionItem.getHeaderNames(), QuestionItem.getWidths());
         
         panel.add(Box.createVerticalStrut(20));
         

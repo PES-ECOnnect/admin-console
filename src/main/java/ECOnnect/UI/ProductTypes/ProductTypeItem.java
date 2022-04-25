@@ -28,6 +28,10 @@ public class ProductTypeItem extends ItemListElement {
         return new String[] {"Name", "# Questions", "See questions", "View all products", "Select for delete"};
     }
     
+    public static Integer[] getWidths() {
+        return new Integer[] {200, 150, 150, 150, 150};
+    }
+    
     protected Component[] getRowComponents() {
         JTextField nameField = new JTextField(_name);
         nameField.setEditable(false);
@@ -72,5 +76,10 @@ public class ProductTypeItem extends ItemListElement {
     @Override
     public void uncheck() {
         _deleteCheckBox.setSelected(false);
+    }
+
+    @Override
+    protected Integer[] getColumnWidths() {
+        return getWidths();
     }
 }

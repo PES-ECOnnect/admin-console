@@ -30,6 +30,10 @@ public class QuestionItem extends ItemListElement {
         return new String[] {"Statement", "Edit", "Delete"};
     }
     
+    public static Integer[] getWidths() {
+        return new Integer[] {650, 150, 150};
+    }
+    
     protected Component[] getRowComponents() {
         _statementField.setText(_question.statement);
         _statementField.setEditable(true);
@@ -84,6 +88,11 @@ public class QuestionItem extends ItemListElement {
                 _editButton.setEnabled(!sameText);
             }
         };
+    }
+    
+    @Override
+    protected Integer[] getColumnWidths() {
+        return getWidths();
     }
     
 }

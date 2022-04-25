@@ -20,7 +20,7 @@ public class CompanyView extends View {
     }
 
     private void setUp() {
-        _list = new ItemList<CompanyItem>(CompanyItem.getHeaderNames());
+        _list = new ItemList<CompanyItem>(CompanyItem.getHeaderNames(), CompanyItem.getWidths());
         panel.add(_list);
 
         panel.add(Box.createVerticalStrut(10));

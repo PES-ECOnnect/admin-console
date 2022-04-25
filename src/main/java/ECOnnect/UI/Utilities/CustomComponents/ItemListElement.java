@@ -8,8 +8,7 @@ import ECOnnect.UI.Utilities.HorizontalBox;
 
 public abstract class ItemListElement extends JPanel {
     
-    public static final Dimension DEFAULT_ELEMENT_SIZE = new Dimension(150, 35);
-    public static final Dimension DEFAULT_SIZE = new Dimension(Integer.MAX_VALUE, DEFAULT_ELEMENT_SIZE.height);
+    public static final Dimension DEFAULT_SIZE = new Dimension(Integer.MAX_VALUE, 35);
     
     // Call this method AFTER the constructor of the subclass
     protected void init() {
@@ -17,18 +16,27 @@ public abstract class ItemListElement extends JPanel {
         super.setMaximumSize(DEFAULT_SIZE);
         super.setMinimumSize(DEFAULT_SIZE);
         super.setPreferredSize(DEFAULT_SIZE);
-        HorizontalBox.HEIGHT = DEFAULT_ELEMENT_SIZE.height;
+        HorizontalBox.HEIGHT = DEFAULT_SIZE.height;
         
         Component[] rowComponents = getRowComponents();
+        Integer[] columnWidths = getColumnWidths();
+        if (rowComponents.length != columnWidths.length) {
+            throw new IllegalArgumentException("Row components and column widths must be the same length");
+        }
         
-        for (Component component : rowComponents) {
-            component.setMaximumSize(DEFAULT_ELEMENT_SIZE);
-            component.setMinimumSize(DEFAULT_ELEMENT_SIZE);
+        for (int i = 0; i < rowComponents.length; i++) {
+            final Component component = rowComponents[i];
+            final Dimension size = new Dimension(columnWidths[i], DEFAULT_SIZE.height);
+            
+            component.setMaximumSize(size);
+            component.setMinimumSize(size);
             super.add(component);
         }
     }
     
+    // Override this method to return the components that will be added to the row, and the widths of each column
     protected abstract Component[] getRowComponents();
+    protected abstract Integer[] getColumnWidths();
     
     // By default, an item is not selectable
     public boolean isSelected() {

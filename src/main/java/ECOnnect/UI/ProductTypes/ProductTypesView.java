@@ -19,7 +19,7 @@ public class ProductTypesView extends View {
     
     // Build the GUI
     private void setUp() {
-        _list = new ItemList<>(ProductTypeItem.getHeaderNames());
+        _list = new ItemList<>(ProductTypeItem.getHeaderNames(), ProductTypeItem.getWidths());
         panel.add(_list);
         
         panel.add(Box.createVerticalStrut(10));

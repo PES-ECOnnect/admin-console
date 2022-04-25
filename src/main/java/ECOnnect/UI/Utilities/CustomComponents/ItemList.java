@@ -9,9 +9,14 @@ import javax.swing.*;
 public class ItemList<T extends ItemListElement> extends JScrollPane {
     private final JPanel _list = new JPanel();
     private final String[] _headerNames;
+    private final Integer[] _widths;
 
-    public ItemList(String[] headerNames) {
-        this._headerNames = headerNames;
+    public ItemList(String[] headerNames, Integer[] columnWidths) {
+        if (headerNames.length != columnWidths.length) {
+            throw new IllegalArgumentException("Header names and column widths must be the same length");
+        }
+        _headerNames = headerNames;
+        _widths = columnWidths;
         _list.setLayout(new BoxLayout(_list, BoxLayout.PAGE_AXIS));
         
         super.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -23,19 +28,24 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
     }
     
     private void addHeader() {
-        JPanel headerPanel = new JPanel();
+        final JPanel headerPanel = new JPanel();
+        final int HEIGHT = ItemListElement.DEFAULT_SIZE.height;
+        
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.LINE_AXIS));
         headerPanel.setMaximumSize(ItemListElement.DEFAULT_SIZE);
         headerPanel.setMinimumSize(ItemListElement.DEFAULT_SIZE);
+        headerPanel.setPreferredSize(ItemListElement.DEFAULT_SIZE);
         _list.add(headerPanel);
         
-        for (String name : _headerNames) {
-            JTextField text = new JTextField(name);
+        for (int i = 0; i < _headerNames.length; i++) {
+            final JTextField text = new JTextField(_headerNames[i]);
             text.setEditable(false);
             text.setFont(new Font(Font.MONOSPACED, Font.PLAIN,  13));
             text.setHorizontalAlignment(JTextField.LEFT);
-            text.setMaximumSize(ItemListElement.DEFAULT_ELEMENT_SIZE);
-            text.setMinimumSize(ItemListElement.DEFAULT_ELEMENT_SIZE);
+            
+            Dimension size = new Dimension(_widths[i], HEIGHT);
+            text.setMaximumSize(size);
+            text.setMinimumSize(size);
             
             headerPanel.add(text);
         }

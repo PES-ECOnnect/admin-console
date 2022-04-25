@@ -26,7 +26,7 @@ public class ForumView extends View {
     }
 
     private void setUp() {
-        _list = new ItemList<ForumPostItem>(ForumPostItem.getHeaderNames());
+        _list = new ItemList<ForumPostItem>(ForumPostItem.getHeaderNames(), ForumPostItem.getWidths());
         panel.add(_list);
 
         panel.add(Box.createVerticalStrut(10));

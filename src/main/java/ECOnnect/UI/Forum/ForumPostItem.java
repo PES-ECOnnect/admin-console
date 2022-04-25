@@ -33,14 +33,18 @@ public class ForumPostItem extends ItemListElement {
     }
 
     public static String[] getHeaderNames(){
-        return new String[] {"Author", "Text", "Thumbnail", "Full image", "Likes / Dislikes", "Ban author", "Select for delete"};
+        return new String[] {"Author", "Text", "Thumbnail", "Full image", "Likes/Disl.", "Ban author", "Select for delete"};
+    }
+    
+    public static Integer[] getWidths(){
+        return new Integer[] {150, 350, 100, 120, 100, 100, 150};
     }
 
     protected Component[] getRowComponents(){
         JTextField authorField = new JTextField(_post.username);
         authorField.setEditable(false);
         
-        JTextField textField = new JTextField(_post.text);
+        JTextField textField = new JTextField(_post.text.replace("\n", " "));
         textField.setEditable(false);
         
         JLabel thumbnail = new JLabel();
@@ -103,5 +107,10 @@ public class ForumPostItem extends ItemListElement {
     @Override
     public void uncheck() {
         _deleteCheckbox.setSelected(false);
+    }
+    
+    @Override
+    protected Integer[] getColumnWidths() {
+        return getWidths();
     }
 }

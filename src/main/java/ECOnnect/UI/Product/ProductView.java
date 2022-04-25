@@ -20,7 +20,7 @@ public class ProductView extends View {
     }
 
     private void setUp() {
-        _list = new ItemList<>(ProductItem.getHeaderNames());
+        _list = new ItemList<>(ProductItem.getHeaderNames(), ProductItem.getWidths());
         panel.add(_list);
 
         panel.add(Box.createVerticalStrut(10));

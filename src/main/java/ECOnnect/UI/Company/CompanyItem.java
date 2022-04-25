@@ -11,6 +11,7 @@ import ECOnnect.UI.Utilities.CustomComponents.ItemListElement;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DecimalFormat;
 
 public class CompanyItem extends ItemListElement {
     private final Company _company;
@@ -31,7 +32,13 @@ public class CompanyItem extends ItemListElement {
         return _company.id;
     }
 
-    public static String[] getHeaderNames(){return new String[]{"Name", "Location", "Thumbnail", "Full image", "Avg. Rating", "Edit", "Select for delete"};}
+    public static String[] getHeaderNames(){
+        return new String[]{"Name", "Location", "Thumbnail", "Full image", "Avg. Rating", "Edit", "Select for delete"};
+    }
+    
+    public static Integer[] getWidths(){
+        return new Integer[] {200, 150, 100, 120, 120, 120, 150};
+    }
 
     protected Component[] getRowComponents(){
         JTextField nameField = new JTextField(_company.name);
@@ -46,7 +53,8 @@ public class CompanyItem extends ItemListElement {
         JButton imageButton = new JButton("View");
         imageButton.addActionListener(imageButtonListener());
         
-        JTextField avgRatingField = new JTextField(Double.toString(_company.avgrating));
+        final DecimalFormat df = new DecimalFormat("#.00");
+        JTextField avgRatingField = new JTextField(df.format(_company.avgrating));
         avgRatingField.setEditable(false);
         
         JButton editButton = new ImageButton("/images/edit.png");
@@ -97,5 +105,10 @@ public class CompanyItem extends ItemListElement {
     @Override
     public void uncheck() {
         _deleteCheckbox.setSelected(false);
+    }
+    
+    @Override
+    protected Integer[] getColumnWidths() {
+        return getWidths();
     }
 }
