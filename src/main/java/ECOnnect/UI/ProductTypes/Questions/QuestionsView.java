@@ -17,9 +17,11 @@ public class QuestionsView extends View {
     }
     
     private final JLabel _title = new JLabel("", JLabel.CENTER);
+    private final INewQuestionCallback _callback;
     private ItemList<QuestionItem> _list;
     
-    public QuestionsView() {
+    public QuestionsView(INewQuestionCallback callback) {
+        _callback = callback;
         setUp();
     }
     
@@ -40,11 +42,15 @@ public class QuestionsView extends View {
         
         panel.add(Box.createVerticalStrut(20));
         
-        JButton backButton = new JButton("Back");
+        JButton backButton = new JButton("Go back");
         backButton.addActionListener((ActionEvent e) -> {
             ScreenManager.getInstance().show(ScreenManager.MAIN_MENU_SCREEN);
         });
-        panel.add(HorizontalBox.create(backButton));
+        JButton addButton = new JButton("Add new");
+        addButton.addActionListener((ActionEvent e) -> {
+            _callback.onNewQuestion();
+        });
+        panel.add(HorizontalBox.create(backButton, addButton));
         
         panel.add(Box.createVerticalStrut(20));
     }

@@ -91,6 +91,11 @@ public class CompanyModel {
         
         return q;
     }
+    
+    public void createQuestion() {
+        CompanyService service = ServiceFactory.getInstance().getCompanyService();
+        service.createQuestion("");
+    }
 
     public void removeCompany(int id) {
         CompanyService service = ServiceFactory.getInstance().getCompanyService();

@@ -12,7 +12,7 @@ public class ProductTypesModel {
     private static ArrayList<ProductType> _productTypes = null;
     
     // Return all product types from the API and store them in the model
-    ProductType[] getProductTypes() {
+    public ProductType[] getProductTypes() {
         // Get product types from API
         ProductTypesService service = ServiceFactory.getInstance().getProductTypesService();
         ProductType[] pt = service.getProductTypes();
@@ -24,7 +24,7 @@ public class ProductTypesModel {
         return pt;
     }
     
-    ProductType getType(int index) {
+    public ProductType getType(int index) {
         return _productTypes.get(index);
     }
     
@@ -43,5 +43,10 @@ public class ProductTypesModel {
         // Add product type to API
         ProductTypesService service = ServiceFactory.getInstance().getProductTypesService();
         service.createProductType(name, questions);
+    }
+    
+    public void createQuestion(String typeName) {
+        ProductTypesService service = ServiceFactory.getInstance().getProductTypesService();
+        service.createQuestion(typeName, "");
     }
 }

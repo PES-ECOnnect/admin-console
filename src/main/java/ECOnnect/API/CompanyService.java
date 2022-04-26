@@ -61,6 +61,18 @@ public class CompanyService extends Service {
         return questions;
     }
     
+    public void createQuestion(String statement) {
+            
+            // Add parameters
+            TreeMap<String, String> params = new TreeMap<>();
+            params.put(ApiConstants.QUESTION_STATEMENT, statement);
+            
+            // Call API
+            super.needsToken = true;
+            JsonResult result = post(ApiConstants.COMPANY_QUESTIONS_PATH, params, null);
+            expectOkStatus(result);
+    }
+    
     // Create a new company
     public void createCompany(String name, String imageURL, double lat, double lon) {
         try {

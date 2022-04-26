@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
+import java.util.Locale;
 
 public class ProductItem extends ItemListElement {
     private final Product _product;
@@ -52,8 +53,7 @@ public class ProductItem extends ItemListElement {
         JButton imageButton = new JButton("View");
         imageButton.addActionListener(imageButtonListener());
         
-        final DecimalFormat df = new DecimalFormat("#.00");
-        JTextField avgRatingField = new JTextField(df.format(_product.avgrating));
+        JTextField avgRatingField = new JTextField(String.format(Locale.ENGLISH, "%.2f", _product.avgrating));
         avgRatingField.setEditable(false);
         
         JButton editButton = new ImageButton("/images/edit.png");

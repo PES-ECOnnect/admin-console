@@ -1,15 +1,14 @@
 package ECOnnect.UI.ProductTypes.Questions;
 
-import ECOnnect.API.ProductTypesService;
-import ECOnnect.API.ServiceFactory;
 import ECOnnect.API.ProductTypesService.ProductType;
 import ECOnnect.API.ProductTypesService.ProductType.Question;
 import ECOnnect.UI.Interfaces.Controller;
 import ECOnnect.UI.Interfaces.View;
-import ECOnnect.UI.ProductTypes.Questions.QuestionsView.INewQuestionCallback;
+import ECOnnect.UI.ProductTypes.ProductTypesModel;
 
 public class ProductTypeQuestionsController extends Controller {
-    private final QuestionsView _view = new QuestionsView();
+    private final QuestionsView _view = new QuestionsView(() -> newQuestionButton());
+    private final ProductTypesModel _model = new ProductTypesModel();
     private String _type; 
     
     @Override
@@ -33,19 +32,31 @@ public class ProductTypeQuestionsController extends Controller {
     }
     
     
-    private INewQuestionCallback _callback = new INewQuestionCallback() {
-        @Override
-        public void onNewQuestion() {
-            ProductTypesService service = ServiceFactory.getInstance().getProductTypesService();
-            service.createQuestion(_type, "");
-            
-            ProductType[] types = service.getProductTypes();
+    // Called when the "New question" button is pressed
+    private void newQuestionButton() {
+        try {
+            // Create new question
+            _model.createQuestion(_type);
+        }
+        catch (Exception e) {
+            _view.displayError("Could not create new question: " + e.getMessage());
+        }
+        
+        // Refresh question list
+        try {
+            ProductType[] types = _model.getProductTypes();
+            // Find our product type
             for (ProductType type : types) {
                 if (type.name.equals(_type)) {
+                    // Update question list
                     _view.setQuestions(type.questions);
-                    break;
+                    return;
                 }
             }
+            throw new IllegalStateException("Could not find product type '" + _type + "'");
         }
-    };
+        catch (Exception e) {
+            _view.displayError("Could not refresh question list: " + e.getMessage());
+        }
+    }
 }
