@@ -1,6 +1,7 @@
 package ECOnnect.UI.Utilities.CustomComponents;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -23,6 +24,17 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
         super.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         super.getVerticalScrollBar().setUnitIncrement(5);
         super.setViewportView(_list);
+        
+        // Listen for mouse movements to load item listeners on demand
+        _list.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent evt) {
+                Component comp = _list.getComponentAt(evt.getPoint());
+                if (comp instanceof ItemListElement) {
+                    ((ItemListElement) comp).lazyUpdate();
+                }
+            }
+        });
         
         addHeader();
     }
