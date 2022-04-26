@@ -293,6 +293,18 @@ public class StubHttpClient implements HttpClient {
                     return "{\"error\":\"ERROR_USER_NOT_EXISTS\"}";
                 }
                 
+            case "/questions":
+                expectParamsExclusive(params, "token", "statement", "type");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else if (!equals(params, "type", "type1") && !equals(params, "type", "type2")) {
+                    return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
+                }
+                else {
+                    return "{status: 'success'}";
+                }
+                
             default:
                 throw new RuntimeException("Invalid path: " + path);
         }

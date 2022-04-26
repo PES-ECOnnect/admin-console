@@ -131,6 +131,31 @@ public class ProductTypesService extends Service {
     }
     
     
+    // Create a question
+    public void createQuestion(String type, String statement) {
+        // Add parameters
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put(ApiConstants.PRODUCT_TYPES_NAME, type);
+        params.put(ApiConstants.QUESTION_STATEMENT, statement);
+        
+        JsonResult result = null;
+        try {
+            // Call API
+            super.needsToken = true;
+            result = post(ApiConstants.QUESTIONS_PATH, params, null);
+        }
+        catch (ApiException e) {
+            switch (e.getErrorCode()) {
+                case ApiConstants.ERROR_TYPE_NOT_EXISTS:
+                    throw new RuntimeException("The product type " + type + " does not exist");
+                default:
+                    throw e;
+            }
+        }
+        
+        expectOkStatus(result);
+    }
+    
     // Edit a question
     public void editQuestion(int questionId, String newStatement) {
         // Add parameters

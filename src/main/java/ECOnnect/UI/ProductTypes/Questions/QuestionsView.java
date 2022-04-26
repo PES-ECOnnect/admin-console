@@ -12,6 +12,10 @@ import ECOnnect.UI.Utilities.CustomComponents.ItemList;
 
 public class QuestionsView extends View {
     
+    public interface INewQuestionCallback {
+        void onNewQuestion();
+    }
+    
     private final JLabel _title = new JLabel("", JLabel.CENTER);
     private ItemList<QuestionItem> _list;
     
@@ -46,6 +50,7 @@ public class QuestionsView extends View {
     }
     
     public void setQuestions(Question[] questions) {
+        _list.clear();
         for (Question question : questions) {
             _list.add(new QuestionItem(question));
         }

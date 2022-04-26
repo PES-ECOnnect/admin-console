@@ -32,6 +32,11 @@ public interface ApiConstants {
     // Get/create product types
     String PRODUCT_TYPES_NAME = "name";
     String PRODUCT_TYPES_QUESTIONS = "questions";
+
+    // Create question
+    String QUESTION_STATEMENT = "statement";
+    String QUESTION_TYPE = "type";
+
     
     // Edit product types and questions
     String PRODUCT_TYPES_OLD_NAME = "oldName";
