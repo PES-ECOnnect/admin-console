@@ -147,6 +147,40 @@ public class CompanyServiceTest {
         );
     }
     
+    
+    @Test
+    public void testCreateCompanyQuestionOk() {
+        sv.createQuestion("newQuestion");
+        // This should not throw an exception
+    }
+    
+    @Test
+    public void testCreateCompanyQuestionStubValidation() {
+        expectException(() ->
+            sv.createQuestion("invalidQuestion"),
+            "The server responded with error code invalid question"
+        );
+    }
+    
+    @Test
+    public void cannotCreateCompanyQuestionWithInvalidToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(() ->
+            sv.createQuestion("newQuestion"),
+            "This session has expired, please logout and try again"
+        );
+    }
+    
+    @Test
+    public void cannotCreateCompanyQuestionWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(() ->
+            sv.createQuestion("newQuestion"),
+            "Admin token not set"
+        );
+    }
+    
+    
     @Test
     public void testUpdateCompanyOk() {
         sv.updateCompany(1, "newName", "http://www.newcompany.com/image.png", 1.0, 1.0);

@@ -293,6 +293,7 @@ public class StubHttpClient implements HttpClient {
                     return "{\"error\":\"ERROR_USER_NOT_EXISTS\"}";
                 }
                 
+            // Create a new product type question
             case "/questions":
                 expectParamsExclusive(params, "token", "statement", "type");
                 if (equals(params, "token", "badToken")) {
@@ -300,6 +301,19 @@ public class StubHttpClient implements HttpClient {
                 }
                 else if (!equals(params, "type", "type1") && !equals(params, "type", "type2")) {
                     return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
+                }
+                else {
+                    return "{status: 'success'}";
+                }
+                
+            // Create a new company question
+            case "/companies/questions":
+                expectParamsExclusive(params, "token", "statement");
+                if (equals(params, "token", "badToken")) {
+                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else if (!equals(params, "statement", "newQuestion")) {
+                    return "{\"error\":\"invalid question\"}";
                 }
                 else {
                     return "{status: 'success'}";

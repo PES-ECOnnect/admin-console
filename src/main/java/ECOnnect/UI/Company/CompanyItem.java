@@ -11,7 +11,6 @@ import ECOnnect.UI.Utilities.CustomComponents.ItemListElement;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DecimalFormat;
 import java.util.Locale;
 
 public class CompanyItem extends ItemListElement {

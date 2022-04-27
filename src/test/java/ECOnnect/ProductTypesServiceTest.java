@@ -186,6 +186,38 @@ public class ProductTypesServiceTest {
     }
     
     
+    @Test
+    public void testAddQuestionOk() {
+        sv.createQuestion("type1", "q3");
+        // This should not throw an exception
+    }
+    
+    @Test
+    public void testAddQuestionToNonExistingType() {
+        expectException(()->
+            sv.createQuestion("type3", "q3"),
+            "The product type type3 does not exist"
+        );
+    }
+    
+    @Test
+    public void cannotAddQuestionWithoutToken() {
+        ServiceTestHelper.clearToken();
+        expectException(()->
+            sv.createQuestion("type1", "q3"),
+            "Admin token not set"
+        );
+    }
+    
+    @Test
+    public void cannotAddQuestionWithWrongToken() {
+        ServiceTestHelper.setToken("badToken");
+        expectException(()->
+            sv.createQuestion("type1", "q3"),
+            "This session has expired, please logout and try again"
+        );
+    }
+    
     
     @Test
     public void testUpdateQuestionOk() {

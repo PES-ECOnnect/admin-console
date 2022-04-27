@@ -135,7 +135,7 @@ public class ProductTypesService extends Service {
     public void createQuestion(String type, String statement) {
         // Add parameters
         TreeMap<String, String> params = new TreeMap<>();
-        params.put(ApiConstants.PRODUCT_TYPES_NAME, type);
+        params.put(ApiConstants.QUESTION_TYPE, type);
         params.put(ApiConstants.QUESTION_STATEMENT, statement);
         
         JsonResult result = null;
