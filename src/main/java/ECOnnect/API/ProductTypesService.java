@@ -112,11 +112,15 @@ public class ProductTypesService extends Service {
     
     // Delete an existing product type
     public void deleteProductType(String name) {
+        // Add parameters
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put(ApiConstants.PRODUCT_TYPES_NAME, name);
+        
         JsonResult result = null;
         try {
             // Call API
             super.needsToken = true;
-            result = delete(ApiConstants.TYPES_PATH + "/" + name, null);
+            result = delete(ApiConstants.TYPES_PATH, params);
         }
         catch (ApiException e) {
             switch (e.getErrorCode()) {

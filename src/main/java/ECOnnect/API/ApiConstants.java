@@ -29,7 +29,7 @@ public interface ApiConstants {
     String ADMIN_LOGIN_NAME = "email";
     String ADMIN_LOGIN_PASSWORD = "password";
     
-    // Get/create product types
+    // Get/create/delete product types
     String PRODUCT_TYPES_NAME = "name";
     String PRODUCT_TYPES_QUESTIONS = "questions";
 

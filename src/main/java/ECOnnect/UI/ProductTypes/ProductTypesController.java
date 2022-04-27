@@ -1,6 +1,7 @@
 package ECOnnect.UI.ProductTypes;
 
 import java.awt.event.*;
+import java.util.Collection;
 
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
@@ -17,6 +18,27 @@ public class ProductTypesController extends Controller {
     ActionListener addButton() {
         return (ActionEvent e) -> {
             ScreenManager.getInstance().show(CreateProductTypeScreen.class);
+        };
+    }
+    
+    ActionListener deleteButton() {
+        return (ActionEvent e) -> {
+            Collection<ProductTypeItem> selected = _view.getSelectedItems();
+            
+            // Display confirmation dialog
+            String type_plural = selected.size() == 1 ? " product type?" : " product types?";
+            _view.displayConfirmation("Are you sure you want to delete " + selected.size() + type_plural, () -> {
+                // YES action, delete companies
+                for (ProductTypeItem item : selected) {
+                    try {
+                        _model.deleteProductType(item.getName());
+                        _view.removeItem(item);
+                    }
+                    catch (Exception ex) {
+                        _view.displayError("Could not remove product type '" + item.getName() + "':\n" + ex.getMessage());
+                    }
+                }
+            });
         };
     }
     

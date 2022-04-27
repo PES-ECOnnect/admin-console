@@ -381,21 +381,16 @@ public class StubHttpClient implements HttpClient {
         switch (path) {
             
             // Delete a product type
-            case "/products/types/type1":
-                expectParams(params, "token");
+            case "/products/types":
+                expectParams(params, "token", "name");
                 if (equals(params, "token", "badToken")) {
                     return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
+                }
+                else if (!equals(params, "name", "type1") && !equals(params, "name", "type2")) {
+                    return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
                 }
                 else {
                     return "{status: 'success'}";
-                }
-            case "/products/types/type2":
-                expectParams(params, "token");
-                if (equals(params, "token", "badToken")) {
-                    return "{\"error\":\"ERROR_INVALID_TOKEN\"}";
-                }
-                else {
-                    return "{\"error\":\"ERROR_TYPE_NOT_EXISTS\"}";
                 }
                 
             // Delete a question

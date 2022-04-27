@@ -36,7 +36,7 @@ public class ProductController extends Controller {
             String product_plural = selected.size() == 1 ? " product?" : " products?";
             _view.displayConfirmation("Are you sure you want to delete " + selected.size() + product_plural, () -> {
                 // YES action, delete companies
-                for (ProductItem item : _view.getSelected()) {
+                for (ProductItem item : selected) {
                     try {
                         _model.removeProduct(item.getId());
                         _view.deleteItem(item);

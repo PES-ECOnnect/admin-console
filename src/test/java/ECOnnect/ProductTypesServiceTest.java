@@ -121,8 +121,8 @@ public class ProductTypesServiceTest {
     @Test
     public void testDeleteNonExistingProductType() {
         expectException(()->
-            sv.deleteProductType("type2"),
-            "The product type type2 does not exist"
+            sv.deleteProductType("type3"),
+            "The product type type3 does not exist"
         );
     }
     

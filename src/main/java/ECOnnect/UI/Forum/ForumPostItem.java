@@ -65,6 +65,7 @@ public class ForumPostItem extends ItemListElement {
             public void imageLoaded(ImageIcon image) {
                 ImageIcon scaledImage = ImageLoader.scale(image, -1, DEFAULT_SIZE.height);
                 thumbnail.setIcon(scaledImage);
+                redraw();
             }
             @Override
             public void couldNotLoad() {

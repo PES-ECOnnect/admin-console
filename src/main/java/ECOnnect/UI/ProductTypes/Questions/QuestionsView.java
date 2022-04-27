@@ -60,6 +60,7 @@ public class QuestionsView extends View {
         for (Question question : questions) {
             _list.add(new QuestionItem(question));
         }
+        _list.redraw();
     }
     
     public void setTitle(String title) {

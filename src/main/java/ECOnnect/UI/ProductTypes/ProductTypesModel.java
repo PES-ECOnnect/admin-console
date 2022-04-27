@@ -45,6 +45,11 @@ public class ProductTypesModel {
         service.createProductType(name, questions);
     }
     
+    public void deleteProductType(String name) {
+        ProductTypesService service = ServiceFactory.getInstance().getProductTypesService();
+        service.deleteProductType(name);
+    }
+    
     public void createQuestion(String typeName) {
         ProductTypesService service = ServiceFactory.getInstance().getProductTypesService();
         service.createQuestion(typeName, "");

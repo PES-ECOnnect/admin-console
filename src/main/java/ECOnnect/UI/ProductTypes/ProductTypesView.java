@@ -1,5 +1,7 @@
 package ECOnnect.UI.ProductTypes;
 
+import java.util.Collection;
+
 import javax.swing.*;
 
 import ECOnnect.UI.Interfaces.View;
@@ -26,7 +28,9 @@ public class ProductTypesView extends View {
         
         JButton addButton = new JButton("Add new");
         addButton.addActionListener(_ctrl.addButton());
-        panel.add(HorizontalBox.create(addButton));
+        JButton deleteButton = new JButton("Delete selected");
+        deleteButton.addActionListener(_ctrl.deleteButton());
+        panel.add(HorizontalBox.create(addButton, deleteButton));
         
         panel.add(Box.createVerticalStrut(10));
     }
@@ -40,6 +44,15 @@ public class ProductTypesView extends View {
         for (ProductTypeItem item : items) {
             _list.add(item);
         }
+        _list.redraw();
+    }
+    
+    Collection<ProductTypeItem> getSelectedItems() {
+        return _list.getSelected();
+    }
+    
+    void removeItem(ProductTypeItem item) {
+        _list.remove(item);
         _list.redraw();
     }
 

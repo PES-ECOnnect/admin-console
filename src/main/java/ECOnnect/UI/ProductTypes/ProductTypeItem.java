@@ -24,6 +24,10 @@ public class ProductTypeItem extends ItemListElement {
         super.init();
     }
     
+    public String getName() {
+        return _name;
+    }
+    
     public static String[] getHeaderNames() {
         return new String[] {"Name", "# Questions", "See questions", "View all products", "Select for delete"};
     }
