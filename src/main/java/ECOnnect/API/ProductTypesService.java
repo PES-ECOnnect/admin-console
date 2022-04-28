@@ -22,7 +22,7 @@ public class ProductTypesService extends Service {
 
         // Important: The name of these attributes must match the ones in the returned JSON
         // Gson will initialize these fields to the received values
-        public final String name;
+        public String name;
         public final Question[] questions;
 
         public ProductType(String name, Question[] questions) {

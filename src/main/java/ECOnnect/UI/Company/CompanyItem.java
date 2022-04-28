@@ -65,7 +65,7 @@ public class CompanyItem extends ItemListElement {
             public void imageLoaded(ImageIcon image) {
                 ImageIcon scaledImage = ImageLoader.scale(image, -1, DEFAULT_SIZE.height);
                 thumbnail.setIcon(scaledImage);
-                // TODO: Redraw
+                redraw();
             }
             @Override
             public void couldNotLoad() {

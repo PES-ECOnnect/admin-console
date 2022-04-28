@@ -50,6 +50,12 @@ public class ProductTypesModel {
         service.deleteProductType(name);
     }
     
+    
+    public void renameProductType(String oldName, String newName) {
+        ProductTypesService service = ServiceFactory.getInstance().getProductTypesService();
+        service.renameType(oldName, newName);
+    }
+    
     public void createQuestion(String typeName) {
         ProductTypesService service = ServiceFactory.getInstance().getProductTypesService();
         service.createQuestion(typeName, "");

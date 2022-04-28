@@ -37,6 +37,8 @@ public abstract class ItemListElement extends JPanel {
     protected void redraw() {
         super.revalidate();
         super.repaint();
+        getParent().revalidate();
+        getParent().repaint();
     }
     
     // Override this method to return the components that will be added to the row, and the widths of each column

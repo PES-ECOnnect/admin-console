@@ -6,6 +6,7 @@ import java.util.Collection;
 import ECOnnect.UI.ScreenManager;
 import ECOnnect.UI.Interfaces.*;
 import ECOnnect.UI.ProductTypes.Create.CreateProductTypeScreen;
+import ECOnnect.UI.ProductTypes.ProductTypeItem.IProductTypeItemCallback;
 import ECOnnect.UI.ProductTypes.Questions.ProductTypeQuestionsScreen;
 import ECOnnect.UI.Utilities.ExecutionThread;
 import ECOnnect.API.ProductTypesService.ProductType;
@@ -53,7 +54,7 @@ public class ProductTypesController extends Controller {
                 ProductTypeItem[] productTypeItems = new ProductTypeItem[items.length];
                 
                 for (int i = 0; i < items.length; ++i) {
-                    productTypeItems[i] = new ProductTypeItem(this, i, items[i].name, items[i].questions.length);
+                    productTypeItems[i] = new ProductTypeItem(_callback, i, items[i]);
                 }
                 
                 ExecutionThread.UI(()->_view.addItems(productTypeItems));
@@ -66,16 +67,34 @@ public class ProductTypesController extends Controller {
         });
     }
     
-    public void viewQuestions(int index) {
-        String type = _model.getType(index).name;
-        Question[] questions = _model.getType(index).questions;
-        ScreenManager.getInstance().show(ProductTypeQuestionsScreen.class, type, questions);
-    }
     
-    public void viewProducts(int index) {
-        String type = _model.getType(index).name;
-        ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN, type);
-    }
+    private IProductTypeItemCallback _callback = new IProductTypeItemCallback() {
+        @Override
+        public void viewQuestions(int index) {
+            String type = _model.getType(index).name;
+            Question[] questions = _model.getType(index).questions;
+            ScreenManager.getInstance().show(ProductTypeQuestionsScreen.class, type, questions);
+        }
+        
+        @Override
+        public void viewProducts(int index) {
+            String type = _model.getType(index).name;
+            ScreenManager.getInstance().show(ScreenManager.PRODUCT_SCREEN, type);
+        }
+
+        @Override
+        public boolean renameType(int index, String newName) {
+            String oldName = _model.getType(index).name;
+            try {
+                _model.renameProductType(oldName, newName);
+                return true;
+            }
+            catch (Exception e) {
+                _view.displayError("Could not rename product type '" + oldName + "' to '" + newName + "':\n" + e.getMessage());
+                return false;
+            }
+        }
+    };    
 
     
     public View getView() {
