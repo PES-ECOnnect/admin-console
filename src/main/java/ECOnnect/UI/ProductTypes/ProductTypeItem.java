@@ -42,7 +42,7 @@ public class ProductTypeItem extends ItemListElement {
     }
     
     public static Integer[] getWidths() {
-        return new Integer[] {200, 150, 150, 150, 150, 150};
+        return new Integer[] {200, 100, 120, 150, 150, 150};
     }
     
     protected Component[] getRowComponents() {
