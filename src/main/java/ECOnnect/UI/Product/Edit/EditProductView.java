@@ -14,7 +14,7 @@ public class EditProductView extends View {
     private final JTextField _nameTxt = new JTextField(26);
     private final JTextField _manufacturerTxt = new JTextField(26);
     private final JTextField _imageUrlTxt = new JTextField(20);
-    private final JLabel _title = new JLabel("", JLabel.CENTER);
+    private final JLabel _title = new JLabel("", SwingConstants.CENTER);
     
     private final Dimension _dim = new Dimension(110, 30);
 
@@ -32,7 +32,7 @@ public class EditProductView extends View {
         
         panel.add(Box.createVerticalStrut(50));
 
-        JLabel nameLbl = new JLabel("Product name:", JLabel.RIGHT);
+        JLabel nameLbl = new JLabel("Product name:", SwingConstants.RIGHT);
         nameLbl.setPreferredSize(_dim);
         _nameTxt.setMaximumSize(_dim);
         panel.add(HorizontalBox.create(nameLbl, _nameTxt));
@@ -41,7 +41,7 @@ public class EditProductView extends View {
 
         panel.add(Box.createVerticalStrut(10));
 
-        JLabel manufacturerLbl = new JLabel("Manufacturer:", JLabel.RIGHT);
+        JLabel manufacturerLbl = new JLabel("Manufacturer:", SwingConstants.RIGHT);
         manufacturerLbl.setPreferredSize(_dim);
         _manufacturerTxt.setMaximumSize(_dim);
         panel.add(HorizontalBox.create(manufacturerLbl, _manufacturerTxt));
@@ -50,7 +50,7 @@ public class EditProductView extends View {
 
         panel.add(Box.createVerticalStrut(10));
 
-        JLabel imageUrlLbl = new JLabel("Image URL:", JLabel.RIGHT);
+        JLabel imageUrlLbl = new JLabel("Image URL:", SwingConstants.RIGHT);
         JButton uploadButton = new UploadButton(new StandardUploadCallback(this, _imageUrlTxt));
         imageUrlLbl.setPreferredSize(_dim);
         _imageUrlTxt.setMaximumSize(_dim);

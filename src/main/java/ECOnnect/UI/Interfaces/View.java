@@ -5,7 +5,7 @@ import javax.swing.*;
 public abstract class View {
     protected final JPanel panel;
     
-    public View() {
+    protected View() {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     }

@@ -25,13 +25,13 @@ public class LoginView extends View {
         panel.add(Box.createVerticalGlue());
         
         // Set title alignment to center and increase font size
-        JLabel titleLabel = new JLabel("Admin Login", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Admin Login", SwingConstants.CENTER);
         titleLabel.setFont(titleLabel.getFont().deriveFont(24.0f));
         panel.add(HorizontalBox.create(titleLabel));
         
         panel.add(Box.createVerticalStrut(50));
         
-        JLabel usernameLbl = new JLabel("Email:", JLabel.RIGHT);
+        JLabel usernameLbl = new JLabel("Email:", SwingConstants.RIGHT);
         usernameLbl.setPreferredSize(_dim);
         _usernameText.setMaximumSize(_dim);
         panel.add(HorizontalBox.create(usernameLbl, _usernameText));
@@ -40,7 +40,7 @@ public class LoginView extends View {
         
         panel.add(Box.createVerticalStrut(10));
         
-        JLabel passwordLbl = new JLabel("Password:", JLabel.RIGHT);
+        JLabel passwordLbl = new JLabel("Password:", SwingConstants.RIGHT);
         passwordLbl.setPreferredSize(_dim);
         _passwordText.setMaximumSize(_dim);
         panel.add(HorizontalBox.create(passwordLbl, _passwordText));

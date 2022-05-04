@@ -53,11 +53,11 @@ public class ImageService {
         public final int failed; // The number of images upload failures
         public final UploadedImage[] images; // An array of the Basic Image Models successfully uploaded
         
-        public UploadResult(int max_filesize, int space_limit, int space_used, int space_left, int passed, int failed, UploadedImage[] images) {
-            this.max_filesize = max_filesize;
-            this.space_limit = space_limit;
-            this.space_used = space_used;
-            this.space_left = space_left;
+        public UploadResult(int maxFilesize, int spaceLimit, int spaceUsed, int spaceLeft, int passed, int failed, UploadedImage[] images) {
+            this.max_filesize = maxFilesize;
+            this.space_limit = spaceLimit;
+            this.space_used = spaceUsed;
+            this.space_left = spaceLeft;
             this.passed = passed;
             this.failed = failed;
             this.images = images;

@@ -30,13 +30,13 @@ public class EditCompanyView extends View {
         panel.add(Box.createVerticalGlue());
         
         // Set title alignment to center and increase font size
-        JLabel titleLabel = new JLabel(title, JLabel.CENTER);
+        JLabel titleLabel = new JLabel(title, SwingConstants.CENTER);
         titleLabel.setFont(titleLabel.getFont().deriveFont(24.0f));
         panel.add(HorizontalBox.create(titleLabel));
         
         panel.add(Box.createVerticalStrut(50));
 
-        JLabel nameLbl = new JLabel("Company name:", JLabel.RIGHT);
+        JLabel nameLbl = new JLabel("Company name:", SwingConstants.RIGHT);
         nameLbl.setPreferredSize(_dim);
         _nameTxt.setMaximumSize(_dim);
         panel.add(HorizontalBox.create(nameLbl, _nameTxt));
@@ -45,7 +45,7 @@ public class EditCompanyView extends View {
         
         panel.add(Box.createVerticalStrut(10));
 
-        JLabel imageUrlLbl = new JLabel("Image URL:", JLabel.RIGHT);
+        JLabel imageUrlLbl = new JLabel("Image URL:", SwingConstants.RIGHT);
         UploadButton uploadButton = new UploadButton(new StandardUploadCallback(this, _imageUrl));
         imageUrlLbl.setPreferredSize(_dim);
         _imageUrl.setMaximumSize(_dim);
@@ -55,7 +55,7 @@ public class EditCompanyView extends View {
 
         panel.add(Box.createVerticalStrut(10));
 
-        JLabel locationLbl = new JLabel("Coordinates:", JLabel.RIGHT);
+        JLabel locationLbl = new JLabel("Coordinates:", SwingConstants.RIGHT);
         locationLbl.setPreferredSize(_dim);
         _latitudeTxt.setMaximumSize(_dim);
         _longitudeTxt.setMaximumSize(_dim);

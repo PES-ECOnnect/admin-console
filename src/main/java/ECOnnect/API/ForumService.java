@@ -127,6 +127,8 @@ public class ForumService extends Service {
             switch (e.getErrorCode()) {
                 case ApiConstants.ERROR_USER_NOT_EXISTS:
                     throw new RuntimeException("The user with id " + userId + " does not exist");
+                case ApiConstants.ERROR_CANNOT_BAN_YOURSELF:
+                    throw new RuntimeException("You cannot ban yourself");
                 default:
                     throw e;
             }

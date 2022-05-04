@@ -10,11 +10,8 @@ public class CompanyModel {
     Company[] getCompanies() {
         // Get products from API
         CompanyService service = ServiceFactory.getInstance().getCompanyService();
-        Company[] c = service.getCompanies();
-        
-        // No need to store in model
-        
-        return c;
+        // No need to store companies in model
+        return service.getCompanies();
     }
     
     public void addCompany(String name, String imageUrl, String latitude, String longitude) {
@@ -56,8 +53,8 @@ public class CompanyModel {
             throw new IllegalArgumentException("Longitude cannot be empty");
         }
         
-        double lat, lon;
-        
+        double lat;
+        double lon;
         try {
             lat = Double.parseDouble(latitude);
             lon = Double.parseDouble(longitude);
@@ -85,11 +82,8 @@ public class CompanyModel {
     public Question[] getQuestions() {
         // Get questions from API
         CompanyService service = ServiceFactory.getInstance().getCompanyService();
-        Question[] q = service.getQuestions();
-        
-        // No need to store in model
-        
-        return q;
+        // No need to store questions in model
+        return service.getQuestions();
     }
     
     public void createQuestion() {

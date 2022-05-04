@@ -16,13 +16,7 @@ import org.apache.http.util.EntityUtils;
 
 public class ApacheUploadClient implements IUploadClient {
     
-    private static CloseableHttpClient _httpclient;
-    
-    public ApacheUploadClient() {
-        if (_httpclient == null) {
-            _httpclient = HttpClients.createDefault();
-        }
-    }
+    private static final CloseableHttpClient _httpclient = HttpClients.createDefault();
 
     @Override
     public String upload(String apiUrl, String fileParamName, File file, Map<String, String> extraParams) {

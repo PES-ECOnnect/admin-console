@@ -18,7 +18,7 @@ public class ServiceFactory {
     }
     
     // Admin Login
-    private static LoginService _adminLoginService = null;
+    private LoginService _adminLoginService = null;
     public LoginService getLoginService() {
         if (_adminLoginService == null) {
             _adminLoginService = new LoginService();
@@ -28,7 +28,7 @@ public class ServiceFactory {
 
     
     // Product Types
-    private static ProductTypesService _productTypesService = null;
+    private ProductTypesService _productTypesService = null;
     public ProductTypesService getProductTypesService() {
         if (_productTypesService == null) {
             _productTypesService = new ProductTypesService();
@@ -37,7 +37,7 @@ public class ServiceFactory {
     }
     
     // Products
-    private static ProductService _productService = null;
+    private ProductService _productService = null;
     public ProductService getProductService() {
         if (_productService == null) {
             _productService = new ProductService();
@@ -46,7 +46,7 @@ public class ServiceFactory {
     }
     
     // Companies
-    private static CompanyService _companyService = null;
+    private CompanyService _companyService = null;
     public CompanyService getCompanyService() {
         if (_companyService == null) {
             _companyService = new CompanyService();
@@ -55,7 +55,7 @@ public class ServiceFactory {
     }
     
     // Forum
-    private static ForumService _forumService = null;
+    private ForumService _forumService = null;
     public ForumService getForumService() {
         if (_forumService == null) {
             _forumService = new ForumService();

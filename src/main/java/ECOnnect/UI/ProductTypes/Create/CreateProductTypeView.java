@@ -25,7 +25,7 @@ public class CreateProductTypeView extends View {
         
         // Set title alignment to center and increase font size
         JLabel title = new JLabel("Create new Product Type");
-        title.setHorizontalAlignment(JLabel.CENTER);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setFont(title.getFont().deriveFont(24.0f));
         panel.add(HorizontalBox.create(title));
         

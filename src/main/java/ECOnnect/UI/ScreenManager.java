@@ -30,15 +30,15 @@ public class ScreenManager {
     public static final Class<? extends Screen> PRODUCT_SCREEN = ProductScreen.class;
 
 
-    private final int _MIN_SCREEN_HEIGHT = 720;
-    private final int _MIN_SCREEN_WIDTH = _MIN_SCREEN_HEIGHT * 16 / 9;
-    private final int _TASKBAR_HEIGHT = 48;
+    private final static int _MIN_SCREEN_HEIGHT = 720;
+    private final static int _MIN_SCREEN_WIDTH = _MIN_SCREEN_HEIGHT * 16 / 9;
+    private final static int _TASKBAR_HEIGHT = 48;
     
     private final JFrame _frame = new JFrame();
     
     public void init() {
         // Fixed size
-        _frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        _frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         _frame.setSize(_MIN_SCREEN_WIDTH, _MIN_SCREEN_HEIGHT-_TASKBAR_HEIGHT);
         _frame.setResizable(false);
         

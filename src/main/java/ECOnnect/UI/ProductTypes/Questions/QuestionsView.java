@@ -16,7 +16,7 @@ public class QuestionsView extends View {
         void onNewQuestion();
     }
     
-    private final JLabel _title = new JLabel("", JLabel.CENTER);
+    private final JLabel _title = new JLabel("", SwingConstants.CENTER);
     private final INewQuestionCallback _callback;
     private ItemList<QuestionItem> _list;
     

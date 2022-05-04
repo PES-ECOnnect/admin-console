@@ -99,6 +99,7 @@ public interface ApiConstants {
     
     // Ban user
     String ERROR_USER_NOT_EXISTS = "ERROR_USER_NOT_EXISTS";
+    String ERROR_CANNOT_BAN_YOURSELF = "ERROR_CANNOT_BAN_YOURSELF";
     
     // Edit/delete question
     String ERROR_QUESTION_NOT_EXISTS = "ERROR_QUESTION_NOT_EXISTS";

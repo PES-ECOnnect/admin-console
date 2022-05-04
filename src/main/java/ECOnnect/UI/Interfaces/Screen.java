@@ -7,7 +7,7 @@ public abstract class Screen {
     private final Controller _controller;
     private View _view = null;
     
-    public Screen(Controller controller) {
+    protected Screen(Controller controller) {
         this._controller = controller;
     }
     
