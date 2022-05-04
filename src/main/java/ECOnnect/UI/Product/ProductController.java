@@ -33,8 +33,8 @@ public class ProductController extends Controller {
             Collection<ProductItem> selected = _view.getSelected();
             
             // Display confirmation dialog
-            String product_plural = selected.size() == 1 ? " product?" : " products?";
-            _view.displayConfirmation("Are you sure you want to delete " + selected.size() + product_plural, () -> {
+            String productPlural = selected.size() == 1 ? " product?" : " products?";
+            _view.displayConfirmation("Are you sure you want to delete " + selected.size() + productPlural, () -> {
                 // YES action, delete companies
                 for (ProductItem item : selected) {
                     try {

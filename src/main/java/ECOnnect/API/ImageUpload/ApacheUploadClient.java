@@ -16,7 +16,7 @@ import org.apache.http.util.EntityUtils;
 
 public class ApacheUploadClient implements IUploadClient {
     
-    private static CloseableHttpClient _httpclient = null;
+    private static CloseableHttpClient _httpclient;
     
     public ApacheUploadClient() {
         if (_httpclient == null) {

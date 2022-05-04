@@ -27,8 +27,8 @@ public class ProductTypesController extends Controller {
             Collection<ProductTypeItem> selected = _view.getSelectedItems();
             
             // Display confirmation dialog
-            String type_plural = selected.size() == 1 ? " product type?" : " product types?";
-            _view.displayConfirmation("Are you sure you want to delete " + selected.size() + type_plural, () -> {
+            String typePlural = selected.size() == 1 ? " product type?" : " product types?";
+            _view.displayConfirmation("Are you sure you want to delete " + selected.size() + typePlural, () -> {
                 // YES action, delete companies
                 for (ProductTypeItem item : selected) {
                     try {

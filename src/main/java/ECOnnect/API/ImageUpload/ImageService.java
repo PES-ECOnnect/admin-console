@@ -26,17 +26,17 @@ public class ImageService {
         public final int width; // The width of the image
         public final int height; // the height of the image
         
-        public UploadedImage (String id, int server, int bucket, String filename, String original_filename, String direct_link, String title, String album_id, String album_title, int creation_date, boolean hidden, int filesize, int width, int height) {
+        public UploadedImage (String id, int server, int bucket, String filename, String originalFilename, String directLink, String title, String albumId, String albumTitle, int creationDate, boolean hidden, int filesize, int width, int height) {
             this.id = id;
             this.server = server;
             this.bucket = bucket;
             this.filename = filename;
-            this.original_filename = original_filename;
-            this.direct_link = direct_link;
+            this.original_filename = originalFilename;
+            this.direct_link = directLink;
             this.title = title;
-            this.album_id = album_id;
-            this.album_title = album_title;
-            this.creation_date = creation_date;
+            this.album_id = albumId;
+            this.album_title = albumTitle;
+            this.creation_date = creationDate;
             this.hidden = hidden;
             this.filesize = filesize;
             this.width = width;
@@ -65,8 +65,8 @@ public class ImageService {
     }
     
     // This token should be stored in the backend and retrieved from there
-    private final String _IMAGESHACK_TOKEN = "HZFLDN3Q913ed2f68ed00054d7e1f3cdcc1d71ad";
-    private final String _IMAGESHACK_UPLOAD_URL = "https://api.imageshack.com/v2/images";
+    private static final String _IMAGESHACK_TOKEN = "HZFLDN3Q913ed2f68ed00054d7e1f3cdcc1d71ad";
+    private static final String _IMAGESHACK_UPLOAD_URL = "https://api.imageshack.com/v2/images";
     
     private final IUploadClient _uploadClient = new ApacheUploadClient();
     
@@ -86,10 +86,8 @@ public class ImageService {
         if (success == null || !success) {
             throw new RuntimeException("Image upload failed");
         }
-        
-        UploadResult uploadResult = result.getObject("result", UploadResult.class);
-        
-        return uploadResult;
+                
+        return result.getObject("result", UploadResult.class);
     }
     
     // Upload an image to a server and return the url to the uploaded image

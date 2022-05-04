@@ -25,9 +25,9 @@ public class LoginView extends View {
         panel.add(Box.createVerticalGlue());
         
         // Set title alignment to center and increase font size
-        JLabel _title = new JLabel("Admin Login", JLabel.CENTER);
-        _title.setFont(_title.getFont().deriveFont(24.0f));
-        panel.add(HorizontalBox.create(_title));
+        JLabel titleLabel = new JLabel("Admin Login", JLabel.CENTER);
+        titleLabel.setFont(titleLabel.getFont().deriveFont(24.0f));
+        panel.add(HorizontalBox.create(titleLabel));
         
         panel.add(Box.createVerticalStrut(50));
         

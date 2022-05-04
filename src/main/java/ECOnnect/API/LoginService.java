@@ -38,7 +38,7 @@ public class LoginService extends Service {
         String token = result.getAttribute(ApiConstants.RET_TOKEN);
         assertResultNotNull(token, result);
         
-        super.setToken(token);
+        Service.setToken(token);
         
         checkIsAdmin();
     }
@@ -73,7 +73,7 @@ public class LoginService extends Service {
         finally {
             // Delete local token whether or not the API call succeeded
             try {
-                super.deleteAdminToken();
+                Service.deleteAdminToken();
             }
             catch (Exception e) {
                 // Tried to delete the token, but it was already deleted

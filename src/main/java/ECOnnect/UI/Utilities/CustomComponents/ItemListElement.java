@@ -4,8 +4,6 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import ECOnnect.UI.Utilities.HorizontalBox;
-
 public abstract class ItemListElement extends JPanel {
     
     public static final Dimension DEFAULT_SIZE = new Dimension(Integer.MAX_VALUE, 35);
@@ -16,7 +14,6 @@ public abstract class ItemListElement extends JPanel {
         super.setMaximumSize(DEFAULT_SIZE);
         super.setMinimumSize(DEFAULT_SIZE);
         super.setPreferredSize(DEFAULT_SIZE);
-        HorizontalBox.HEIGHT = DEFAULT_SIZE.height;
         
         Component[] rowComponents = getRowComponents();
         Integer[] columnWidths = getColumnWidths();

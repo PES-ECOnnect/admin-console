@@ -5,8 +5,8 @@ import javax.swing.*;
 
 public class HorizontalBox {
     
-    public static int HEIGHT = 30;
-    public static int SPACING = 30;
+    private static final int HEIGHT = 35;
+    private static final int SPACING = 30;
     
     public static Box create(Component ... comps) {
         Box box = Box.createHorizontalBox();

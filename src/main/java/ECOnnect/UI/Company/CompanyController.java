@@ -32,8 +32,8 @@ public class CompanyController extends Controller {
             Collection<CompanyItem> selected = _view.getSelected();
             
             // Display confirmation dialog
-            String company_plural = selected.size() == 1 ? " company?" : " companies?";
-            _view.displayConfirmation("Are you sure you want to delete " + selected.size() + company_plural, () -> {
+            String companyPlural = selected.size() == 1 ? " company?" : " companies?";
+            _view.displayConfirmation("Are you sure you want to delete " + selected.size() + companyPlural, () -> {
                 // YES action, delete companies
                 for (CompanyItem item : selected) {
                     try {
