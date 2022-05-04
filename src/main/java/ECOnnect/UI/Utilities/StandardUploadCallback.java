@@ -31,4 +31,4 @@ public class StandardUploadCallback implements IUploadButtonCallback {
         text.setEditable(true);
         view.displayWarning("Upload failed:\n" + errorMessage);
     }
-};
+}

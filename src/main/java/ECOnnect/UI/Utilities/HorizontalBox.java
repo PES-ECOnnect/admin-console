@@ -4,6 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class HorizontalBox {
+    // Cannot instantiate utility class
+    private HorizontalBox() {}
     
     private static final int HEIGHT = 35;
     private static final int SPACING = 30;

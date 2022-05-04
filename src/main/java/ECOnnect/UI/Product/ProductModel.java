@@ -10,11 +10,8 @@ public class ProductModel {
     Product[] getProducts(String productType) {
         // Get products from API
         ProductService service = ServiceFactory.getInstance().getProductService();
-        Product[] p = service.getProducts(productType);
-        
-        // No need to store in model
-        
-        return p;
+        // No need to store products in model
+        return service.getProducts(productType);
     }
     
     // Get products of all product types

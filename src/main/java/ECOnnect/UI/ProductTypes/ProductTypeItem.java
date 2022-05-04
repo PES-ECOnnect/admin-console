@@ -33,6 +33,7 @@ public class ProductTypeItem extends ItemListElement {
         super.init();
     }
     
+    @Override
     public String getName() {
         return _productType.name;
     }

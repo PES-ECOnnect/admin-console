@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 
 
 public class ImageLoader {
+    // Cannot instantiate utility class
+    private ImageLoader() {}
     
     public static interface ImageLoaderCallback {
         public void imageLoaded(ImageIcon image);

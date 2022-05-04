@@ -20,8 +20,8 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
         _widths = columnWidths;
         _list.setLayout(new BoxLayout(_list, BoxLayout.PAGE_AXIS));
         
-        super.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        super.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        super.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        super.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         super.getVerticalScrollBar().setUnitIncrement(5);
         super.setViewportView(_list);
         
@@ -53,7 +53,7 @@ public class ItemList<T extends ItemListElement> extends JScrollPane {
             final JTextField text = new JTextField(_headerNames[i]);
             text.setEditable(false);
             text.setFont(new Font(Font.MONOSPACED, Font.PLAIN,  13));
-            text.setHorizontalAlignment(JTextField.LEFT);
+            text.setHorizontalAlignment(SwingConstants.LEFT);
             
             Dimension size = new Dimension(_widths[i], HEIGHT);
             text.setMaximumSize(size);

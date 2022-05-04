@@ -23,16 +23,20 @@ public class MainMenuController extends Controller {
     
     private static int _currentTabIndex = 0;
     
+    private static void setTabIndex(int index) {
+        _currentTabIndex = index;
+    }
+    
     ChangeListener tabListener() {
         return (ChangeEvent changeEvent) -> {
             JTabbedPane sourceTabbedPane = (JTabbedPane) changeEvent.getSource();
-            _currentTabIndex = sourceTabbedPane.getSelectedIndex();
+            setTabIndex(sourceTabbedPane.getSelectedIndex());
             String title = sourceTabbedPane.getTitleAt(_currentTabIndex);
             
             ScreenManager.getInstance().updateTitle(title);
             // Special case for the logout tab
             if (title.equals("Logout")) {
-                _currentTabIndex = 0;
+                setTabIndex(0);
                 logout();
                 ScreenManager.getInstance().show(ScreenManager.LOGIN_SCREEN);
             }
