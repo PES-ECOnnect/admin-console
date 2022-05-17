@@ -22,6 +22,9 @@ jobs:
         distribution: 'temurin'
         java-version: '11'
         
+    - name: Create ImageShack token
+      run: echo '${{ secrets.IMAGESHACK_KEY }}' > src/main/java/ECOnnect/API/ImageUpload/ApiKey.java
+        
     # This may improve run times
     - uses: actions/cache@v1
       with:
