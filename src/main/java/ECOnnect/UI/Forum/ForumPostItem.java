@@ -33,11 +33,11 @@ public class ForumPostItem extends ItemListElement {
     }
 
     public static String[] getHeaderNames(){
-        return new String[] {"Author", "Text", "Thumbnail", "Full image", "Likes/Disl.", "Ban author", "Select for delete"};
+        return new String[] {"Author", "Text", "Thumbnail", "Full image", "Likes/Disl.", "Reports", "Ban author", "Select for delete"};
     }
     
     public static Integer[] getWidths(){
-        return new Integer[] {150, 350, 100, 120, 100, 100, 150};
+        return new Integer[] {150, 350, 100, 120, 100, 100, 100, 150};
     }
 
     protected Component[] getRowComponents(){
@@ -55,6 +55,9 @@ public class ForumPostItem extends ItemListElement {
         
         JTextField likeDislikeField = new JTextField(_post.likes + " / " + _post.dislikes);
         likeDislikeField.setEditable(false);
+        
+        JTextField reportField = new JTextField(Integer.toString(_post.timesreported));
+        reportField.setEditable(false);
         
         _banButton.setText(_post.authorbanned ? "Unban" : "Ban");
         _banButton.addActionListener(banButtonListener());
@@ -79,6 +82,7 @@ public class ForumPostItem extends ItemListElement {
             thumbnail,
             imageButton,
             likeDislikeField,
+            reportField,
             _banButton,
             _deleteCheckbox
         };

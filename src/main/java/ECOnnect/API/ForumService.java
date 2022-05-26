@@ -21,9 +21,10 @@ public class ForumService extends Service {
         public final int useroption;
         public final float timestamp;
         public final boolean ownpost;
+        public final int timesreported;
         public boolean authorbanned;
         
-        public Post(int postId, String username, int userId, String medal, String text, String imageURL, int likes, int dislikes, int userOption, float timestamp, boolean ownPost, boolean authorBanned) {
+        public Post(int postId, String username, int userId, String medal, String text, String imageURL, int likes, int dislikes, int userOption, float timestamp, boolean ownPost, int timesReported, boolean authorBanned) {
             this.postid = postId;
             this.username = username;
             this.userid = userId;
@@ -35,6 +36,7 @@ public class ForumService extends Service {
             this.useroption = userOption;
             this.timestamp = timestamp;
             this.ownpost = ownPost;
+            this.timesreported = timesReported;
             this.authorbanned = authorBanned;
         }
     }
