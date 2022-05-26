@@ -58,6 +58,7 @@ public class UploadButton extends ImageButton {
             catch (Exception e) {
                 // If an exception is thrown, the image upload failed
                 ExecutionThread.UI(()->{
+                    this.setEnabled(true);
                     _callback.failure(e.getMessage());
                 });
             }
