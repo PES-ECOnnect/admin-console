@@ -5,7 +5,7 @@ public interface ApiConstants {
     
     // PATHS
     String BASE_URL_DEV = "http://127.0.0.1:5000";
-    String BASE_URL_DEPLOY = "https://pes-econnect.herokuapp.com";
+    String BASE_URL_DEPLOY = "https://econnect.up.railway.app";
     String BASE_URL = BASE_URL_DEPLOY;
     
     String LOGIN_PATH = "/account/login";
